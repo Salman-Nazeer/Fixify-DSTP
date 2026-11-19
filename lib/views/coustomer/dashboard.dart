@@ -1,8 +1,9 @@
 import 'package:fixify/constant/colors.dart';
+import 'package:fixify/constant/fontsapp.dart';
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class DashboardScreen extends StatelessWidget {
+  const DashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,31 +35,33 @@ class HomeScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // HEADER
-              const Text(
-                'YOUR HOME, SORTED',
-                style: TextStyle(
-                  fontSize: 9,
-                  fontWeight: FontWeight.w700,
-                  letterSpacing: 0.6,
-                  color: AppColors.primaryDark,
-                ),
-              ),
-
               Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Expanded(
-                    child: Text(
-                      'Kaamly',
-                      style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.w800,
-                        color: AppColors.primary,
-                      ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        DefaultTextStyle.merge(
+                          style: const TextStyle(color: AppColors.primaryDark),
+                          child: const Text(
+                            'YOUR HOME, SORTED',
+                            style: AppFonts.overline,
+                          ),
+                        ),
+                        DefaultTextStyle.merge(
+                          style: const TextStyle(color: AppColors.primary),
+                          child: const Text(
+                            'Kaamly',
+                            style: AppFonts.headlineLarge,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   IconButton(
                     onPressed: () {},
-                    icon: const Icon(
+                    icon: Icon(
                       Icons.notifications_none_rounded,
                       color: AppColors.primaryDark,
                     ),
@@ -75,9 +78,12 @@ class HomeScreen extends StatelessWidget {
                     color: AppColors.primaryDark,
                   ),
                   const SizedBox(width: 5),
-                  Text(
-                    'Home · Indiranagar, Bengaluru',
-                    style: TextStyle(fontSize: 11, color: AppColors.primary),
+                  DefaultTextStyle.merge(
+                    style: const TextStyle(color: AppColors.primary),
+                    child: const Text(
+                      'Home · Indiranagar, Bengaluru',
+                      style: AppFonts.bodySmall,
+                    ),
                   ),
                 ],
               ),
@@ -85,39 +91,39 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(height: 16),
 
               // SEARCH BAR
-              Container(
+              SizedBox(
                 height: 46,
-                padding: const EdgeInsets.symmetric(horizontal: 14),
-                decoration: BoxDecoration(
-                  color: AppColors.white,
-                  borderRadius: BorderRadius.circular(13),
-                ),
-                child: Row(
-                  children: [
-                    const Icon(
+                child: TextField(
+                  textAlignVertical: TextAlignVertical.center,
+                  style: AppFonts.input,
+                  decoration: InputDecoration(
+                    hintText: 'What can we help with?',
+                    hintStyle: AppFonts.hint,
+                    prefixIcon: const Icon(
                       Icons.search_rounded,
-                      color: AppColors.secondary,
+                      color: AppColors.primaryDark,
                       size: 20,
                     ),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: TextField(
-                        decoration: InputDecoration(
-                          hintText: 'What can we help with?',
-                          hintStyle: TextStyle(
-                            fontSize: 12,
-                            color: AppColors.secondary.withOpacity(0.8),
-                          ),
-                          border: InputBorder.none,
-                          isCollapsed: true,
-                        ),
-                        style: const TextStyle(
-                          fontSize: 12,
-                          color: AppColors.primary,
-                        ),
-                      ),
+                    prefixIconConstraints: const BoxConstraints(
+                      minWidth: 44,
+                      minHeight: 46,
                     ),
-                  ],
+                    filled: true,
+                    fillColor: AppColors.white,
+                    contentPadding: const EdgeInsets.only(right: 14),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(13),
+                      borderSide: BorderSide.none,
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(13),
+                      borderSide: BorderSide.none,
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(13),
+                      borderSide: BorderSide.none,
+                    ),
+                  ),
                 ),
               ),
 
@@ -143,33 +149,33 @@ class HomeScreen extends StatelessWidget {
                         color: AppColors.mint,
                         borderRadius: BorderRadius.circular(5),
                       ),
-                      child: const Text(
-                        'TRUSTED LOCAL HELP',
-                        style: TextStyle(
-                          color: AppColors.primaryDark,
-                          fontSize: 8,
-                          fontWeight: FontWeight.w800,
+                      child: DefaultTextStyle.merge(
+                        style: const TextStyle(color: AppColors.primaryDark),
+                        child: const Text(
+                          'TRUSTED LOCAL HELP',
+                          style: AppFonts.labelSmall,
                         ),
                       ),
                     ),
 
                     const SizedBox(height: 10),
 
-                    Text(
-                      'Less to do.\nMore living.',
-                      style: TextStyle(
-                        color: AppColors.white,
-                        fontSize: isSmallScreen ? 21 : 24,
-                        fontWeight: FontWeight.w800,
-                        height: 1.05,
+                    DefaultTextStyle.merge(
+                      style: const TextStyle(color: AppColors.white),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Less to do.\nMore living.',
+                            style: AppFonts.headlineLarge,
+                          ),
+                          const SizedBox(height: 7),
+                          Text(
+                            'Book reliable experts right in your neighborhood.',
+                            style: AppFonts.bodySmall,
+                          ),
+                        ],
                       ),
-                    ),
-
-                    const SizedBox(height: 7),
-
-                    const Text(
-                      'Book reliable experts right in your neighborhood.',
-                      style: TextStyle(color: AppColors.white, fontSize: 10),
                     ),
                   ],
                 ),
@@ -181,22 +187,18 @@ class HomeScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    'Explore services',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w800,
-                      color: AppColors.primary,
+                  DefaultTextStyle.merge(
+                    style: const TextStyle(color: AppColors.primary),
+                    child: const Text(
+                      'Explore services',
+                      style: AppFonts.titleMedium,
                     ),
                   ),
                   TextButton(
                     onPressed: () {},
-                    child: const Text(
-                      'View all',
-                      style: TextStyle(
-                        fontSize: 10,
-                        color: AppColors.primaryDark,
-                      ),
+                    child: DefaultTextStyle.merge(
+                      style: const TextStyle(color: AppColors.primaryDark),
+                      child: const Text('View all', style: AppFonts.labelSmall),
                     ),
                   ),
                 ],
@@ -237,13 +239,12 @@ class HomeScreen extends StatelessWidget {
                             color: AppColors.primaryDark,
                           ),
                           const SizedBox(height: 7),
-                          Text(
-                            service['name'] as String,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: isSmallScreen ? 9 : 10,
-                              fontWeight: FontWeight.w500,
-                              color: AppColors.primary,
+                          DefaultTextStyle.merge(
+                            style: const TextStyle(color: AppColors.primary),
+                            child: Text(
+                              service['name'] as String,
+                              textAlign: TextAlign.center,
+                              style: AppFonts.labelMedium,
                             ),
                           ),
                         ],
@@ -263,7 +264,7 @@ class HomeScreen extends StatelessWidget {
                   vertical: 12,
                 ),
                 decoration: BoxDecoration(
-                  color: AppColors.mint.withOpacity(0.55),
+                  color: AppColors.mint.withValues(alpha: 0.55),
                   borderRadius: BorderRadius.circular(13),
                 ),
                 child: Row(
@@ -278,20 +279,23 @@ class HomeScreen extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
-                            'Good people. Great work.',
-                            style: TextStyle(
-                              fontSize: 11,
-                              fontWeight: FontWeight.w700,
+                          DefaultTextStyle.merge(
+                            style: const TextStyle(
                               color: AppColors.primaryDark,
+                            ),
+                            child: const Text(
+                              'Good people. Great work.',
+                              style: AppFonts.labelMedium,
                             ),
                           ),
                           const SizedBox(height: 4),
-                          Text(
-                            'Verified experts • Convenient booking',
+                          DefaultTextStyle.merge(
                             style: TextStyle(
-                              fontSize: 9,
-                              color: AppColors.primary.withOpacity(0.8),
+                              color: AppColors.primary.withValues(alpha: 0.8),
+                            ),
+                            child: const Text(
+                              'Verified experts • Convenient booking',
+                              style: AppFonts.caption,
                             ),
                           ),
                         ],
