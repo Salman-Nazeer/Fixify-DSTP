@@ -22,6 +22,59 @@ class SplashScreen extends StatelessWidget {
             return Column(
               children: [
                 // Main content
+                Expanded(
+                  child: Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        // App Logo
+                        Container(
+                          width: logoSize,
+                          height: logoSize,
+                          decoration: BoxDecoration(
+                            color: AppColors.primaryDark,
+                            borderRadius: BorderRadius.circular(
+                              logoSize * 0.25,
+                            ),
+                          ),
+                          child: Icon(
+                            Icons.home_outlined,
+                            size: iconSize,
+                            color: AppColors.mint,
+                            weight: 1.5,
+                          ),
+                        ),
+
+                        SizedBox(height: constraints.maxHeight * 0.035),
+
+                        // App Name
+                        Text(
+                          'Kaamly',
+                          style: TextStyle(
+                            fontSize: titleSize,
+                            fontWeight: FontWeight.w700,
+                            color: AppColors.primary,
+                            letterSpacing: 0.3,
+                          ),
+                        ),
+
+                        const SizedBox(height: 8),
+
+                        // Tagline
+                        Text(
+                          'Good help.\nRight at your doorstep.',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: (screenWidth * 0.034).clamp(11.0, 14.0),
+                            height: 1.45,
+                            fontWeight: FontWeight.w400,
+                            color: AppColors.secondary,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
 
                 // Bottom tagline
                 Padding(
