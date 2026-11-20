@@ -1,3 +1,5 @@
+import 'package:fixify/views/authentication/log_in.dart';
+import 'package:fixify/views/authentication/role_decide.dart';
 import 'package:fixify/views/nav_bar.dart';
 import 'package:get/get.dart';
 
@@ -12,7 +14,7 @@ class AuthController extends GetxController {
 
   @override
   void onReady() {
-    // screenLoader();
+    screenLoader();
     // TODO: implement onReady
     super.onReady();
   }
@@ -77,7 +79,8 @@ class AuthController extends GetxController {
   // Splash Screen
   Future<void> screenLoader() async {
     await Future.delayed(Duration(seconds: 1));
-    Get.offAll(() => Navbar());
+    // Get.offAll(() => Navbar());
+    Get.offAll(() => RoleDecide());
 
     // var response = await ApiController().get(
     //   url: ApiConstant.rememberMeApi,

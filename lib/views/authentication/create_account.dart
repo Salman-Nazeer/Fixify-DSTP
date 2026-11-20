@@ -81,7 +81,7 @@ class _CreateAccountState extends State<CreateAccount> {
 
   @override
   Widget build(BuildContext context) {
-    double sh1 = MediaQuery.of(context).size.height;
+    // double sh1 = MediaQuery.of(context).size.height;
     double sw1 = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
@@ -226,7 +226,6 @@ class _CreateAccountState extends State<CreateAccount> {
                       // Create account button
                       GestureDetector(
                         onTap: () {
-                          // TODO: create account logic
                         },
                         child: Container(
                           width: sw1 * 1,

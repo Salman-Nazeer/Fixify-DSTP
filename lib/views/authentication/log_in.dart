@@ -2,14 +2,14 @@ import 'package:fixify/constant/colors.dart';
 import 'package:fixify/constant/fontsapp.dart';
 import 'package:flutter/material.dart';
 
-class SignIn extends StatefulWidget {
-  const SignIn({super.key});
+class LogIn extends StatefulWidget {
+  const LogIn({super.key});
 
   @override
-  State<SignIn> createState() => _SignInState();
+  State<LogIn> createState() => _LogInState();
 }
 
-class _SignInState extends State<SignIn> {
+class _LogInState extends State<LogIn> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -75,7 +75,7 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
-    double sh1 = MediaQuery.of(context).size.height;
+    // double sh1 = MediaQuery.of(context).size.height;
     double sw1 = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(

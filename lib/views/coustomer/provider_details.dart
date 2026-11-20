@@ -22,6 +22,7 @@ class ProviderDetailsScreen extends StatelessWidget {
       // APP BAR
       appBar: AppBar(
         backgroundColor: AppColors.lightBackground,
+        elevation: 0,
         centerTitle: false,
         leading: IconButton(
           onPressed: () {
@@ -33,11 +34,8 @@ class ProviderDetailsScreen extends StatelessWidget {
           ),
         ),
         title: Text(
-          'Welcome to Kaamly',
-          style: AppFonts.titleLarge.copyWith(
-            color: AppColors.secondary,
-            fontWeight: FontWeight.bold,
-          ),
+          'Provider details',
+          style: AppFonts.titleLarge.copyWith(color: AppColors.secondary),
         ),
       ),
 
@@ -46,19 +44,19 @@ class ProviderDetailsScreen extends StatelessWidget {
           children: [
             Expanded(
               child: SingleChildScrollView(
-                padding: EdgeInsets.symmetric(horizontal: size.width * 0.04),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 10 * scale),
+                    const SizedBox(height: 10),
 
                     // PROVIDER PROFILE CARD
                     Container(
                       width: double.infinity,
-                      padding: EdgeInsets.all(18 * scale),
+                      padding: const EdgeInsets.all(18),
                       decoration: BoxDecoration(
                         color: AppColors.primaryDark,
-                        borderRadius: BorderRadius.circular(17 * scale),
+                        borderRadius: BorderRadius.circular(17),
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,14 +66,14 @@ class ProviderDetailsScreen extends StatelessWidget {
                             children: [
                               Icon(
                                 Icons.handyman_outlined,
-                                size: 29 * scale,
+                                size: 29,
                                 color: AppColors.mint,
                               ),
 
                               Container(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: 10 * scale,
-                                  vertical: 6 * scale,
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 10,
+                                  vertical: 6,
                                 ),
                                 decoration: BoxDecoration(
                                   color: AppColors.mint,
@@ -90,10 +88,10 @@ class ProviderDetailsScreen extends StatelessWidget {
                                       children: [
                                         Icon(
                                           Icons.verified_rounded,
-                                          size: 11 * scale,
+                                          size: 11,
                                           color: AppColors.primaryDark,
                                         ),
-                                        SizedBox(width: 3 * scale),
+                                        const SizedBox(width: 3),
                                         Text(
                                           'VERIFIED',
                                           style: AppFonts.labelSmall.copyWith(
@@ -104,7 +102,7 @@ class ProviderDetailsScreen extends StatelessWidget {
                                       ],
                                     ),
 
-                                    SizedBox(height: 4 * scale),
+                                    const SizedBox(height: 4),
 
                                     Text(
                                       'Available today',
@@ -118,15 +116,14 @@ class ProviderDetailsScreen extends StatelessWidget {
                               ),
                             ],
                           ),
-                          SizedBox(height: 15 * scale),
+                          const SizedBox(height: 15),
                           Text(
                             'Greenline Plumbing',
                             style: AppFonts.headlineSmall.copyWith(
                               color: AppColors.white,
-                              fontSize: 20 * scale,
                             ),
                           ),
-                          SizedBox(height: 10 * scale),
+                          const SizedBox(height: 10),
                           Row(
                             children: [
                               const Icon(
@@ -134,7 +131,7 @@ class ProviderDetailsScreen extends StatelessWidget {
                                 color: AppColors.white,
                                 size: 13,
                               ),
-                              SizedBox(width: 4 * scale),
+                              const SizedBox(width: 4),
                               Text(
                                 '4.9 (128 reviews)',
                                 style: AppFonts.caption.copyWith(
@@ -142,8 +139,8 @@ class ProviderDetailsScreen extends StatelessWidget {
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: 8 * scale,
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 8,
                                 ),
                                 child: const Icon(
                                   Icons.circle,
@@ -161,12 +158,12 @@ class ProviderDetailsScreen extends StatelessWidget {
                               ),
                             ],
                           ),
-                          SizedBox(height: 13 * scale),
+                          const SizedBox(height: 13),
                         ],
                       ),
                     ),
 
-                    SizedBox(height: 24 * scale),
+                    const SizedBox(height: 24),
 
                     // DESCRIPTION
                     Text(
@@ -175,7 +172,7 @@ class ProviderDetailsScreen extends StatelessWidget {
                         color: AppColors.secondary,
                       ),
                     ),
-                    SizedBox(height: 8 * scale),
+                    const SizedBox(height: 8),
                     Text(
                       'Leak repairs, installations and everyday plumbing, '
                       'handled by trained, background-checked experts.',
@@ -185,7 +182,7 @@ class ProviderDetailsScreen extends StatelessWidget {
                       ),
                     ),
 
-                    SizedBox(height: 27 * scale),
+                    const SizedBox(height: 27),
 
                     // SERVICES
                     Text(
@@ -194,22 +191,22 @@ class ProviderDetailsScreen extends StatelessWidget {
                         color: AppColors.secondary,
                       ),
                     ),
-                    SizedBox(height: 12 * scale),
+                    const SizedBox(height: 12),
 
                     ListView.separated(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount: services.length,
                       separatorBuilder: (context, index) =>
-                          SizedBox(height: 8 * scale),
+                          const SizedBox(height: 8),
                       itemBuilder: (context, index) {
                         final service = services[index];
 
                         return Container(
                           width: double.infinity,
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 13 * scale,
-                            vertical: 13 * scale,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 13,
+                            vertical: 13,
                           ),
                           decoration: BoxDecoration(
                             color: AppColors.lightSurface,
@@ -232,7 +229,7 @@ class ProviderDetailsScreen extends StatelessWidget {
                       },
                     ),
 
-                    SizedBox(height: 17 * scale),
+                    const SizedBox(height: 17),
 
                     // CUSTOMER REVIEW
                     Row(
@@ -242,7 +239,7 @@ class ProviderDetailsScreen extends StatelessWidget {
                           size: 14,
                           color: AppColors.primaryDark,
                         ),
-                        SizedBox(width: 4 * scale),
+                        const SizedBox(width: 4),
                         Text(
                           '4.9',
                           style: AppFonts.labelMedium.copyWith(
@@ -250,7 +247,7 @@ class ProviderDetailsScreen extends StatelessWidget {
                             fontWeight: FontWeight.w700,
                           ),
                         ),
-                        SizedBox(width: 7 * scale),
+                        const SizedBox(width: 7),
                         Expanded(
                           child: Text(
                             '"On time, tidy and fixed it in one visit."',
@@ -261,14 +258,14 @@ class ProviderDetailsScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(height: 8 * scale),
+                    const SizedBox(height: 8),
                     Text(
                       'Priya S. · Verified booking · 14 Nov',
                       style: AppFonts.caption.copyWith(
                         color: AppColors.lightTextSecondary,
                       ),
                     ),
-                    SizedBox(height: 20 * scale),
+                    const SizedBox(height: 20),
                   ],
                 ),
               ),
@@ -276,15 +273,10 @@ class ProviderDetailsScreen extends StatelessWidget {
 
             // SELECT SERVICE BUTTON
             Padding(
-              padding: EdgeInsets.fromLTRB(
-                size.width * 0.04,
-                10,
-                size.width * 0.04,
-                12,
-              ),
+              padding: const EdgeInsets.fromLTRB(16, 10, 16, 12),
               child: SizedBox(
                 width: double.infinity,
-                height: 50 * scale,
+                height: 50,
                 child: ElevatedButton(
                   onPressed: () {
                     // Navigate to service selection screen
@@ -309,7 +301,7 @@ class ProviderDetailsScreen extends StatelessWidget {
                       ),
                       Icon(
                         Icons.arrow_forward_rounded,
-                        size: 21 * scale,
+                        size: 21,
                         color: AppColors.mint,
                       ),
                     ],

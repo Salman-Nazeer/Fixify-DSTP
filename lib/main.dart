@@ -1,8 +1,8 @@
 import 'package:fixify/controllers/auth_controller.dart';
-import 'package:fixify/views/authentication/create_account.dart';
-import 'package:fixify/views/authentication/forgot_screen.dart';
-import 'package:fixify/views/authentication/role_decide.dart';
-import 'package:fixify/views/authentication/sign_in.dart';
+// import 'package:fixify/views/authentication/create_account.dart';
+// import 'package:fixify/views/authentication/forgot_screen.dart';
+// import 'package:fixify/views/authentication/role_decide.dart';
+// import 'package:fixify/views/authentication/sign_in.dart';
 // import 'package:fixify/views/coustomer/provider_details.dart';
 import 'package:fixify/views/splash_screen.dart';
 import 'package:flutter/material.dart';

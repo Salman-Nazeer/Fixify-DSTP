@@ -20,7 +20,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
 
   @override
   Widget build(BuildContext context) {
-    double sh1 = MediaQuery.of(context).size.height;
+    // double sh1 = MediaQuery.of(context).size.height;
     double sw1 = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
@@ -137,7 +137,6 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       // Send reset link button
                       GestureDetector(
                         onTap: () {
-                          // TODO: send reset link logic
                         },
                         child: Container(
                           width: sw1 * 1,
@@ -194,7 +193,6 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                             SizedBox(height: sw1 * 0.03),
                             GestureDetector(
                               onTap: () {
-                                // TODO: verification code via SMS
                               },
                               child: Text(
                                 "Get a verification code via SMS →",
