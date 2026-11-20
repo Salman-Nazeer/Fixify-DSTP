@@ -1,5 +1,6 @@
 import 'package:fixify/constant/colors.dart';
 import 'package:fixify/constant/fontsapp.dart';
+import 'package:fixify/views/coustomer/provider_details.dart';
 import 'package:flutter/material.dart';
 
 class ExploreServicesScreen extends StatelessWidget {
@@ -159,22 +160,23 @@ class ExploreServicesScreen extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 5),
-            DefaultTextStyle.merge(
-              style: const TextStyle(color: AppColors.lightTextSecondary),
-              child: const Text(
-                'Sorted by recommended  ·  Within 5 km',
-                style: AppFonts.bodySmall,
+            Text(
+              'Sorted by recommended',
+              style: TextStyle(
+                fontFamily: AppFonts.bodyFont,
+                fontSize: AppFonts.bodySmallSize,
+                fontWeight: FontWeight.w400,
+                color: AppColors.lightTextSecondary,
               ),
             ),
 
             const SizedBox(height: 16),
 
             // PROVIDER CARDS LIST
-            ListView.separated(
+            ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemCount: providers.length,
-              separatorBuilder: (context, index) => const SizedBox(height: 14),
               itemBuilder: (context, index) {
                 final provider = providers[index];
                 final isAvailableToday =
@@ -182,10 +184,15 @@ class ExploreServicesScreen extends StatelessWidget {
 
                 return InkWell(
                   onTap: () {
-                    // Navigate to provider details
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => ProviderDetailsScreen(),
+                      ),
+                    );
                   },
                   borderRadius: BorderRadius.circular(18),
                   child: Container(
+                    margin: const EdgeInsets.only(top: 14),
                     padding: EdgeInsets.all(isSmallScreen ? 14 : 16),
                     decoration: BoxDecoration(
                       color: AppColors.white,

@@ -1,4 +1,5 @@
 import 'package:fixify/controllers/auth_controller.dart';
+// import 'package:fixify/views/coustomer/provider_details.dart';
 import 'package:fixify/views/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,8 +17,9 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.deepPurple)),
+      theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple)),
       home: const SplashScreen(),
+      // home: const ProviderDetailsScreen(),
     );
   }
 }
