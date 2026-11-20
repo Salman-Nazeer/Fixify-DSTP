@@ -3,6 +3,7 @@ import 'package:fixify/views/authentication/create_account.dart';
 import 'package:fixify/views/authentication/forgot_screen.dart';
 import 'package:fixify/views/authentication/role_decide.dart';
 import 'package:fixify/views/authentication/sign_in.dart';
+// import 'package:fixify/views/coustomer/provider_details.dart';
 import 'package:fixify/views/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,8 +21,8 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.deepPurple)),
-      home: const  ForgotPassword(),
+      home: const SplashScreen(),
+
     );
   }
 }
