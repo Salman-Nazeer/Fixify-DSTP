@@ -1,16 +1,12 @@
 import 'package:fixify/constant/colors.dart';
 import 'package:fixify/constant/fontsapp.dart';
+import 'package:fixify/controllers/auth_controller.dart';
+import 'package:fixify/views/authentication/log_in.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class RoleDecide extends StatefulWidget {
+class RoleDecide extends GetView<AuthController> {
   const RoleDecide({super.key});
-
-  @override
-  State<RoleDecide> createState() => _RoleDecideState();
-}
-
-class _RoleDecideState extends State<RoleDecide> {
-  String selectedRole = 'Customer';
 
   @override
   Widget build(BuildContext context) {
@@ -69,23 +65,20 @@ class _RoleDecideState extends State<RoleDecide> {
               ),
             ),
             const SizedBox(height: 20),
-            InkWell(
-              borderRadius: BorderRadius.circular(16),
-              onTap: () {
-                setState(() {
-                  selectedRole = 'Customer';
-                });
-              },
-              child: Container(
+            Obx(
+              () => InkWell(
+                borderRadius: BorderRadius.circular(16),
+                onTap: () => controller.selectRole('Customer'),
+                child: Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: selectedRole == 'Customer'
+                  color: controller.selectedRole.value == 'Customer'
                       ? AppColors.mint
                       : AppColors.lightSurface,
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(
-                    color: selectedRole == 'Customer'
+                    color: controller.selectedRole.value == 'Customer'
                         ? AppColors.primaryLight
                         : AppColors.lightBorder,
                   ),
@@ -126,7 +119,7 @@ class _RoleDecideState extends State<RoleDecide> {
                       ),
                     ),
                     Icon(
-                      selectedRole == 'Customer'
+                      controller.selectedRole.value == 'Customer'
                           ? Icons.check_circle
                           : Icons.radio_button_unchecked,
                       color: AppColors.primaryDark,
@@ -134,25 +127,23 @@ class _RoleDecideState extends State<RoleDecide> {
                   ],
                 ),
               ),
+              ),
             ),
             const SizedBox(height: 12),
-            InkWell(
-              borderRadius: BorderRadius.circular(16),
-              onTap: () {
-                setState(() {
-                  selectedRole = 'Service Provider';
-                });
-              },
-              child: Container(
+            Obx(
+              () => InkWell(
+                borderRadius: BorderRadius.circular(16),
+                onTap: () => controller.selectRole('Service Provider'),
+                child: Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: selectedRole == 'Service Provider'
+                  color: controller.selectedRole.value == 'Service Provider'
                       ? AppColors.mint
                       : AppColors.lightSurface,
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(
-                    color: selectedRole == 'Service Provider'
+                    color: controller.selectedRole.value == 'Service Provider'
                         ? AppColors.primaryLight
                         : AppColors.lightBorder,
                   ),
@@ -193,7 +184,7 @@ class _RoleDecideState extends State<RoleDecide> {
                       ),
                     ),
                     Icon(
-                      selectedRole == 'Service Provider'
+                      controller.selectedRole.value == 'Service Provider'
                           ? Icons.check_circle
                           : Icons.radio_button_unchecked,
                       color: AppColors.primaryDark,
@@ -201,32 +192,36 @@ class _RoleDecideState extends State<RoleDecide> {
                   ],
                 ),
               ),
+              ),
             ),
             const SizedBox(height: 20),
-            SizedBox(
-              width: double.infinity,
-              height: 52,
-              child: ElevatedButton(
-                onPressed: null,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.primaryDark,
-                  disabledBackgroundColor: AppColors.primaryDark,
-                  disabledForegroundColor: AppColors.white,
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(14),
-                  ),
-                ),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        'Continue as $selectedRole',
-                        style: AppFonts.button.copyWith(color: AppColors.white),
-                      ),
+            Obx(
+              () => SizedBox(
+                width: double.infinity,
+                height: 52,
+                child: ElevatedButton(
+                  onPressed: () => Get.to(() => const LogIn()),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.primaryDark,
+                    foregroundColor: AppColors.white,
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(14),
                     ),
-                    const Icon(Icons.arrow_forward, color: AppColors.mint),
-                  ],
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          'Continue as ${controller.selectedRole.value}',
+                          style: AppFonts.button.copyWith(
+                            color: AppColors.white,
+                          ),
+                        ),
+                      ),
+                      const Icon(Icons.arrow_forward, color: AppColors.mint),
+                    ],
+                  ),
                 ),
               ),
             ),

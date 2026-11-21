@@ -1,9 +1,18 @@
-import 'package:fixify/views/authentication/log_in.dart';
 import 'package:fixify/views/authentication/role_decide.dart';
-import 'package:fixify/views/nav_bar.dart';
 import 'package:get/get.dart';
 
 class AuthController extends GetxController {
+  final RxString selectedRole = 'Customer'.obs;
+  final RxBool isObscured = true.obs;
+
+  void selectRole(String role) {
+    selectedRole.value = role;
+  }
+
+  void changeObscured() {
+    isObscured.value = !isObscured.value;
+  }
+
   // Map<String, dynamic> logInResponse = {};
   // RxBool isObscured = true.obs;
   // RxBool isLoading = false.obs;

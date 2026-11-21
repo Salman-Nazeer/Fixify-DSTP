@@ -7,8 +7,8 @@ class ProviderDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    final scale = (size.width / 390).clamp(0.85, 1.15).toDouble();
+    // final size = MediaQuery.of(context).size;
+    // final scale = (size.width / 390).clamp(0.85, 1.15).toDouble();
 
     final services = [
       {'name': 'Tap & leak repair'},

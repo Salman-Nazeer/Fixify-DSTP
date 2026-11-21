@@ -1,15 +1,16 @@
 import 'package:fixify/constant/colors.dart';
 import 'package:fixify/constant/fontsapp.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class ForgotPassword extends StatefulWidget {
-  const ForgotPassword({super.key});
+class ForgotScreen extends StatefulWidget {
+  const ForgotScreen({super.key});
 
   @override
-  State<ForgotPassword> createState() => _ForgotPasswordState();
+  State<ForgotScreen> createState() => _ForgotScreenState();
 }
 
-class _ForgotPasswordState extends State<ForgotPassword> {
+class _ForgotScreenState extends State<ForgotScreen> {
   final TextEditingController _emailController = TextEditingController();
 
   @override
@@ -20,201 +21,173 @@ class _ForgotPasswordState extends State<ForgotPassword> {
 
   @override
   Widget build(BuildContext context) {
-    // double sh1 = MediaQuery.of(context).size.height;
-    double sw1 = MediaQuery.of(context).size.width;
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: const Color.fromARGB(136, 235, 235, 235),
-        appBar: AppBar(
-          backgroundColor: AppColors.lightBackground,
-          centerTitle: false,
-          leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: const Icon(
-              Icons.arrow_back_ios_outlined,
-              color: AppColors.primaryDark,
-            ),
-          ),
-          title: Text(
-            'Forgot password?',
-            style: AppFonts.titleLarge.copyWith(
-              color: AppColors.secondary,
-              fontWeight: FontWeight.bold,
-            ),
+    return Scaffold(
+      backgroundColor: AppColors.lightBackground,
+      appBar: AppBar(
+        backgroundColor: AppColors.lightBackground,
+        surfaceTintColor: AppColors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          onPressed: () => Get.back(),
+          icon: const Icon(
+            Icons.arrow_back_ios_new_rounded,
+            color: AppColors.primaryDark,
           ),
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(15.0),
+        title: Text(
+          'Forgot password?',
+          style: AppFonts.titleLarge.copyWith(
+            color: AppColors.secondary,
+          ),
+        ),
+      ),
+      body: SafeArea(
+        top: false,
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.fromLTRB(20, 12, 20, 24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+              Container(
+                width: 64,
+                height: 64,
+                decoration: BoxDecoration(
+                  color: AppColors.mint,
+                  borderRadius: BorderRadius.circular(18),
+                ),
+                child: const Icon(
+                  Icons.lock_outline_rounded,
+                  size: 30,
+                  color: AppColors.primaryDark,
+                ),
+              ),
+              const SizedBox(height: 28),
+              Text(
+                'Let’s get you back in.',
+                style: AppFonts.headlineLarge.copyWith(
+                  color: AppColors.primaryDark,
+                ),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                'We’ll send a reset link to your registered email address.',
+                style: AppFonts.bodyMedium.copyWith(
+                  color: AppColors.lightTextSecondary,
+                ),
+              ),
+              const SizedBox(height: 28),
+              Text(
+                'Email address',
+                style: AppFonts.labelMedium.copyWith(
+                  color: AppColors.lightTextPrimary,
+                ),
+              ),
+              const SizedBox(height: 8),
+              TextField(
+                controller: _emailController,
+                keyboardType: TextInputType.emailAddress,
+                style: AppFonts.input,
+                decoration: InputDecoration(
+                  hintText: 'aarav.sharma@gmail.com',
+                  hintStyle: AppFonts.hint.copyWith(
+                    color: AppColors.lightTextHint,
+                  ),
+                  filled: true,
+                  fillColor: AppColors.lightSurface,
+                  prefixIcon: const Icon(
+                    Icons.mail_outline_rounded,
+                    color: AppColors.lightTextSecondary,
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    borderSide: const BorderSide(
+                      color: AppColors.lightBorder,
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    borderSide: const BorderSide(
+                      color: AppColors.primary,
+                      width: 1.5,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 28),
+              SizedBox(
+                width: double.infinity,
+                height: 52,
+                child: ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.primaryDark,
+                    foregroundColor: AppColors.white,
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                  ),
+                  child: Row(
                     children: [
-                      SizedBox(height: sw1 * 0.02),
-
-                      // Lock icon box
-                      Container(
-                        width: sw1 * 0.16,
-                        height: sw1 * 0.16,
-                        decoration: BoxDecoration(
-                          color: const Color.fromARGB(237, 207, 207, 207),
-                          borderRadius: BorderRadius.circular(18),
-                        ),
-                        child: Icon(
-                          Icons.lock_outline,
-                          size: sw1 * 0.07,
-                          color: AppColors.primaryDark,
-                        ),
-                      ),
-                      SizedBox(height: sw1 * 0.08),
-
-                      // Heading
                       Text(
-                        "Let’s get you back in.",
-                        style: TextStyle(
-                          fontSize: sw1 * 0.065,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.primaryDark,
+                        'Send reset link',
+                        style: AppFonts.button.copyWith(
+                          color: AppColors.white,
                         ),
                       ),
-                      SizedBox(height: sw1 * 0.03),
-                      Text(
-                        "We’ll send a reset link to your registered\nemail address.",
-                        style: TextStyle(
-                          fontSize: sw1 * 0.038,
-                          color: const Color.fromARGB(249, 67, 64, 64),
-                        ),
+                      const Spacer(),
+                      const Icon(
+                        Icons.arrow_forward_rounded,
+                        color: AppColors.mint,
                       ),
-                      SizedBox(height: sw1 * 0.08),
-
-                      // Email label
-                      Padding(
-                        padding: EdgeInsets.only(bottom: sw1 * 0.02),
-                        child: Text(
-                          "Email address",
-                          style: TextStyle(
-                            fontSize: sw1 * 0.033,
-                            color: const Color.fromARGB(249, 67, 64, 64),
-                          ),
-                        ),
-                      ),
-
-                      // Email field
-                      Container(
-                        decoration: BoxDecoration(
-                          color: const Color.fromARGB(235, 255, 255, 255),
-                          borderRadius: BorderRadius.circular(18),
-                        ),
-                        child: TextField(
-                          controller: _emailController,
-                          keyboardType: TextInputType.emailAddress,
-                          style: TextStyle(fontSize: sw1 * 0.037),
-                          decoration: InputDecoration(
-                            hintText: "aarav.sharma@gmail.com",
-                            hintStyle: const TextStyle(
-                              color: Color.fromARGB(120, 67, 64, 64),
-                            ),
-                            prefixIcon: Icon(
-                              Icons.mail_outline,
-                              size: sw1 * 0.055,
-                              color: const Color.fromARGB(249, 67, 64, 64),
-                            ),
-                            border: InputBorder.none,
-                            contentPadding: EdgeInsets.symmetric(
-                              horizontal: sw1 * 0.04,
-                              vertical: sw1 * 0.045,
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: sw1 * 0.08),
-
-                      // Send reset link button
-                      GestureDetector(
-                        onTap: () {
-                        },
-                        child: Container(
-                          width: sw1 * 1,
-                          height: sw1 * 0.15,
-                          decoration: BoxDecoration(
-                            color: AppColors.primaryDark,
-                            borderRadius: BorderRadius.circular(18),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 15.0,
-                            ),
-                            child: Row(
-                              children: [
-                                Text(
-                                  "Send reset link",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: sw1 * 0.04,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                const Spacer(),
-                                const Icon(
-                                  Icons.arrow_forward,
-                                  color: Colors.white,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: sw1 * 0.06),
-
-                      // Phone alternative card
-                      Container(
-                        width: sw1 * 1,
-                        padding: EdgeInsets.all(sw1 * 0.04),
-                        decoration: BoxDecoration(
-                          color: const Color.fromARGB(237, 207, 207, 207),
-                          borderRadius: BorderRadius.circular(18),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Using your phone instead?",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: sw1 * 0.04,
-                                color: AppColors.primaryDark,
-                              ),
-                            ),
-                            SizedBox(height: sw1 * 0.03),
-                            GestureDetector(
-                              onTap: () {
-                              },
-                              child: Text(
-                                "Get a verification code via SMS →",
-                                style: TextStyle(
-                                  fontSize: sw1 * 0.033,
-                                  color: AppColors.primaryDark,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: sw1 * 0.05),
                     ],
                   ),
                 ),
               ),
-              Text(
-                "Protected with end-to-end encryption",
-                style: TextStyle(
-                  fontSize: sw1 * 0.03,
-                  color: const Color.fromARGB(249, 67, 64, 64),
+              const SizedBox(height: 20),
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(18),
+                decoration: BoxDecoration(
+                  color: AppColors.cloud,
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(color: AppColors.lightBorder),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Using your phone instead?',
+                      style: AppFonts.titleSmall.copyWith(
+                        color: AppColors.primaryDark,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    TextButton(
+                      onPressed: () {},
+                      style: TextButton.styleFrom(
+                        padding: EdgeInsets.zero,
+                        foregroundColor: AppColors.primaryDark,
+                        minimumSize: Size.zero,
+                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      ),
+                      child: Text(
+                        'Get a verification code via SMS',
+                        style: AppFonts.labelMedium.copyWith(
+                          color: AppColors.primaryDark,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 32),
+              Center(
+                child: Text(
+                  'Protected with end-to-end encryption',
+                  style: AppFonts.caption.copyWith(
+                    color: AppColors.lightTextSecondary,
+                  ),
                 ),
               ),
             ],

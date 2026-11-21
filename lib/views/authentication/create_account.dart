@@ -1,6 +1,8 @@
 import 'package:fixify/constant/colors.dart';
 import 'package:fixify/constant/fontsapp.dart';
+import 'package:fixify/controllers/auth_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CreateAccount extends StatefulWidget {
   const CreateAccount({super.key});
@@ -15,8 +17,6 @@ class _CreateAccountState extends State<CreateAccount> {
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  bool _obscurePassword = true;
-
   @override
   void dispose() {
     _nameController.dispose();
@@ -26,54 +26,25 @@ class _CreateAccountState extends State<CreateAccount> {
     super.dispose();
   }
 
-  Widget _label(String text, double sw1) {
-    return Padding(
-      padding: EdgeInsets.only(bottom: sw1 * 0.02),
-      child: Text(
-        text,
-        style: TextStyle(
-          fontSize: sw1 * 0.033,
-          color: const Color.fromARGB(249, 67, 64, 64),
-        ),
-      ),
-    );
-  }
-
-  Widget _field({
-    required double sw1,
-    required TextEditingController controller,
-    required IconData icon,
+  InputDecoration _inputDecoration({
     required String hint,
-    TextInputType keyboardType = TextInputType.text,
-    bool obscure = false,
-    Widget? suffix,
+    required IconData icon,
   }) {
-    return Container(
-      decoration: BoxDecoration(
-        color: const Color.fromARGB(235, 255, 255, 255),
-        borderRadius: BorderRadius.circular(18),
+    return InputDecoration(
+      hintText: hint,
+      hintStyle: AppFonts.hint.copyWith(color: AppColors.lightTextHint),
+      filled: true,
+      fillColor: AppColors.lightSurface,
+      prefixIcon: Icon(icon, color: AppColors.lightTextSecondary),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(16),
+        borderSide: const BorderSide(color: AppColors.lightBorder),
       ),
-      child: TextField(
-        controller: controller,
-        keyboardType: keyboardType,
-        obscureText: obscure,
-        style: TextStyle(fontSize: sw1 * 0.037),
-        decoration: InputDecoration(
-          hintText: hint,
-          hintStyle: TextStyle(
-            color: const Color.fromARGB(249, 67, 64, 64).withOpacity(0.5),
-          ),
-          prefixIcon: Icon(
-            icon,
-            size: sw1 * 0.055,
-            color: const Color.fromARGB(249, 67, 64, 64),
-          ),
-          suffixIcon: suffix,
-          border: InputBorder.none,
-          contentPadding: EdgeInsets.symmetric(
-            horizontal: sw1 * 0.04,
-            vertical: sw1 * 0.045,
-          ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(16),
+        borderSide: const BorderSide(
+          color: AppColors.primary,
+          width: 1.5,
         ),
       ),
     );
@@ -81,193 +52,191 @@ class _CreateAccountState extends State<CreateAccount> {
 
   @override
   Widget build(BuildContext context) {
-    // double sh1 = MediaQuery.of(context).size.height;
-    double sw1 = MediaQuery.of(context).size.width;
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: const Color.fromARGB(136, 235, 235, 235),
-        appBar: AppBar(
-          backgroundColor: AppColors.lightBackground,
-          centerTitle: false,
-          leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: const Icon(
-              Icons.arrow_back_ios_outlined,
-              color: AppColors.primaryDark,
-            ),
-          ),
-          title: Text(
-            'Create account',
-            style: AppFonts.titleLarge.copyWith(
-              color: AppColors.secondary,
-              fontWeight: FontWeight.bold,
-            ),
+    final AuthController controller = Get.find<AuthController>();
+
+    return Scaffold(
+      backgroundColor: AppColors.lightBackground,
+      appBar: AppBar(
+        backgroundColor: AppColors.lightBackground,
+        surfaceTintColor: AppColors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          onPressed: () => Get.back(),
+          icon: const Icon(
+            Icons.arrow_back_ios_new_rounded,
+            color: AppColors.primaryDark,
           ),
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(15.0),
+        title: Text(
+          'Create account',
+          style: AppFonts.titleLarge.copyWith(
+            color: AppColors.secondary,
+          ),
+        ),
+      ),
+      body: SafeArea(
+        top: false,
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.fromLTRB(20, 12, 20, 24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+              Obx(
+                () => Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 8,
+                  ),
+                  decoration: BoxDecoration(
+                    color: AppColors.mint,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Text(
+                    controller.selectedRole.value.toUpperCase(),
+                    style: AppFonts.labelMedium.copyWith(
+                      color: AppColors.primaryDark,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
+              Text(
+                'A little about you',
+                style: AppFonts.headlineLarge.copyWith(
+                  color: AppColors.primaryDark,
+                ),
+              ),
+              const SizedBox(height: 6),
+              Text(
+                'Trusted local services start here.',
+                style: AppFonts.bodyMedium.copyWith(
+                  color: AppColors.lightTextSecondary,
+                ),
+              ),
+              const SizedBox(height: 24),
+              Text(
+                'Full name',
+                style: AppFonts.labelMedium.copyWith(
+                  color: AppColors.lightTextPrimary,
+                ),
+              ),
+              const SizedBox(height: 8),
+              TextField(
+                controller: _nameController,
+                style: AppFonts.input,
+                decoration: _inputDecoration(
+                  hint: 'Aarav Sharma',
+                  icon: Icons.person_outline_rounded,
+                ),
+              ),
+              const SizedBox(height: 16),
+              Text(
+                'Email address',
+                style: AppFonts.labelMedium.copyWith(
+                  color: AppColors.lightTextPrimary,
+                ),
+              ),
+              const SizedBox(height: 8),
+              TextField(
+                controller: _emailController,
+                keyboardType: TextInputType.emailAddress,
+                style: AppFonts.input,
+                decoration: _inputDecoration(
+                  hint: 'aarav.sharma@gmail.com',
+                  icon: Icons.mail_outline_rounded,
+                ),
+              ),
+              const SizedBox(height: 16),
+              Text(
+                'Phone number',
+                style: AppFonts.labelMedium.copyWith(
+                  color: AppColors.lightTextPrimary,
+                ),
+              ),
+              const SizedBox(height: 8),
+              TextField(
+                controller: _phoneController,
+                keyboardType: TextInputType.phone,
+                style: AppFonts.input,
+                decoration: _inputDecoration(
+                  hint: '+91 98765 43210',
+                  icon: Icons.phone_outlined,
+                ),
+              ),
+              const SizedBox(height: 16),
+              Text(
+                'Password',
+                style: AppFonts.labelMedium.copyWith(
+                  color: AppColors.lightTextPrimary,
+                ),
+              ),
+              const SizedBox(height: 8),
+              Obx(
+                () => TextField(
+                  controller: _passwordController,
+                  obscureText: controller.isObscured.value,
+                  style: AppFonts.input,
+                  decoration: _inputDecoration(
+                    hint: 'Enter password',
+                    icon: Icons.lock_outline_rounded,
+                  ).copyWith(
+                    suffixIcon: IconButton(
+                      onPressed: controller.changeObscured,
+                      icon: Icon(
+                        controller.isObscured.value
+                            ? Icons.visibility_off_outlined
+                            : Icons.visibility_outlined,
+                        color: AppColors.lightTextSecondary,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 18),
+              Text(
+                'By signing up, you agree to our Terms & Privacy Policy.',
+                style: AppFonts.caption.copyWith(
+                  color: AppColors.lightTextSecondary,
+                ),
+              ),
+              const SizedBox(height: 18),
+              SizedBox(
+                width: double.infinity,
+                height: 52,
+                child: ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.primaryDark,
+                    foregroundColor: AppColors.white,
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                  ),
+                  child: Row(
                     children: [
-                      // Role badge
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: sw1 * 0.03,
-                          vertical: sw1 * 0.02,
-                        ),
-                        decoration: BoxDecoration(
-                          color: const Color.fromARGB(237, 207, 207, 207),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Text(
-                          "CUSTOMER",
-                          style: TextStyle(
-                            fontSize: sw1 * 0.03,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.primaryDark,
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: sw1 * 0.05),
-
-                      // Heading
                       Text(
-                        "A little about you",
-                        style: TextStyle(
-                          fontSize: sw1 * 0.07,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.primaryDark,
+                        'Create account',
+                        style: AppFonts.button.copyWith(
+                          color: AppColors.white,
                         ),
                       ),
-                      SizedBox(height: sw1 * 0.02),
-                      Text(
-                        "Trusted local services start here.",
-                        style: TextStyle(
-                          fontSize: sw1 * 0.04,
-                          color: const Color.fromARGB(249, 67, 64, 64),
-                        ),
+                      const Spacer(),
+                      const Icon(
+                        Icons.arrow_forward_rounded,
+                        color: AppColors.mint,
                       ),
-                      SizedBox(height: sw1 * 0.07),
-
-                      // Full name
-                      _label("Full name", sw1),
-                      _field(
-                        sw1: sw1,
-                        controller: _nameController,
-                        icon: Icons.person_outline,
-                        hint: "Aarav Sharma",
-                      ),
-                      SizedBox(height: sw1 * 0.045),
-
-                      // Email
-                      _label("Email address", sw1),
-                      _field(
-                        sw1: sw1,
-                        controller: _emailController,
-                        icon: Icons.mail_outline,
-                        hint: "aarav.sharma@gmail.com",
-                        keyboardType: TextInputType.emailAddress,
-                      ),
-                      SizedBox(height: sw1 * 0.045),
-
-                      // Phone
-                      _label("Phone number", sw1),
-                      _field(
-                        sw1: sw1,
-                        controller: _phoneController,
-                        icon: Icons.phone_outlined,
-                        hint: "+91  98765 43210",
-                        keyboardType: TextInputType.phone,
-                      ),
-                      SizedBox(height: sw1 * 0.045),
-
-                      // Password
-                      _label("Password", sw1),
-                      _field(
-                        sw1: sw1,
-                        controller: _passwordController,
-                        icon: Icons.lock_outline,
-                        hint: "Enter password",
-                        obscure: _obscurePassword,
-                        suffix: IconButton(
-                          onPressed: () {
-                            setState(() {
-                              _obscurePassword = !_obscurePassword;
-                            });
-                          },
-                          icon: Icon(
-                            _obscurePassword
-                                ? Icons.visibility_off_outlined
-                                : Icons.visibility_outlined,
-                            size: sw1 * 0.05,
-                            color: const Color.fromARGB(249, 67, 64, 64),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: sw1 * 0.05),
-
-                      // Terms
-                      Text(
-                        "By signing up, you agree to our Terms & Privacy Policy.",
-                        style: TextStyle(
-                          fontSize: sw1 * 0.03,
-                          color: const Color.fromARGB(249, 67, 64, 64),
-                        ),
-                      ),
-                      SizedBox(height: sw1 * 0.04),
-
-                      // Create account button
-                      GestureDetector(
-                        onTap: () {
-                        },
-                        child: Container(
-                          width: sw1 * 1,
-                          height: sw1 * 0.15,
-                          decoration: BoxDecoration(
-                            color: AppColors.primaryDark,
-                            borderRadius: BorderRadius.circular(18),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 15.0,
-                            ),
-                            child: Row(
-                              children: [
-                                Text(
-                                  "Create account",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: sw1 * 0.045,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                const Spacer(),
-                                const Icon(
-                                  Icons.arrow_forward,
-                                  color: Colors.white,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: sw1 * 0.05),
                     ],
                   ),
                 ),
               ),
-              Text(
-                "Protected with end-to-end encryption",
-                style: TextStyle(
-                  fontSize: sw1 * 0.03,
-                  color: const Color.fromARGB(249, 67, 64, 64),
+              const SizedBox(height: 24),
+              Center(
+                child: Text(
+                  'Protected with end-to-end encryption',
+                  style: AppFonts.caption.copyWith(
+                    color: AppColors.lightTextSecondary,
+                  ),
                 ),
               ),
             ],
