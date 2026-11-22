@@ -1,3 +1,4 @@
+import 'package:fixify/app/app_theme.dart';
 import 'package:fixify/constant/colors.dart';
 import 'package:fixify/constant/fontsapp.dart';
 import 'package:fixify/views/coustomer/provider_details.dart';
@@ -10,6 +11,10 @@ class ExploreServicesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
     final isSmallScreen = size.width < 360;
+    final isDarkMode = AppTheme.isDark(context);
+    final textColor = AppTheme.primaryTextColor(context);
+    final secondaryTextColor = AppTheme.secondaryTextColor(context);
+    final surfaceColor = AppTheme.surfaceColor(context);
 
     final List<Map<String, String>> providers = [
       {
@@ -60,23 +65,23 @@ class ExploreServicesScreen extends StatelessWidget {
     ];
 
     return Scaffold(
-      backgroundColor: AppColors.lightBackground,
+      backgroundColor: AppTheme.backgroundColor(context),
       appBar: AppBar(
         toolbarHeight: 76,
-        backgroundColor: AppColors.lightBackground,
+        backgroundColor: AppTheme.backgroundColor(context),
         surfaceTintColor: AppColors.transparent,
         elevation: 0,
         titleSpacing: 20,
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            DefaultTextStyle.merge(
-              style: const TextStyle(color: AppColors.primaryDark),
-              child: const Text('EXPLORE', style: AppFonts.overline),
+            Text(
+              'EXPLORE',
+              style: AppFonts.overline.copyWith(color: AppColors.primaryDark),
             ),
-            DefaultTextStyle.merge(
-              style: const TextStyle(color: AppColors.primary),
-              child: const Text('Find a provider', style: AppFonts.titleLarge),
+            Text(
+              'Find a provider',
+              style: AppFonts.titleLarge.copyWith(color: AppColors.primary),
             ),
           ],
         ),
@@ -96,10 +101,12 @@ class ExploreServicesScreen extends StatelessWidget {
               height: 48,
               child: TextField(
                 textAlignVertical: TextAlignVertical.center,
-                style: AppFonts.input,
+                style: AppFonts.input.copyWith(color: textColor),
                 decoration: InputDecoration(
                   hintText: 'Search service or location',
-                  hintStyle: AppFonts.hint,
+                  hintStyle: AppFonts.hint.copyWith(
+                    color: AppTheme.hintColor(context),
+                  ),
                   prefixIcon: const Icon(
                     Icons.search_rounded,
                     color: AppColors.primaryDark,
@@ -110,7 +117,7 @@ class ExploreServicesScreen extends StatelessWidget {
                     minHeight: 48,
                   ),
                   filled: true,
-                  fillColor: AppColors.white,
+                  fillColor: surfaceColor,
                   contentPadding: const EdgeInsets.only(right: 14),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(14),
@@ -135,12 +142,9 @@ class ExploreServicesScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Expanded(
-                  child: DefaultTextStyle.merge(
-                    style: const TextStyle(color: AppColors.primary),
-                    child: const Text(
-                      '12 trusted plumbers',
-                      style: AppFonts.titleMedium,
-                    ),
+                  child: Text(
+                    '12 trusted plumbers',
+                    style: AppFonts.titleMedium.copyWith(color: textColor),
                   ),
                 ),
                 Container(
@@ -149,12 +153,16 @@ class ExploreServicesScreen extends StatelessWidget {
                     vertical: 6,
                   ),
                   decoration: BoxDecoration(
-                    color: AppColors.mint,
+                    color: isDarkMode ? AppColors.darkCard : AppColors.mint,
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  child: DefaultTextStyle.merge(
-                    style: const TextStyle(color: AppColors.primaryDark),
-                    child: const Text('NEAR YOU', style: AppFonts.overline),
+                  child: Text(
+                    'NEAR YOU',
+                    style: AppFonts.overline.copyWith(
+                      color: isDarkMode
+                          ? AppColors.primaryLight
+                          : AppColors.primaryDark,
+                    ),
                   ),
                 ),
               ],
@@ -166,7 +174,7 @@ class ExploreServicesScreen extends StatelessWidget {
                 fontFamily: AppFonts.bodyFont,
                 fontSize: AppFonts.bodySmallSize,
                 fontWeight: FontWeight.w400,
-                color: AppColors.lightTextSecondary,
+                color: secondaryTextColor,
               ),
             ),
 
@@ -195,9 +203,9 @@ class ExploreServicesScreen extends StatelessWidget {
                     margin: const EdgeInsets.only(top: 14),
                     padding: EdgeInsets.all(isSmallScreen ? 14 : 16),
                     decoration: BoxDecoration(
-                      color: AppColors.white,
+                      color: surfaceColor,
                       borderRadius: BorderRadius.circular(18),
-                      border: Border.all(color: AppColors.lightBorder),
+                      border: Border.all(color: AppTheme.borderColor(context)),
                       boxShadow: [
                         BoxShadow(
                           color: AppColors.secondary.withValues(alpha: 0.035),
@@ -215,7 +223,9 @@ class ExploreServicesScreen extends StatelessWidget {
                               width: 50,
                               height: 50,
                               decoration: BoxDecoration(
-                                color: AppColors.mint,
+                                color: isDarkMode
+                                    ? AppColors.darkSurface
+                                    : AppColors.mint,
                                 borderRadius: BorderRadius.circular(15),
                               ),
                               child: const Icon(
@@ -229,15 +239,12 @@ class ExploreServicesScreen extends StatelessWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  DefaultTextStyle.merge(
-                                    style: const TextStyle(
-                                      color: AppColors.primary,
-                                    ),
-                                    child: Text(
-                                      provider['name']!,
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: AppFonts.titleSmall,
+                                  Text(
+                                    provider['name']!,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: AppFonts.titleSmall.copyWith(
+                                      color: textColor,
                                     ),
                                   ),
                                   const SizedBox(height: 5),
@@ -249,13 +256,10 @@ class ExploreServicesScreen extends StatelessWidget {
                                         color: AppColors.warning,
                                       ),
                                       const SizedBox(width: 3),
-                                      DefaultTextStyle.merge(
-                                        style: const TextStyle(
-                                          color: AppColors.secondary,
-                                        ),
-                                        child: Text(
-                                          provider['rating']!,
-                                          style: AppFonts.labelSmall,
+                                      Text(
+                                        provider['rating']!,
+                                        style: AppFonts.labelSmall.copyWith(
+                                          color: textColor,
                                         ),
                                       ),
                                     ],
@@ -263,10 +267,10 @@ class ExploreServicesScreen extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            const Icon(
+                            Icon(
                               Icons.arrow_forward_ios_rounded,
                               size: 15,
-                              color: AppColors.lightTextHint,
+                              color: AppTheme.hintColor(context),
                             ),
                           ],
                         ),
@@ -279,7 +283,9 @@ class ExploreServicesScreen extends StatelessWidget {
                               vertical: 6,
                             ),
                             decoration: BoxDecoration(
-                              color: isAvailableToday
+                              color: isDarkMode
+                                  ? AppColors.darkSurface
+                                  : isAvailableToday
                                   ? AppColors.successLight
                                   : AppColors.mint,
                               borderRadius: BorderRadius.circular(20),
@@ -295,6 +301,8 @@ class ExploreServicesScreen extends StatelessWidget {
                                   size: 13,
                                   color: isAvailableToday
                                       ? AppColors.success
+                                      : isDarkMode
+                                      ? AppColors.primaryLight
                                       : AppColors.primaryDark,
                                 ),
                                 const SizedBox(width: 4),
@@ -303,6 +311,8 @@ class ExploreServicesScreen extends StatelessWidget {
                                   style: AppFonts.labelSmall.copyWith(
                                     color: isAvailableToday
                                         ? AppColors.success
+                                        : isDarkMode
+                                        ? AppColors.primaryLight
                                         : AppColors.primaryDark,
                                   ),
                                 ),

@@ -1,3 +1,4 @@
+import 'package:fixify/app/app_theme.dart';
 import 'package:fixify/constant/colors.dart';
 import 'package:fixify/views/coustomer/booking.dart';
 import 'package:fixify/views/coustomer/dashboard.dart';
@@ -26,12 +27,17 @@ class _NavbarState extends State<Navbar> {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
+    final isDarkMode = AppTheme.isDark(context);
+    final selectedColor = isDarkMode
+        ? AppColors.primaryLight
+        : AppColors.primaryDark;
+    final unselectedColor = AppTheme.secondaryTextColor(context);
 
     final selectedFontSize = (screenWidth * 0.031).clamp(10.0, 14.0);
     final unselectedFontSize = (screenWidth * 0.028).clamp(9.0, 12.0);
 
     return Scaffold(
-      backgroundColor: AppColors.lightBackground,
+      backgroundColor: AppTheme.backgroundColor(context),
 
       body: Obx(() => myScreenList[myScreenIndex.value]),
 
@@ -43,10 +49,10 @@ class _NavbarState extends State<Navbar> {
             myScreenIndex.value = index;
           },
 
-          backgroundColor: AppColors.lightSurface,
+          backgroundColor: AppTheme.surfaceColor(context),
 
-          selectedItemColor: AppColors.primaryDark,
-          unselectedItemColor: AppColors.lightTextSecondary,
+          selectedItemColor: selectedColor,
+          unselectedItemColor: unselectedColor,
 
           selectedLabelStyle: TextStyle(
             fontSize: selectedFontSize,
@@ -58,15 +64,9 @@ class _NavbarState extends State<Navbar> {
             fontWeight: FontWeight.w400,
           ),
 
-          selectedIconTheme: const IconThemeData(
-            size: 23,
-            color: AppColors.primaryDark,
-          ),
+          selectedIconTheme: IconThemeData(size: 23, color: selectedColor),
 
-          unselectedIconTheme: const IconThemeData(
-            size: 22,
-            color: AppColors.lightTextSecondary,
-          ),
+          unselectedIconTheme: IconThemeData(size: 22, color: unselectedColor),
 
           type: BottomNavigationBarType.fixed,
           elevation: 8,

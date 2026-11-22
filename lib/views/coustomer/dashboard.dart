@@ -1,14 +1,23 @@
+import 'package:fixify/app/app_theme.dart';
 import 'package:fixify/constant/colors.dart';
 import 'package:fixify/constant/fontsapp.dart';
+import 'package:fixify/controllers/theme_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final ThemeController themeController = Get.find<ThemeController>();
     final size = MediaQuery.of(context).size;
     final isSmallScreen = size.width < 360;
+    final isDarkMode = AppTheme.isDark(context);
+    final backgroundColor = AppTheme.backgroundColor(context);
+    final surfaceColor = AppTheme.surfaceColor(context);
+    final textColor = AppTheme.primaryTextColor(context);
+    final secondaryTextColor = AppTheme.secondaryTextColor(context);
 
     // Services data
     final List<Map<String, dynamic>> services = [
@@ -24,7 +33,7 @@ class DashboardScreen extends StatelessWidget {
     ];
 
     return Scaffold(
-      backgroundColor: AppColors.lightBackground,
+      backgroundColor: backgroundColor,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(
@@ -42,26 +51,38 @@ class DashboardScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        DefaultTextStyle.merge(
-                          style: const TextStyle(color: AppColors.primaryDark),
-                          child: const Text(
-                            'YOUR HOME, SORTED',
-                            style: AppFonts.overline,
+                        Text(
+                          'YOUR HOME, SORTED',
+                          style: AppFonts.overline.copyWith(
+                            color: AppColors.primaryDark,
                           ),
                         ),
-                        DefaultTextStyle.merge(
-                          style: const TextStyle(color: AppColors.primary),
-                          child: const Text(
-                            'Kaamly',
-                            style: AppFonts.headlineLarge,
+                        Text(
+                          'Kaamly',
+                          style: AppFonts.headlineLarge.copyWith(
+                            color: AppColors.primary,
                           ),
                         ),
                       ],
                     ),
                   ),
                   IconButton(
-                    onPressed: () {},
+                    tooltip: isDarkMode
+                        ? 'Switch to light theme'
+                        : 'Switch to dark theme',
+                    onPressed: () =>
+                        themeController.toggleTheme(!isDarkMode),
                     icon: Icon(
+                      isDarkMode
+                          ? Icons.light_mode_rounded
+                          : Icons.dark_mode_rounded,
+                      color: AppColors.primaryDark,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {},
+                    tooltip: 'Notifications',
+                    icon: const Icon(
                       Icons.notifications_none_rounded,
                       color: AppColors.primaryDark,
                     ),
@@ -78,12 +99,9 @@ class DashboardScreen extends StatelessWidget {
                     color: AppColors.primaryDark,
                   ),
                   const SizedBox(width: 5),
-                  DefaultTextStyle.merge(
-                    style: const TextStyle(color: AppColors.primary),
-                    child: const Text(
-                      'Home · Indiranagar, Bengaluru',
-                      style: AppFonts.bodySmall,
-                    ),
+                  Text(
+                    'Home · Indiranagar, Bengaluru',
+                    style: AppFonts.bodySmall.copyWith(color: textColor),
                   ),
                 ],
               ),
@@ -95,10 +113,12 @@ class DashboardScreen extends StatelessWidget {
                 height: 46,
                 child: TextField(
                   textAlignVertical: TextAlignVertical.center,
-                  style: AppFonts.input,
+                  style: AppFonts.input.copyWith(color: textColor),
                   decoration: InputDecoration(
                     hintText: 'What can we help with?',
-                    hintStyle: AppFonts.hint,
+                    hintStyle: AppFonts.hint.copyWith(
+                      color: AppTheme.hintColor(context),
+                    ),
                     prefixIcon: const Icon(
                       Icons.search_rounded,
                       color: AppColors.primaryDark,
@@ -109,7 +129,7 @@ class DashboardScreen extends StatelessWidget {
                       minHeight: 46,
                     ),
                     filled: true,
-                    fillColor: AppColors.white,
+                    fillColor: surfaceColor,
                     contentPadding: const EdgeInsets.only(right: 14),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(13),
@@ -149,33 +169,33 @@ class DashboardScreen extends StatelessWidget {
                         color: AppColors.mint,
                         borderRadius: BorderRadius.circular(5),
                       ),
-                      child: DefaultTextStyle.merge(
-                        style: const TextStyle(color: AppColors.primaryDark),
-                        child: const Text(
-                          'TRUSTED LOCAL HELP',
-                          style: AppFonts.labelSmall,
+                      child: Text(
+                        'TRUSTED LOCAL HELP',
+                        style: AppFonts.labelSmall.copyWith(
+                          color: AppColors.primaryDark,
                         ),
                       ),
                     ),
 
                     const SizedBox(height: 10),
 
-                    DefaultTextStyle.merge(
-                      style: const TextStyle(color: AppColors.white),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Less to do.\nMore living.',
-                            style: AppFonts.headlineLarge,
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Less to do.\nMore living.',
+                          style: AppFonts.headlineLarge.copyWith(
+                            color: AppColors.white,
                           ),
-                          const SizedBox(height: 7),
-                          Text(
-                            'Book reliable experts right in your neighborhood.',
-                            style: AppFonts.bodySmall,
+                        ),
+                        const SizedBox(height: 7),
+                        Text(
+                          'Book reliable experts right in your neighborhood.',
+                          style: AppFonts.bodySmall.copyWith(
+                            color: AppColors.white,
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -187,18 +207,17 @@ class DashboardScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  DefaultTextStyle.merge(
-                    style: const TextStyle(color: AppColors.primary),
-                    child: const Text(
-                      'Explore services',
-                      style: AppFonts.titleMedium,
-                    ),
+                  Text(
+                    'Explore services',
+                    style: AppFonts.titleMedium.copyWith(color: textColor),
                   ),
                   TextButton(
                     onPressed: () {},
-                    child: DefaultTextStyle.merge(
-                      style: const TextStyle(color: AppColors.primaryDark),
-                      child: const Text('View all', style: AppFonts.labelSmall),
+                    child: Text(
+                      'View all',
+                      style: AppFonts.labelSmall.copyWith(
+                        color: AppColors.primaryDark,
+                      ),
                     ),
                   ),
                 ],
@@ -227,7 +246,7 @@ class DashboardScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(12),
                     child: Container(
                       decoration: BoxDecoration(
-                        color: AppColors.white,
+                        color: surfaceColor,
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Column(
@@ -239,12 +258,11 @@ class DashboardScreen extends StatelessWidget {
                             color: AppColors.primaryDark,
                           ),
                           const SizedBox(height: 7),
-                          DefaultTextStyle.merge(
-                            style: const TextStyle(color: AppColors.primary),
-                            child: Text(
-                              service['name'] as String,
-                              textAlign: TextAlign.center,
-                              style: AppFonts.labelMedium,
+                          Text(
+                            service['name'] as String,
+                            textAlign: TextAlign.center,
+                            style: AppFonts.labelMedium.copyWith(
+                              color: textColor,
                             ),
                           ),
                         ],
@@ -264,7 +282,9 @@ class DashboardScreen extends StatelessWidget {
                   vertical: 12,
                 ),
                 decoration: BoxDecoration(
-                  color: AppColors.mint.withValues(alpha: 0.55),
+                  color: isDarkMode
+                      ? AppTheme.cardColor(context)
+                      : AppColors.mint.withValues(alpha: 0.55),
                   borderRadius: BorderRadius.circular(13),
                 ),
                 child: Row(
@@ -279,23 +299,17 @@ class DashboardScreen extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          DefaultTextStyle.merge(
-                            style: const TextStyle(
-                              color: AppColors.primaryDark,
-                            ),
-                            child: const Text(
-                              'Good people. Great work.',
-                              style: AppFonts.labelMedium,
+                          Text(
+                            'Good people. Great work.',
+                            style: AppFonts.labelMedium.copyWith(
+                              color: textColor,
                             ),
                           ),
                           const SizedBox(height: 4),
-                          DefaultTextStyle.merge(
-                            style: TextStyle(
-                              color: AppColors.primary.withValues(alpha: 0.8),
-                            ),
-                            child: const Text(
-                              'Verified experts • Convenient booking',
-                              style: AppFonts.caption,
+                          Text(
+                            'Verified experts • Convenient booking',
+                            style: AppFonts.caption.copyWith(
+                              color: secondaryTextColor,
                             ),
                           ),
                         ],
