@@ -1,7 +1,10 @@
 import 'package:fixify/app/app_theme.dart';
 import 'package:fixify/constant/colors.dart';
 import 'package:fixify/constant/fontsapp.dart';
+import 'package:fixify/views/coustomeWidgts/app_bar.dart';
+import 'package:fixify/views/coustomer/booking.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ProviderDetailsScreen extends StatelessWidget {
   const ProviderDetailsScreen({super.key});
@@ -10,9 +13,6 @@ class ProviderDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final textColor = AppTheme.primaryTextColor(context);
     final secondaryTextColor = AppTheme.secondaryTextColor(context);
-
-    // final size = MediaQuery.of(context).size;
-    // final scale = (size.width / 390).clamp(0.85, 1.15).toDouble();
 
     final services = [
       {'name': 'Tap & leak repair'},
@@ -24,24 +24,10 @@ class ProviderDetailsScreen extends StatelessWidget {
       backgroundColor: AppTheme.backgroundColor(context),
 
       // APP BAR
-      appBar: AppBar(
-        backgroundColor: AppTheme.backgroundColor(context),
-        elevation: 0,
-        centerTitle: false,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(
-            Icons.arrow_back_ios_outlined,
-            color: AppColors.primaryDark,
-          ),
-        ),
-        title: Text(
-          'Provider details',
-          style: AppFonts.titleLarge.copyWith(color: textColor),
-        ),
-      ),
+      appBar: customAppBar(
+    context,
+    title: 'Provider details',
+  ),
 
       body: SafeArea(
         child: Column(
@@ -98,10 +84,7 @@ class ProviderDetailsScreen extends StatelessWidget {
                                         const SizedBox(width: 3),
                                         Text(
                                           'VERIFIED',
-                                          style: AppFonts.labelSmall.copyWith(
-                                            color: AppColors.primaryDark,
-                                            fontWeight: FontWeight.w700,
-                                          ),
+                                          style: const TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 10, fontWeight: FontWeight.w700, color: AppColors.primaryDark),
                                         ),
                                       ],
                                     ),
@@ -110,10 +93,7 @@ class ProviderDetailsScreen extends StatelessWidget {
 
                                     Text(
                                       'Available today',
-                                      style: AppFonts.labelSmall.copyWith(
-                                        color: AppColors.primaryDark,
-                                        fontWeight: FontWeight.w600,
-                                      ),
+                                      style: const TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 10, fontWeight: FontWeight.w600, color: AppColors.primaryDark),
                                     ),
                                   ],
                                 ),
@@ -123,9 +103,7 @@ class ProviderDetailsScreen extends StatelessWidget {
                           const SizedBox(height: 15),
                           Text(
                             'Greenline Plumbing',
-                            style: AppFonts.headlineSmall.copyWith(
-                              color: AppColors.white,
-                            ),
+                            style: const TextStyle(fontFamily: AppFonts.headingFont, fontSize: 20, fontWeight: FontWeight.w600, color: AppColors.white),
                           ),
                           const SizedBox(height: 10),
                           Row(
@@ -138,9 +116,7 @@ class ProviderDetailsScreen extends StatelessWidget {
                               const SizedBox(width: 4),
                               Text(
                                 '4.9 (128 reviews)',
-                                style: AppFonts.caption.copyWith(
-                                  color: AppColors.white,
-                                ),
+                                style: const TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 11, color: AppColors.white),
                               ),
                               Padding(
                                 padding: const EdgeInsets.symmetric(
@@ -152,13 +128,9 @@ class ProviderDetailsScreen extends StatelessWidget {
                                   size: 4,
                                 ),
                               ),
-                              Flexible(
-                                child: Text(
-                                  '6 years of experience',
-                                  style: AppFonts.caption.copyWith(
-                                    color: AppColors.white,
-                                  ),
-                                ),
+                              Text(
+                                '6 years of experience',
+                                style: const TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 11, color: AppColors.white),
                               ),
                             ],
                           ),
@@ -172,18 +144,13 @@ class ProviderDetailsScreen extends StatelessWidget {
                     // DESCRIPTION
                     Text(
                       'Reliable repairs. Zero stress.',
-                      style: AppFonts.titleLarge.copyWith(
-                        color: textColor,
-                      ),
+                      style: TextStyle(fontFamily: AppFonts.headingFont, fontSize: 18, fontWeight: FontWeight.w600, color: textColor),
                     ),
                     const SizedBox(height: 8),
                     Text(
                       'Leak repairs, installations and everyday plumbing, '
                       'handled by trained, background-checked experts.',
-                      style: AppFonts.bodySmall.copyWith(
-                        color: secondaryTextColor,
-                        height: 1.5,
-                      ),
+                      style: TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 12, color: secondaryTextColor, height: 1.5),
                     ),
 
                     const SizedBox(height: 27),
@@ -191,22 +158,18 @@ class ProviderDetailsScreen extends StatelessWidget {
                     // SERVICES
                     Text(
                       'Services available',
-                      style: AppFonts.titleLarge.copyWith(
-                        color: textColor,
-                      ),
+                      style: TextStyle(fontFamily: AppFonts.headingFont, fontSize: 18, fontWeight: FontWeight.w600, color: textColor),
                     ),
                     const SizedBox(height: 12),
 
-                    ListView.separated(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: services.length,
-                      separatorBuilder: (context, index) =>
-                          const SizedBox(height: 8),
-                      itemBuilder: (context, index) {
+                    Column(
+                      children: List.generate(services.length, (index) {
                         final service = services[index];
-
-                        return Container(
+                        return Padding(
+                          padding: EdgeInsets.only(
+                            bottom: index == services.length - 1 ? 0 : 8,
+                          ),
+                          child: Container(
                           width: double.infinity,
                           padding: const EdgeInsets.symmetric(
                             horizontal: 13,
@@ -221,16 +184,14 @@ class ProviderDetailsScreen extends StatelessWidget {
                               Expanded(
                                 child: Text(
                                   service['name']!,
-                                  style: AppFonts.bodySmall.copyWith(
-                                    color: textColor,
-                                    fontWeight: FontWeight.w500,
-                                  ),
+                                  style: TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 12, fontWeight: FontWeight.w500, color: textColor),
                                 ),
                               ),
                             ],
                           ),
+                          ),
                         );
-                      },
+                      }),
                     ),
 
                     const SizedBox(height: 17),
@@ -246,18 +207,13 @@ class ProviderDetailsScreen extends StatelessWidget {
                         const SizedBox(width: 4),
                         Text(
                           '4.9',
-                          style: AppFonts.labelMedium.copyWith(
-                            color: textColor,
-                            fontWeight: FontWeight.w700,
-                          ),
+                          style: TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 12, fontWeight: FontWeight.w700, color: textColor),
                         ),
                         const SizedBox(width: 7),
                         Expanded(
                           child: Text(
                             '"On time, tidy and fixed it in one visit."',
-                            style: AppFonts.bodySmall.copyWith(
-                              color: textColor,
-                            ),
+                            style: TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 12, color: textColor),
                           ),
                         ),
                       ],
@@ -265,9 +221,7 @@ class ProviderDetailsScreen extends StatelessWidget {
                     const SizedBox(height: 8),
                     Text(
                       'Priya S. · Verified booking · 14 Nov',
-                      style: AppFonts.caption.copyWith(
-                        color: secondaryTextColor,
-                      ),
+                      style: TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 11, color: secondaryTextColor),
                     ),
                     const SizedBox(height: 20),
                   ],
@@ -282,9 +236,9 @@ class ProviderDetailsScreen extends StatelessWidget {
                 width: double.infinity,
                 height: 50,
                 child: ElevatedButton(
-                  onPressed: () {
-                    // Navigate to service selection screen
-                  },
+
+
+                  onPressed: () => Get.to(() => const BookingsScreen()),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primaryDark,
                     foregroundColor: AppColors.white,
@@ -298,12 +252,10 @@ class ProviderDetailsScreen extends StatelessWidget {
                       Expanded(
                         child: Text(
                           'Select service',
-                          style: AppFonts.button.copyWith(
-                            color: AppColors.white,
-                          ),
+                          style: const TextStyle(fontFamily: AppFonts.headingFont, fontSize: 14, fontWeight: FontWeight.w600, color: AppColors.white),
                         ),
                       ),
-                      Icon(
+                      const Icon(
                         Icons.arrow_forward_rounded,
                         size: 21,
                         color: AppColors.mint,

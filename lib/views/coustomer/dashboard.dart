@@ -53,25 +53,17 @@ class DashboardScreen extends StatelessWidget {
                       children: [
                         Text(
                           'YOUR HOME, SORTED',
-                          style: AppFonts.overline.copyWith(
-                            color: AppColors.primaryDark,
-                          ),
+                          style: const TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 10, fontWeight: FontWeight.w600, color: AppColors.primaryDark),
                         ),
                         Text(
                           'Kaamly',
-                          style: AppFonts.headlineLarge.copyWith(
-                            color: AppColors.primary,
-                          ),
+                          style: const TextStyle(fontFamily: AppFonts.headingFont, fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.primary),
                         ),
                       ],
                     ),
                   ),
                   IconButton(
-                    tooltip: isDarkMode
-                        ? 'Switch to light theme'
-                        : 'Switch to dark theme',
-                    onPressed: () =>
-                        themeController.toggleTheme(!isDarkMode),
+                    onPressed: () => themeController.toggleTheme(!isDarkMode),
                     icon: Icon(
                       isDarkMode
                           ? Icons.light_mode_rounded
@@ -101,7 +93,7 @@ class DashboardScreen extends StatelessWidget {
                   const SizedBox(width: 5),
                   Text(
                     'Home · Indiranagar, Bengaluru',
-                    style: AppFonts.bodySmall.copyWith(color: textColor),
+                    style: TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 12, color: textColor),
                   ),
                 ],
               ),
@@ -113,12 +105,10 @@ class DashboardScreen extends StatelessWidget {
                 height: 46,
                 child: TextField(
                   textAlignVertical: TextAlignVertical.center,
-                  style: AppFonts.input.copyWith(color: textColor),
+                  style: TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 14, color: textColor),
                   decoration: InputDecoration(
                     hintText: 'What can we help with?',
-                    hintStyle: AppFonts.hint.copyWith(
-                      color: AppTheme.hintColor(context),
-                    ),
+                    hintStyle: TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 13, color: AppTheme.hintColor(context)),
                     prefixIcon: const Icon(
                       Icons.search_rounded,
                       color: AppColors.primaryDark,
@@ -171,9 +161,7 @@ class DashboardScreen extends StatelessWidget {
                       ),
                       child: Text(
                         'TRUSTED LOCAL HELP',
-                        style: AppFonts.labelSmall.copyWith(
-                          color: AppColors.primaryDark,
-                        ),
+                        style: const TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 10, fontWeight: FontWeight.w500, color: AppColors.primaryDark),
                       ),
                     ),
 
@@ -184,16 +172,12 @@ class DashboardScreen extends StatelessWidget {
                       children: [
                         Text(
                           'Less to do.\nMore living.',
-                          style: AppFonts.headlineLarge.copyWith(
-                            color: AppColors.white,
-                          ),
+                          style: const TextStyle(fontFamily: AppFonts.headingFont, fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.white),
                         ),
                         const SizedBox(height: 7),
                         Text(
                           'Book reliable experts right in your neighborhood.',
-                          style: AppFonts.bodySmall.copyWith(
-                            color: AppColors.white,
-                          ),
+                          style: const TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 12, color: AppColors.white),
                         ),
                       ],
                     ),
@@ -209,15 +193,13 @@ class DashboardScreen extends StatelessWidget {
                 children: [
                   Text(
                     'Explore services',
-                    style: AppFonts.titleMedium.copyWith(color: textColor),
+                    style: TextStyle(fontFamily: AppFonts.headingFont, fontSize: 16, fontWeight: FontWeight.w600, color: textColor),
                   ),
                   TextButton(
                     onPressed: () {},
                     child: Text(
                       'View all',
-                      style: AppFonts.labelSmall.copyWith(
-                        color: AppColors.primaryDark,
-                      ),
+                      style: const TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 10, fontWeight: FontWeight.w500, color: AppColors.primaryDark),
                     ),
                   ),
                 ],
@@ -226,50 +208,68 @@ class DashboardScreen extends StatelessWidget {
               const SizedBox(height: 8),
 
               // SERVICES GRID
-              GridView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: services.length,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  crossAxisSpacing: 9,
-                  mainAxisSpacing: 9,
-                  childAspectRatio: isSmallScreen ? 1.35 : 1.25,
-                ),
-                itemBuilder: (context, index) {
-                  final service = services[index];
-
-                  return InkWell(
-                    onTap: () {
-                      // Navigate to service providers screen
-                    },
-                    borderRadius: BorderRadius.circular(12),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: surfaceColor,
-                        borderRadius: BorderRadius.circular(12),
+              Column(
+                children: List.generate(
+                  (services.length / 3).ceil(),
+                  (rowIndex) {
+                    final start = rowIndex * 3;
+                    final rowServices = services.skip(start).take(3).toList();
+                    return Padding(
+                      padding: EdgeInsets.only(
+                        bottom: rowIndex ==
+                                (services.length / 3).ceil() - 1
+                            ? 0
+                            : 9,
                       ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            service['icon'] as IconData,
-                            size: isSmallScreen ? 19 : 22,
-                            color: AppColors.primaryDark,
-                          ),
-                          const SizedBox(height: 7),
-                          Text(
-                            service['name'] as String,
-                            textAlign: TextAlign.center,
-                            style: AppFonts.labelMedium.copyWith(
-                              color: textColor,
+                      child: Row(
+                        children: List.generate(3, (columnIndex) {
+                          final service = columnIndex < rowServices.length
+                              ? rowServices[columnIndex]
+                              : null;
+                          return Expanded(
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                right: columnIndex == 2 ? 0 : 9,
+                              ),
+                              child: service == null
+                                  ? const SizedBox()
+                                  : GestureDetector(
+                                      onTap: () {},
+                                      child: Container(
+                                        height: isSmallScreen ? 88 : 96,
+                                        decoration: BoxDecoration(
+                                          color: surfaceColor,
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                        ),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Icon(
+                                              service['icon'] as IconData,
+                                              size:
+                                                  isSmallScreen ? 19 : 22,
+                                              color: AppColors.primaryDark,
+                                            ),
+                                            const SizedBox(height: 7),
+                                            Text(
+                                              service['name'] as String,
+                                              textAlign: TextAlign.center,
+                                              style:
+                                                  TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 12, fontWeight: FontWeight.w500, color: textColor),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
                             ),
-                          ),
-                        ],
+                          );
+                        }),
                       ),
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
               ),
 
               const SizedBox(height: 16),
@@ -301,16 +301,12 @@ class DashboardScreen extends StatelessWidget {
                         children: [
                           Text(
                             'Good people. Great work.',
-                            style: AppFonts.labelMedium.copyWith(
-                              color: textColor,
-                            ),
+                            style: TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 12, fontWeight: FontWeight.w500, color: textColor),
                           ),
                           const SizedBox(height: 4),
                           Text(
                             'Verified experts • Convenient booking',
-                            style: AppFonts.caption.copyWith(
-                              color: secondaryTextColor,
-                            ),
+                            style: TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 11, color: secondaryTextColor),
                           ),
                         ],
                       ),

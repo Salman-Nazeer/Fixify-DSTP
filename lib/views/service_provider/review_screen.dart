@@ -1,4 +1,4 @@
-
+import 'package:fixify/views/coustomeWidgts/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:fixify/constant/colors.dart';
 
@@ -6,25 +6,15 @@ class RateYourServiceScreen extends StatefulWidget {
   const RateYourServiceScreen({super.key});
 
   @override
-  State<RateYourServiceScreen> createState() =>
-      _RateYourServiceScreenState();
+  State<RateYourServiceScreen> createState() => _RateYourServiceScreenState();
 }
 
-class _RateYourServiceScreenState
-    extends State<RateYourServiceScreen> {
+class _RateYourServiceScreenState extends State<RateYourServiceScreen> {
   int selectedRating = 5;
 
-  final Set<String> selectedTags = {
-    'On time',
-    'Professional',
-  };
+  final Set<String> selectedTags = {'On time', 'Professional'};
 
-  final TextEditingController reviewController =
-      TextEditingController(
-    text:
-        'Arrived on time, explained the issue clearly '
-        'and fixed the leak in one visit. Great work!',
-  );
+  final TextEditingController reviewController = TextEditingController();
 
   @override
   void dispose() {
@@ -39,48 +29,23 @@ class _RateYourServiceScreenState
 
     final bool isSmall = width < 360;
 
-    final double horizontalPadding =
-        (width * 0.055).clamp(16.0, 28.0).toDouble();
-
-    // Figma-specific colors
-    const Color darkGreen = Color(0xFF165B46);
-    const Color paleGreen = Color(0xFFEAF1EA);
-    const Color mutedGreen = Color(0xFF82948A);
+    final double horizontalPadding = (width * 0.055)
+        .clamp(16.0, 28.0)
+        .toDouble();
 
     return Scaffold(
       backgroundColor: AppColors.lightBackground,
       resizeToAvoidBottomInset: true,
 
       // ---------------- APP BAR ----------------
-      appBar: AppBar(
-        backgroundColor: AppColors.lightBackground,
-        elevation: 0,
-        scrolledUnderElevation: 0,
-        centerTitle: false,
-        titleSpacing: 0,
-        leadingWidth: 44,
-        leading: IconButton(
-          onPressed: () => Navigator.maybePop(context),
-          icon: const Icon(
-            Icons.arrow_back_ios_new_rounded,
-            color: darkGreen,
-            size: 19,
-          ),
-        ),
-        title: Text(
-          'Rate your service',
-          style: TextStyle(
-            fontSize: isSmall ? 18 : 20,
-            fontWeight: FontWeight.w700,
-            color: AppColors.lightTextPrimary,
-          ),
-        ),
-      ),
+      appBar: customAppBar(
+    context,
+    title: 'Rate your service',
+  ),
 
       // ---------------- BODY ----------------
       body: SingleChildScrollView(
-        keyboardDismissBehavior:
-            ScrollViewKeyboardDismissBehavior.onDrag,
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         child: Center(
           child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 540),
@@ -101,7 +66,7 @@ class _RateYourServiceScreenState
                       vertical: 8,
                     ),
                     decoration: BoxDecoration(
-                      color: paleGreen,
+                      color: AppColors.mint,
                       borderRadius: BorderRadius.circular(9),
                     ),
                     child: const Row(
@@ -109,7 +74,7 @@ class _RateYourServiceScreenState
                       children: [
                         Icon(
                           Icons.check_rounded,
-                          color: darkGreen,
+                          color: AppColors.primaryDark,
                           size: 13,
                         ),
                         SizedBox(width: 5),
@@ -118,7 +83,7 @@ class _RateYourServiceScreenState
                           style: TextStyle(
                             fontSize: 10,
                             fontWeight: FontWeight.w700,
-                            color: darkGreen,
+                            color: AppColors.primaryDark,
                           ),
                         ),
                       ],
@@ -161,8 +126,7 @@ class _RateYourServiceScreenState
 
                   // ---------------- STAR RATING ----------------
                   Row(
-                    mainAxisAlignment:
-                        MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: List.generate(5, (index) {
                       return IconButton(
                         onPressed: () {
@@ -180,7 +144,7 @@ class _RateYourServiceScreenState
                               ? Icons.star_rounded
                               : Icons.star_outline_rounded,
                           size: isSmall ? 31 : 35,
-                          color: darkGreen,
+                          color: AppColors.primaryDark,
                         ),
                       );
                     }),
@@ -194,16 +158,16 @@ class _RateYourServiceScreenState
                       selectedRating == 5
                           ? 'Excellent! That made our day.'
                           : selectedRating == 4
-                              ? 'Great! Thanks for your feedback.'
-                              : selectedRating == 3
-                                  ? 'Thanks for sharing your thoughts.'
-                                  : selectedRating == 2
-                                      ? 'We can do better.'
-                                      : 'Sorry to hear that.',
+                          ? 'Great! Thanks for your feedback.'
+                          : selectedRating == 3
+                          ? 'Thanks for sharing your thoughts.'
+                          : selectedRating == 2
+                          ? 'We can do better.'
+                          : 'Sorry to hear that.',
                       style: TextStyle(
                         fontSize: isSmall ? 11 : 13,
                         fontWeight: FontWeight.w500,
-                        color: darkGreen,
+                        color: AppColors.primaryDark,
                       ),
                       textAlign: TextAlign.center,
                     ),
@@ -241,17 +205,16 @@ class _RateYourServiceScreenState
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
                               color: selectedTags.contains('On time')
-                                  ? paleGreen
+                                  ? AppColors.mint
                                   : AppColors.white,
-                              borderRadius:
-                                  BorderRadius.circular(9),
+                              borderRadius: BorderRadius.circular(9),
                             ),
                             child: Text(
                               'On time',
                               style: TextStyle(
                                 fontSize: isSmall ? 10 : 11,
                                 fontWeight: FontWeight.w600,
-                                color: darkGreen,
+                                color: AppColors.primaryDark,
                               ),
                             ),
                           ),
@@ -266,8 +229,7 @@ class _RateYourServiceScreenState
                         child: GestureDetector(
                           onTap: () {
                             setState(() {
-                              if (selectedTags
-                                  .contains('Professional')) {
+                              if (selectedTags.contains('Professional')) {
                                 selectedTags.remove('Professional');
                               } else {
                                 selectedTags.add('Professional');
@@ -278,19 +240,17 @@ class _RateYourServiceScreenState
                             height: 32,
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
-                              color: selectedTags
-                                      .contains('Professional')
-                                  ? paleGreen
+                              color: selectedTags.contains('Professional')
+                                  ? AppColors.mint
                                   : AppColors.white,
-                              borderRadius:
-                                  BorderRadius.circular(9),
+                              borderRadius: BorderRadius.circular(9),
                             ),
                             child: Text(
                               'Professional',
                               style: TextStyle(
                                 fontSize: isSmall ? 10 : 11,
                                 fontWeight: FontWeight.w600,
-                                color: darkGreen,
+                                color: AppColors.primaryDark,
                               ),
                             ),
                           ),
@@ -305,8 +265,7 @@ class _RateYourServiceScreenState
                         child: GestureDetector(
                           onTap: () {
                             setState(() {
-                              if (selectedTags
-                                  .contains('Tidy work')) {
+                              if (selectedTags.contains('Tidy work')) {
                                 selectedTags.remove('Tidy work');
                               } else {
                                 selectedTags.add('Tidy work');
@@ -317,19 +276,17 @@ class _RateYourServiceScreenState
                             height: 32,
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
-                              color: selectedTags
-                                      .contains('Tidy work')
-                                  ? paleGreen
+                              color: selectedTags.contains('Tidy work')
+                                  ? AppColors.mint
                                   : AppColors.white,
-                              borderRadius:
-                                  BorderRadius.circular(9),
+                              borderRadius: BorderRadius.circular(9),
                             ),
                             child: Text(
                               'Tidy work',
                               style: TextStyle(
                                 fontSize: isSmall ? 10 : 11,
                                 fontWeight: FontWeight.w600,
-                                color: darkGreen,
+                                color: AppColors.primaryDark,
                               ),
                             ),
                           ),
@@ -358,22 +315,22 @@ class _RateYourServiceScreenState
                       borderRadius: BorderRadius.circular(16),
                     ),
                     child: Column(
-                      crossAxisAlignment:
-                          CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         TextField(
                           controller: reviewController,
                           maxLines: 3,
                           minLines: 3,
                           maxLength: 500,
-                          buildCounter: (
-                            context, {
-                            required currentLength,
-                            required isFocused,
-                            required maxLength,
-                          }) {
-                            return null;
-                          },
+                          buildCounter:
+                              (
+                                context, {
+                                required currentLength,
+                                required isFocused,
+                                required maxLength,
+                              }) {
+                                return null;
+                              },
                           onChanged: (value) {
                             setState(() {});
                           },
@@ -384,28 +341,18 @@ class _RateYourServiceScreenState
                           ),
                           decoration: const InputDecoration(
                             border: InputBorder.none,
-                            contentPadding: EdgeInsets.fromLTRB(
-                              15,
-                              16,
-                              15,
-                              4,
-                            ),
+                            contentPadding: EdgeInsets.fromLTRB(15, 16, 15, 4),
                             hintText: 'Share your experience...',
                           ),
                         ),
 
                         Padding(
-                          padding: const EdgeInsets.fromLTRB(
-                            15,
-                            0,
-                            15,
-                            13,
-                          ),
+                          padding: const EdgeInsets.fromLTRB(15, 0, 15, 13),
                           child: Text(
                             '${reviewController.text.length} / 500',
                             style: const TextStyle(
                               fontSize: 10,
-                              color: mutedGreen,
+                              color: AppColors.lightTextSecondary,
                             ),
                           ),
                         ),
@@ -416,15 +363,12 @@ class _RateYourServiceScreenState
                   const SizedBox(height: 20),
 
                   // ---------------- REPORT OPTION ----------------
-                  InkWell(
+                  GestureDetector(
                     onTap: () {
                       // Add complaint screen navigation here.
                     },
-                    borderRadius: BorderRadius.circular(8),
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 6,
-                      ),
+                      padding: const EdgeInsets.symmetric(vertical: 6),
                       child: Row(
                         children: [
                           const Icon(
@@ -480,28 +424,18 @@ class _RateYourServiceScreenState
                   child: ElevatedButton(
                     onPressed: () {
                       // Connect your review submission API here.
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text(
-                            'Review ready. Backend submission not connected yet.',
-                          ),
-                        ),
-                      );
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: darkGreen,
+                      backgroundColor: AppColors.primaryDark,
                       foregroundColor: AppColors.white,
                       elevation: 0,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
                     ),
                     child: const Row(
-                      mainAxisAlignment:
-                          MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
                           'Submit review & feedback',
@@ -513,7 +447,7 @@ class _RateYourServiceScreenState
                         Icon(
                           Icons.arrow_forward_rounded,
                           size: 21,
-                          color: Color(0xFFDFF39A),
+                          color: AppColors.mint,
                         ),
                       ],
                     ),
@@ -535,14 +469,12 @@ class _RateYourServiceScreenState
                   child: SizedBox(
                     height: 72,
                     child: Row(
-                      mainAxisAlignment:
-                          MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         // HOME
                         Expanded(
                           child: Column(
-                            mainAxisAlignment:
-                                MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Icon(
                                 Icons.home_outlined,
@@ -564,8 +496,7 @@ class _RateYourServiceScreenState
                         // EXPLORE
                         Expanded(
                           child: Column(
-                            mainAxisAlignment:
-                                MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Icon(
                                 Icons.grid_view_outlined,
@@ -587,8 +518,7 @@ class _RateYourServiceScreenState
                         // BOOKINGS
                         Expanded(
                           child: Column(
-                            mainAxisAlignment:
-                                MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Icon(
                                 Icons.calendar_month_outlined,
@@ -616,9 +546,8 @@ class _RateYourServiceScreenState
                                 vertical: 9,
                               ),
                               decoration: BoxDecoration(
-                                color: paleGreen,
-                                borderRadius:
-                                    BorderRadius.circular(12),
+                                color: AppColors.mint,
+                                borderRadius: BorderRadius.circular(12),
                               ),
                               child: const Column(
                                 mainAxisSize: MainAxisSize.min,
@@ -626,7 +555,7 @@ class _RateYourServiceScreenState
                                   Icon(
                                     Icons.person_outline_rounded,
                                     size: 23,
-                                    color: darkGreen,
+                                    color: AppColors.primaryDark,
                                   ),
                                   SizedBox(height: 5),
                                   Text(
@@ -634,7 +563,7 @@ class _RateYourServiceScreenState
                                     style: TextStyle(
                                       fontSize: 10,
                                       fontWeight: FontWeight.w700,
-                                      color: darkGreen,
+                                      color: AppColors.primaryDark,
                                     ),
                                   ),
                                 ],

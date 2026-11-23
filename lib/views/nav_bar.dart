@@ -1,6 +1,6 @@
 import 'package:fixify/app/app_theme.dart';
 import 'package:fixify/constant/colors.dart';
-import 'package:fixify/views/coustomer/booking.dart';
+import 'package:fixify/constant/fontsapp.dart';
 import 'package:fixify/views/coustomer/dashboard.dart';
 import 'package:fixify/views/coustomer/explor.dart';
 import 'package:fixify/views/coustomer/profile.dart';
@@ -18,7 +18,7 @@ class _NavbarState extends State<Navbar> {
   final List<Widget> myScreenList = [
     const DashboardScreen(),
     const ExploreServicesScreen(),
-    const BookingsScreen(),
+    // const BookingsScreen(),
     const ProfileScreen(),
   ];
 
@@ -55,13 +55,15 @@ class _NavbarState extends State<Navbar> {
           unselectedItemColor: unselectedColor,
 
           selectedLabelStyle: TextStyle(
+            fontFamily: AppFonts.bodyFont,
+            fontWeight: FontWeight.w500,
             fontSize: selectedFontSize,
-            fontWeight: FontWeight.w600,
           ),
 
           unselectedLabelStyle: TextStyle(
+            fontFamily: AppFonts.bodyFont,
+            fontWeight: FontWeight.w500,
             fontSize: unselectedFontSize,
-            fontWeight: FontWeight.w400,
           ),
 
           selectedIconTheme: IconThemeData(size: 23, color: selectedColor),
@@ -82,11 +84,11 @@ class _NavbarState extends State<Navbar> {
               activeIcon: Icon(Icons.grid_view_rounded),
               label: 'Explore',
             ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.calendar_today_outlined),
-              activeIcon: Icon(Icons.calendar_today_rounded),
-              label: 'Bookings',
-            ),
+            // BottomNavigationBarItem(
+            //   icon: Icon(Icons.calendar_today_outlined),
+            //   activeIcon: Icon(Icons.calendar_today_rounded),
+            //   label: 'Bookings',
+            // ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person_outline_rounded),
               activeIcon: Icon(Icons.person_rounded),

@@ -26,3 +26,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+// code ko set karna ha, removed karna ha extra widgts, appBar coustome design kia ha,
+// hadi ka code us ke branch sa ly kar dev ma push karn ha
+// functionality ka code baki ha, us ko

@@ -1,80 +1,143 @@
-import 'package:fixify/constant/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:fixify/constant/colors.dart';
+import 'package:fixify/constant/fontsapp.dart';
 
 class AppTheme {
-  AppTheme._();
-
-  static ThemeData get lightTheme => ThemeData(
+  // LIGHT THEME
+  static ThemeData lightTheme = ThemeData(
     useMaterial3: true,
     brightness: Brightness.light,
+    fontFamily: AppFonts.bodyFont,
+    primaryColor: AppColors.primary,
+    scaffoldBackgroundColor: AppColors.lightBackground,
+    textTheme: const TextTheme(
+      displayLarge: AppFonts.displayLarge,
+      displayMedium: AppFonts.displayMedium,
+      displaySmall: AppFonts.displaySmall,
+      headlineLarge: AppFonts.headlineLarge,
+      headlineMedium: AppFonts.headlineMedium,
+      headlineSmall: AppFonts.headlineSmall,
+      titleLarge: AppFonts.titleLarge,
+      titleMedium: AppFonts.titleMedium,
+      titleSmall: AppFonts.titleSmall,
+      bodyLarge: AppFonts.bodyLarge,
+      bodyMedium: AppFonts.bodyMedium,
+      bodySmall: AppFonts.bodySmall,
+      labelLarge: AppFonts.labelLarge,
+      labelMedium: AppFonts.labelMedium,
+      labelSmall: AppFonts.labelSmall,
+    ),
+
     colorScheme: const ColorScheme.light(
-      primary: AppColors.primary,
-      onPrimary: AppColors.white,
-      secondary: AppColors.primaryDark,
-      onSecondary: AppColors.white,
-      error: AppColors.error,
-      onError: AppColors.white,
+      primary: AppColors.primaryDark,
       surface: AppColors.lightSurface,
       onSurface: AppColors.lightTextPrimary,
-      outline: AppColors.lightBorder,
-      outlineVariant: AppColors.lightDivider,
+      error: AppColors.error,
     ),
-    scaffoldBackgroundColor: AppColors.lightBackground,
-    appBarTheme: const AppBarTheme(
+
+    appBarTheme: AppBarTheme(
       backgroundColor: AppColors.lightBackground,
       foregroundColor: AppColors.lightTextPrimary,
       surfaceTintColor: AppColors.transparent,
       elevation: 0,
+      titleTextStyle: const TextStyle(
+        fontFamily: AppFonts.headingFont,
+        fontSize: 18,
+        fontWeight: FontWeight.w600,
+        color: AppColors.lightTextPrimary,
+      ),
     ),
   );
 
-  static ThemeData get darkTheme => ThemeData(
+  // DARK THEME
+  static ThemeData darkTheme = ThemeData(
     useMaterial3: true,
     brightness: Brightness.dark,
+    fontFamily: AppFonts.bodyFont,
+    primaryColor: AppColors.primaryLight,
+    scaffoldBackgroundColor: AppColors.darkBackground,
+    textTheme: const TextTheme(
+      displayLarge: AppFonts.displayLarge,
+      displayMedium: AppFonts.displayMedium,
+      displaySmall: AppFonts.displaySmall,
+      headlineLarge: AppFonts.headlineLarge,
+      headlineMedium: AppFonts.headlineMedium,
+      headlineSmall: AppFonts.headlineSmall,
+      titleLarge: AppFonts.titleLarge,
+      titleMedium: AppFonts.titleMedium,
+      titleSmall: AppFonts.titleSmall,
+      bodyLarge: AppFonts.bodyLarge,
+      bodyMedium: AppFonts.bodyMedium,
+      bodySmall: AppFonts.bodySmall,
+      labelLarge: AppFonts.labelLarge,
+      labelMedium: AppFonts.labelMedium,
+      labelSmall: AppFonts.labelSmall,
+    ),
+
     colorScheme: const ColorScheme.dark(
       primary: AppColors.primaryLight,
-      onPrimary: AppColors.darkBackground,
-      secondary: AppColors.primary,
-      onSecondary: AppColors.white,
-      error: AppColors.error,
-      onError: AppColors.white,
       surface: AppColors.darkSurface,
       onSurface: AppColors.darkTextPrimary,
-      outline: AppColors.darkBorder,
-      outlineVariant: AppColors.darkDivider,
+      error: AppColors.error,
     ),
-    scaffoldBackgroundColor: AppColors.darkBackground,
-    appBarTheme: const AppBarTheme(
+
+    appBarTheme: AppBarTheme(
       backgroundColor: AppColors.darkBackground,
       foregroundColor: AppColors.darkTextPrimary,
       surfaceTintColor: AppColors.transparent,
       elevation: 0,
+      titleTextStyle: const TextStyle(
+        fontFamily: AppFonts.headingFont,
+        fontSize: 18,
+        fontWeight: FontWeight.w600,
+        color: AppColors.darkTextPrimary,
+      ),
     ),
   );
 
-  static bool isDark(BuildContext context) =>
-      Theme.of(context).brightness == Brightness.dark;
+  // CHECK THEME
+  static bool isDark(BuildContext context) {
+    return Theme.of(context).brightness == Brightness.dark;
+  }
 
-  static Color backgroundColor(BuildContext context) =>
-      isDark(context) ? AppColors.darkBackground : AppColors.lightBackground;
+  // BACKGROUND COLOR
+  static Color backgroundColor(BuildContext context) {
+    return isDark(context)
+        ? AppColors.darkBackground
+        : AppColors.lightBackground;
+  }
 
-  static Color surfaceColor(BuildContext context) =>
-      Theme.of(context).colorScheme.surface;
+  // CARD COLOR
+  static Color cardColor(BuildContext context) {
+    return isDark(context) ? AppColors.darkCard : AppColors.lightCard;
+  }
 
-  static Color cardColor(BuildContext context) =>
-      isDark(context) ? AppColors.darkCard : AppColors.lightCard;
+  // SURFACE COLOR
+  static Color surfaceColor(BuildContext context) {
+    return isDark(context) ? AppColors.darkSurface : AppColors.lightSurface;
+  }
 
-  static Color primaryTextColor(BuildContext context) =>
-      Theme.of(context).colorScheme.onSurface;
+  // PRIMARY TEXT
+  static Color primaryTextColor(BuildContext context) {
+    return isDark(context)
+        ? AppColors.darkTextPrimary
+        : AppColors.lightTextPrimary;
+  }
 
-  static Color secondaryTextColor(BuildContext context) =>
-      isDark(context)
-      ? AppColors.darkTextSecondary
-      : AppColors.lightTextSecondary;
+  // SECONDARY TEXT
+  static Color secondaryTextColor(BuildContext context) {
+    return isDark(context)
+        ? AppColors.darkTextSecondary
+        : AppColors.lightTextSecondary;
+  }
 
-  static Color hintColor(BuildContext context) =>
-      isDark(context) ? AppColors.darkTextHint : AppColors.lightTextHint;
+  // HINT COLOR
+  static Color hintColor(BuildContext context) {
+    return isDark(context) ? AppColors.darkTextHint : AppColors.lightTextHint;
+  }
 
-  static Color borderColor(BuildContext context) =>
-      Theme.of(context).colorScheme.outline;
+  // BORDER COLOR
+  static Color borderColor(BuildContext context) {
+    return isDark(context) ? AppColors.darkBorder : AppColors.lightBorder;
+  }
 }

@@ -1,8 +1,6 @@
-
+import 'package:fixify/views/coustomeWidgts/app_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import'package:fixify/constant/colors.dart';
-
+import 'package:fixify/constant/colors.dart';
 
 class NotificationsScreen extends StatelessWidget {
   const NotificationsScreen({super.key});
@@ -14,47 +12,15 @@ class NotificationsScreen extends StatelessWidget {
 
     final bool isSmall = width < 360;
 
-    final double horizontalPadding =
-        (width * 0.055).clamp(16.0, 28.0).toDouble();
-
-    // Figma-specific colors
-    const Color darkGreen = Color(0xFF165B46);
-    const Color paleGreen = Color(0xFFEAF1EA);
-    const Color mutedGreen = Color(0xFF82948A);
+    final double horizontalPadding = (width * 0.055)
+        .clamp(16.0, 28.0)
+        .toDouble();
 
     return Scaffold(
       backgroundColor: AppColors.lightBackground,
 
       // ---------------- APP BAR ----------------
-      appBar: AppBar(
-        backgroundColor: AppColors.lightBackground,
-        elevation: 0,
-        scrolledUnderElevation: 0,
-        centerTitle: false,
-        titleSpacing: 0,
-        systemOverlayStyle: const SystemUiOverlayStyle(
-          statusBarColor: AppColors.lightBackground,
-          statusBarIconBrightness: Brightness.dark,
-        ),
-        leadingWidth: 48,
-        leading: IconButton(
-          onPressed: () => Navigator.maybePop(context),
-          icon: const Icon(
-            Icons.arrow_back_ios_new_rounded,
-            size: 19,
-            color: darkGreen,
-          ),
-        ),
-        title: Text(
-          'Notifications',
-          style: TextStyle(
-            fontSize: isSmall ? 18 : 20,
-            fontWeight: FontWeight.w700,
-            color: AppColors.lightTextPrimary,
-          ),
-        ),
-      ),
-
+      appBar: customAppBar(context, title: 'Notifications'),
       // ---------------- SCREEN BODY ----------------
       body: SingleChildScrollView(
         child: Center(
@@ -101,7 +67,7 @@ class NotificationsScreen extends StatelessWidget {
                       vertical: 14,
                     ),
                     decoration: BoxDecoration(
-                      color: paleGreen,
+                      color: AppColors.mint,
                       borderRadius: BorderRadius.circular(16),
                     ),
                     child: Row(
@@ -109,7 +75,7 @@ class NotificationsScreen extends StatelessWidget {
                       children: [
                         const Icon(
                           Icons.location_on_outlined,
-                          color: darkGreen,
+                          color: AppColors.primaryDark,
                           size: 23,
                         ),
 
@@ -117,8 +83,7 @@ class NotificationsScreen extends StatelessWidget {
 
                         Expanded(
                           child: Column(
-                            crossAxisAlignment:
-                                CrossAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
                                 'On the way',
@@ -146,7 +111,7 @@ class NotificationsScreen extends StatelessWidget {
                                 'Just now',
                                 style: TextStyle(
                                   fontSize: 10,
-                                  color: mutedGreen,
+                                  color: AppColors.lightTextSecondary,
                                 ),
                               ),
                             ],
@@ -167,7 +132,7 @@ class NotificationsScreen extends StatelessWidget {
                       vertical: 14,
                     ),
                     decoration: BoxDecoration(
-                      color: paleGreen,
+                      color: AppColors.mint,
                       borderRadius: BorderRadius.circular(16),
                     ),
                     child: Row(
@@ -175,7 +140,7 @@ class NotificationsScreen extends StatelessWidget {
                       children: [
                         const Icon(
                           Icons.check_rounded,
-                          color: darkGreen,
+                          color: AppColors.primaryDark,
                           size: 23,
                         ),
 
@@ -183,8 +148,7 @@ class NotificationsScreen extends StatelessWidget {
 
                         Expanded(
                           child: Column(
-                            crossAxisAlignment:
-                                CrossAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
                                 'Booking accepted',
@@ -212,7 +176,7 @@ class NotificationsScreen extends StatelessWidget {
                                 '1 hr ago',
                                 style: TextStyle(
                                   fontSize: 10,
-                                  color: mutedGreen,
+                                  color: AppColors.lightTextSecondary,
                                 ),
                               ),
                             ],
@@ -241,7 +205,7 @@ class NotificationsScreen extends StatelessWidget {
                       children: [
                         const Icon(
                           Icons.check_rounded,
-                          color: darkGreen,
+                          color: AppColors.primaryDark,
                           size: 23,
                         ),
 
@@ -249,8 +213,7 @@ class NotificationsScreen extends StatelessWidget {
 
                         Expanded(
                           child: Column(
-                            crossAxisAlignment:
-                                CrossAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
                                 'Booking rescheduled',
@@ -278,7 +241,7 @@ class NotificationsScreen extends StatelessWidget {
                                 'Yesterday',
                                 style: TextStyle(
                                   fontSize: 10,
-                                  color: mutedGreen,
+                                  color: AppColors.lightTextSecondary,
                                 ),
                               ),
                             ],
@@ -307,7 +270,7 @@ class NotificationsScreen extends StatelessWidget {
                       children: [
                         const Icon(
                           Icons.star_border_rounded,
-                          color: darkGreen,
+                          color: AppColors.primaryDark,
                           size: 23,
                         ),
 
@@ -315,8 +278,7 @@ class NotificationsScreen extends StatelessWidget {
 
                         Expanded(
                           child: Column(
-                            crossAxisAlignment:
-                                CrossAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
                                 'Service completed',
@@ -344,7 +306,7 @@ class NotificationsScreen extends StatelessWidget {
                                 'Yesterday',
                                 style: TextStyle(
                                   fontSize: 10,
-                                  color: mutedGreen,
+                                  color: AppColors.lightTextSecondary,
                                 ),
                               ),
                             ],
@@ -373,7 +335,7 @@ class NotificationsScreen extends StatelessWidget {
                       children: [
                         const Icon(
                           Icons.calendar_today_outlined,
-                          color: darkGreen,
+                          color: AppColors.primaryDark,
                           size: 22,
                         ),
 
@@ -381,8 +343,7 @@ class NotificationsScreen extends StatelessWidget {
 
                         Expanded(
                           child: Column(
-                            crossAxisAlignment:
-                                CrossAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
                                 'Booking rejected',
@@ -410,7 +371,7 @@ class NotificationsScreen extends StatelessWidget {
                                 '16 Nov',
                                 style: TextStyle(
                                   fontSize: 10,
-                                  color: mutedGreen,
+                                  color: AppColors.lightTextSecondary,
                                 ),
                               ),
                             ],
@@ -439,7 +400,7 @@ class NotificationsScreen extends StatelessWidget {
                       children: [
                         const Icon(
                           Icons.calendar_today_outlined,
-                          color: darkGreen,
+                          color: AppColors.primaryDark,
                           size: 22,
                         ),
 
@@ -447,8 +408,7 @@ class NotificationsScreen extends StatelessWidget {
 
                         Expanded(
                           child: Column(
-                            crossAxisAlignment:
-                                CrossAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
                                 'Booking cancelled',
@@ -476,7 +436,7 @@ class NotificationsScreen extends StatelessWidget {
                                 '15 Nov',
                                 style: TextStyle(
                                   fontSize: 10,
-                                  color: mutedGreen,
+                                  color: AppColors.lightTextSecondary,
                                 ),
                               ),
                             ],
@@ -486,132 +446,6 @@ class NotificationsScreen extends StatelessWidget {
                     ),
                   ),
                 ],
-              ),
-            ),
-          ),
-        ),
-      ),
-
-      // ---------------- BOTTOM NAVIGATION ----------------
-      bottomNavigationBar: Container(
-        color: AppColors.lightSurface,
-        child: SafeArea(
-          top: false,
-          child: Center(
-            heightFactor: 1,
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 540),
-              child: SizedBox(
-                height: 72,
-                child: Row(
-                  mainAxisAlignment:
-                      MainAxisAlignment.spaceEvenly,
-                  children: [
-                    // -------- HOME - SELECTED --------
-                    Expanded(
-                      child: Center(
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 14,
-                            vertical: 9,
-                          ),
-                          decoration: BoxDecoration(
-                            color: paleGreen,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: const Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(
-                                Icons.home_outlined,
-                                color: darkGreen,
-                                size: 23,
-                              ),
-                              SizedBox(height: 5),
-                              Text(
-                                'Home',
-                                style: TextStyle(
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.w700,
-                                  color: darkGreen,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-
-                    // -------- EXPLORE --------
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment:
-                            MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.grid_view_outlined,
-                            color: AppColors.lightTextSecondary,
-                            size: 23,
-                          ),
-                          const SizedBox(height: 5),
-                          Text(
-                            'Explore',
-                            style: TextStyle(
-                              fontSize: 10,
-                              color: AppColors.lightTextSecondary,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    // -------- BOOKINGS --------
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment:
-                            MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.calendar_month_outlined,
-                            color: AppColors.lightTextSecondary,
-                            size: 23,
-                          ),
-                          const SizedBox(height: 5),
-                          Text(
-                            'Bookings',
-                            style: TextStyle(
-                              fontSize: 10,
-                              color: AppColors.lightTextSecondary,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    // -------- ACCOUNT --------
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment:
-                            MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.person_outline_rounded,
-                            color: AppColors.lightTextSecondary,
-                            size: 23,
-                          ),
-                          const SizedBox(height: 5),
-                          Text(
-                            'Account',
-                            style: TextStyle(
-                              fontSize: 10,
-                              color: AppColors.lightTextSecondary,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
               ),
             ),
           ),

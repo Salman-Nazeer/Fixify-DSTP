@@ -1,163 +1,122 @@
 import 'package:flutter/material.dart';
 
 class AppFonts {
-  // FONT FAMILIES
   static const String headingFont = 'Poppins';
   static const String bodyFont = 'Inter';
 
-  // FONT SIZES
-  static const double displayLargeSize = 36;
-  static const double displayMediumSize = 32;
-  static const double displaySmallSize = 28;
-
-  static const double headlineLargeSize = 24;
-  static const double headlineMediumSize = 22;
-  static const double headlineSmallSize = 20;
-
-  static const double titleLargeSize = 18;
-  static const double titleMediumSize = 16;
-  static const double titleSmallSize = 14;
-
-  static const double bodyLargeSize = 16;
-  static const double bodyMediumSize = 14;
-  static const double bodySmallSize = 12;
-
-  static const double labelLargeSize = 14;
-  static const double labelMediumSize = 12;
-  static const double labelSmallSize = 10;
-
-  // DISPLAY STYLES
+  // DISPLAY
   static const TextStyle displayLarge = TextStyle(
     fontFamily: headingFont,
-    fontSize: displayLargeSize,
-    fontWeight: FontWeight.w700,
+    fontSize: 36,
+    fontWeight: FontWeight.bold,
   );
 
   static const TextStyle displayMedium = TextStyle(
     fontFamily: headingFont,
-    fontSize: displayMediumSize,
-    fontWeight: FontWeight.w700,
+    fontSize: 32,
+    fontWeight: FontWeight.bold,
   );
 
   static const TextStyle displaySmall = TextStyle(
     fontFamily: headingFont,
-    fontSize: displaySmallSize,
+    fontSize: 28,
     fontWeight: FontWeight.w600,
   );
 
-  // HEADLINE STYLES
+  // HEADINGS
   static const TextStyle headlineLarge = TextStyle(
     fontFamily: headingFont,
-    fontSize: headlineLargeSize,
-    fontWeight: FontWeight.w700,
+    fontSize: 24,
+    fontWeight: FontWeight.bold,
   );
 
   static const TextStyle headlineMedium = TextStyle(
     fontFamily: headingFont,
-    fontSize: headlineMediumSize,
+    fontSize: 22,
     fontWeight: FontWeight.w600,
   );
 
   static const TextStyle headlineSmall = TextStyle(
     fontFamily: headingFont,
-    fontSize: headlineSmallSize,
+    fontSize: 20,
     fontWeight: FontWeight.w600,
   );
 
-  // TITLE STYLES
+  // TITLES
   static const TextStyle titleLarge = TextStyle(
     fontFamily: headingFont,
-    fontSize: titleLargeSize,
+    fontSize: 18,
     fontWeight: FontWeight.w600,
   );
 
   static const TextStyle titleMedium = TextStyle(
     fontFamily: headingFont,
-    fontSize: titleMediumSize,
+    fontSize: 16,
     fontWeight: FontWeight.w600,
   );
 
   static const TextStyle titleSmall = TextStyle(
     fontFamily: headingFont,
-    fontSize: titleSmallSize,
+    fontSize: 14,
     fontWeight: FontWeight.w500,
   );
 
-  // BODY STYLES
+  // BODY TEXT
   static const TextStyle bodyLarge = TextStyle(
     fontFamily: bodyFont,
-    fontSize: bodyLargeSize,
-    fontWeight: FontWeight.w400,
-    height: 1.5,
+    fontSize: 16,
   );
 
   static const TextStyle bodyMedium = TextStyle(
     fontFamily: bodyFont,
-    fontSize: bodyMediumSize,
-    fontWeight: FontWeight.w400,
-    height: 1.5,
+    fontSize: 14,
   );
 
   static const TextStyle bodySmall = TextStyle(
     fontFamily: bodyFont,
-    fontSize: bodySmallSize,
-    fontWeight: FontWeight.w400,
-    height: 1.4,
+    fontSize: 12,
   );
 
-  // LABEL STYLES
+  // LABELS
   static const TextStyle labelLarge = TextStyle(
     fontFamily: bodyFont,
-    fontSize: labelLargeSize,
+    fontSize: 14,
     fontWeight: FontWeight.w600,
   );
 
   static const TextStyle labelMedium = TextStyle(
     fontFamily: bodyFont,
-    fontSize: labelMediumSize,
+    fontSize: 12,
     fontWeight: FontWeight.w500,
   );
 
   static const TextStyle labelSmall = TextStyle(
     fontFamily: bodyFont,
-    fontSize: labelSmallSize,
+    fontSize: 10,
     fontWeight: FontWeight.w500,
   );
 
-  // BUTTON STYLE
+  // BUTTON
   static const TextStyle button = TextStyle(
     fontFamily: headingFont,
     fontSize: 14,
     fontWeight: FontWeight.w600,
-    letterSpacing: 0.2,
   );
 
-  // INPUT STYLE
-  static const TextStyle input = TextStyle(
-    fontFamily: bodyFont,
-    fontSize: 14,
-    fontWeight: FontWeight.w400,
-  );
+  // TEXT FIELD
+  static const TextStyle input = TextStyle(fontFamily: bodyFont, fontSize: 14);
 
-  // HINT STYLE
-  static const TextStyle hint = TextStyle(
-    fontFamily: bodyFont,
-    fontSize: 13,
-    fontWeight: FontWeight.w400,
-  );
+  static const TextStyle hint = TextStyle(fontFamily: bodyFont, fontSize: 13);
 
-  // CAPTION STYLE
+  // SMALL TEXT
   static const TextStyle caption = TextStyle(
     fontFamily: bodyFont,
     fontSize: 11,
-    fontWeight: FontWeight.w400,
   );
 
-  // OVERLINE STYLE
   static const TextStyle overline = TextStyle(
     fontFamily: bodyFont,
     fontSize: 10,
     fontWeight: FontWeight.w600,
-    letterSpacing: 0.8,
   );
 }

@@ -1,7 +1,6 @@
-
+import 'package:fixify/views/coustomeWidgts/app_bar.dart';
 import 'package:flutter/material.dart';
-import'package:fixify/constant/colors.dart';
-
+import 'package:fixify/constant/colors.dart';
 class ProviderDetailsScreen extends StatelessWidget {
   const ProviderDetailsScreen({super.key});
 
@@ -12,41 +11,15 @@ class ProviderDetailsScreen extends StatelessWidget {
 
     final bool isSmall = width < 360;
 
-    final double horizontalPadding =
-        (width * 0.06).clamp(16.0, 28.0).toDouble();
-
-    // Exact screenshot accent colors.
-    const Color darkGreen = Color(0xFF165B46);
-    const Color verifiedGreen = Color(0xFFDFF39A);
+    final double horizontalPadding = (width * 0.06)
+        .clamp(16.0, 28.0)
+        .toDouble();
 
     return Scaffold(
       backgroundColor: AppColors.lightBackground,
 
       // ---------------- APP BAR ----------------
-      appBar: AppBar(
-        backgroundColor: AppColors.lightBackground,
-        elevation: 0,
-        scrolledUnderElevation: 0,
-        centerTitle: false,
-        titleSpacing: 0,
-        leading: IconButton(
-          onPressed: () => Navigator.maybePop(context),
-          icon: const Icon(
-            Icons.arrow_back_ios_new_rounded,
-            size: 20,
-            color: darkGreen,
-          ),
-        ),
-        title: Text(
-          'Provider details',
-          style: TextStyle(
-            fontSize: isSmall ? 18 : 20,
-            fontWeight: FontWeight.w700,
-            color: AppColors.lightTextPrimary,
-          ),
-        ),
-      ),
-
+      appBar: customAppBar(context, title: 'Provider details'),
       // ---------------- SCREEN BODY ----------------
       body: SingleChildScrollView(
         child: Center(
@@ -65,19 +38,18 @@ class ProviderDetailsScreen extends StatelessWidget {
                     width: double.infinity,
                     padding: EdgeInsets.all(isSmall ? 17 : 20),
                     decoration: BoxDecoration(
-                      color: darkGreen,
+                      color: AppColors.primaryDark,
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
-                          mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             const Icon(
                               Icons.handyman_outlined,
-                              color: verifiedGreen,
+                              color: AppColors.mint,
                               size: 26,
                             ),
 
@@ -87,16 +59,15 @@ class ProviderDetailsScreen extends StatelessWidget {
                                 vertical: 7,
                               ),
                               decoration: BoxDecoration(
-                                color: verifiedGreen,
-                                borderRadius:
-                                    BorderRadius.circular(8),
+                                color: AppColors.mint,
+                                borderRadius: BorderRadius.circular(8),
                               ),
                               child: const Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   Icon(
                                     Icons.check,
-                                    color: darkGreen,
+                                    color: AppColors.primaryDark,
                                     size: 14,
                                   ),
                                   SizedBox(width: 4),
@@ -105,7 +76,7 @@ class ProviderDetailsScreen extends StatelessWidget {
                                     style: TextStyle(
                                       fontSize: 10,
                                       fontWeight: FontWeight.w700,
-                                      color: darkGreen,
+                                      color: AppColors.primaryDark,
                                     ),
                                   ),
                                 ],
@@ -135,7 +106,7 @@ class ProviderDetailsScreen extends StatelessWidget {
                               size: 15,
                             ),
                             const SizedBox(width: 3),
-                            Flexible(
+                            Expanded(
                               child: Text(
                                 '4.9 (128 reviews)  •  6 years of experience',
                                 style: TextStyle(
@@ -164,13 +135,13 @@ class ProviderDetailsScreen extends StatelessWidget {
                           vertical: 9,
                         ),
                         decoration: BoxDecoration(
-                          color: const Color(0xFFEAF1EA),
+                          color: AppColors.mint,
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: const Text(
                           'Available today',
                           style: TextStyle(
-                            color: darkGreen,
+                            color: AppColors.primaryDark,
                             fontSize: 11,
                             fontWeight: FontWeight.w600,
                           ),
@@ -257,7 +228,7 @@ class ProviderDetailsScreen extends StatelessWidget {
                           '60 min',
                           style: TextStyle(
                             fontSize: 12,
-                            color: darkGreen,
+                            color: AppColors.primaryDark,
                             fontWeight: FontWeight.w700,
                           ),
                         ),
@@ -294,7 +265,7 @@ class ProviderDetailsScreen extends StatelessWidget {
                           '90 min',
                           style: TextStyle(
                             fontSize: 12,
-                            color: darkGreen,
+                            color: AppColors.primaryDark,
                             fontWeight: FontWeight.w700,
                           ),
                         ),
@@ -331,7 +302,7 @@ class ProviderDetailsScreen extends StatelessWidget {
                           '120 min',
                           style: TextStyle(
                             fontSize: 12,
-                            color: darkGreen,
+                            color: AppColors.primaryDark,
                             fontWeight: FontWeight.w700,
                           ),
                         ),
@@ -395,19 +366,16 @@ class ProviderDetailsScreen extends StatelessWidget {
                         // Add service selection navigation here.
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: darkGreen,
+                        backgroundColor: AppColors.primaryDark,
                         foregroundColor: AppColors.white,
                         elevation: 0,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 17,
-                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: 17),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(13),
                         ),
                       ),
                       child: const Row(
-                        mainAxisAlignment:
-                            MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
                             'Select service',
@@ -416,10 +384,7 @@ class ProviderDetailsScreen extends StatelessWidget {
                               fontWeight: FontWeight.w600,
                             ),
                           ),
-                          Icon(
-                            Icons.arrow_forward_rounded,
-                            size: 21,
-                          ),
+                          Icon(Icons.arrow_forward_rounded, size: 21),
                         ],
                       ),
                     ),
@@ -441,14 +406,12 @@ class ProviderDetailsScreen extends StatelessWidget {
                   child: SizedBox(
                     height: 74,
                     child: Row(
-                      mainAxisAlignment:
-                          MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         // HOME
                         Expanded(
                           child: Column(
-                            mainAxisAlignment:
-                                MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Icon(
                                 Icons.home_outlined,
@@ -476,9 +439,8 @@ class ProviderDetailsScreen extends StatelessWidget {
                                 vertical: 9,
                               ),
                               decoration: BoxDecoration(
-                                color: const Color(0xFFEAF1EA),
-                                borderRadius:
-                                    BorderRadius.circular(12),
+                                color: AppColors.mint,
+                                borderRadius: BorderRadius.circular(12),
                               ),
                               child: const Column(
                                 mainAxisSize: MainAxisSize.min,
@@ -486,13 +448,13 @@ class ProviderDetailsScreen extends StatelessWidget {
                                   Icon(
                                     Icons.grid_view_rounded,
                                     size: 22,
-                                    color: darkGreen,
+                                    color: AppColors.primaryDark,
                                   ),
                                   SizedBox(height: 4),
                                   Text(
                                     'Explore',
                                     style: TextStyle(
-                                      color: darkGreen,
+                                      color: AppColors.primaryDark,
                                       fontWeight: FontWeight.w600,
                                       fontSize: 10,
                                     ),
@@ -506,8 +468,7 @@ class ProviderDetailsScreen extends StatelessWidget {
                         // BOOKINGS
                         Expanded(
                           child: Column(
-                            mainAxisAlignment:
-                                MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Icon(
                                 Icons.calendar_month_outlined,
@@ -529,8 +490,7 @@ class ProviderDetailsScreen extends StatelessWidget {
                         // ACCOUNT
                         Expanded(
                           child: Column(
-                            mainAxisAlignment:
-                                MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Icon(
                                 Icons.person_outline_rounded,

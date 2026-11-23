@@ -44,7 +44,7 @@ class _LogInState extends State<LogIn> {
         ),
         title: Text(
           'Welcome back',
-          style: AppFonts.titleLarge.copyWith(color: AppColors.secondary),
+          style: const TextStyle(fontFamily: AppFonts.headingFont, fontSize: 18, fontWeight: FontWeight.w600, color: AppColors.secondary),
         ),
       ),
       body: SafeArea(
@@ -56,31 +56,23 @@ class _LogInState extends State<LogIn> {
             children: [
               Text(
                 'Your home.',
-                style: AppFonts.displaySmall.copyWith(
-                  color: AppColors.primaryDark,
-                ),
+                style: const TextStyle(fontFamily: AppFonts.headingFont, fontSize: 28, fontWeight: FontWeight.w600, color: AppColors.primaryDark),
               ),
               Text(
                 'In good hands.',
-                style: AppFonts.displaySmall.copyWith(
-                  color: AppColors.primaryDark,
-                ),
+                style: const TextStyle(fontFamily: AppFonts.headingFont, fontSize: 28, fontWeight: FontWeight.w600, color: AppColors.primaryDark),
               ),
               const SizedBox(height: 12),
               Obx(
                 () => Text(
                   'Sign in to continue as ${controller.selectedRole.value.toLowerCase()}.',
-                  style: AppFonts.bodyMedium.copyWith(
-                    color: AppColors.lightTextSecondary,
-                  ),
+                  style: const TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 14, color: AppColors.lightTextSecondary),
                 ),
               ),
               const SizedBox(height: 28),
               Text(
                 'Email or phone number',
-                style: AppFonts.labelMedium.copyWith(
-                  color: AppColors.lightTextPrimary,
-                ),
+                style: const TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 12, fontWeight: FontWeight.w500, color: AppColors.lightTextPrimary),
               ),
               const SizedBox(height: 8),
               TextField(
@@ -89,9 +81,7 @@ class _LogInState extends State<LogIn> {
                 style: AppFonts.input,
                 decoration: InputDecoration(
                   hintText: 'aarav.sharma@gmail.com',
-                  hintStyle: AppFonts.hint.copyWith(
-                    color: AppColors.lightTextHint,
-                  ),
+                  hintStyle: const TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 13, color: AppColors.lightTextHint),
                   filled: true,
                   fillColor: AppColors.lightSurface,
                   prefixIcon: const Icon(
@@ -114,9 +104,7 @@ class _LogInState extends State<LogIn> {
               const SizedBox(height: 18),
               Text(
                 'Password',
-                style: AppFonts.labelMedium.copyWith(
-                  color: AppColors.lightTextPrimary,
-                ),
+                style: const TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 12, fontWeight: FontWeight.w500, color: AppColors.lightTextPrimary),
               ),
               const SizedBox(height: 8),
               Obx(
@@ -126,9 +114,7 @@ class _LogInState extends State<LogIn> {
                   style: AppFonts.input,
                   decoration: InputDecoration(
                     hintText: 'Enter password',
-                    hintStyle: AppFonts.hint.copyWith(
-                      color: AppColors.lightTextHint,
-                    ),
+                    hintStyle: const TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 13, color: AppColors.lightTextHint),
                     filled: true,
                     fillColor: AppColors.lightSurface,
                     prefixIcon: const Icon(
@@ -161,20 +147,20 @@ class _LogInState extends State<LogIn> {
                 ),
               ),
               const SizedBox(height: 10),
-              Align(
-                alignment: Alignment.centerRight,
-                child: TextButton(
-                  onPressed: () => Get.to(() => const ForgotScreen()),
-                  style: TextButton.styleFrom(
-                    foregroundColor: AppColors.primaryDark,
-                  ),
-                  child: Text(
-                    'Forgot password?',
-                    style: AppFonts.labelMedium.copyWith(
-                      color: AppColors.primaryDark,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  TextButton(
+                    onPressed: () => Get.to(() => const ForgotScreen()),
+                    style: TextButton.styleFrom(
+                      foregroundColor: AppColors.primaryDark,
+                    ),
+                    child: Text(
+                      'Forgot password?',
+                      style: const TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 12, fontWeight: FontWeight.w500, color: AppColors.primaryDark),
                     ),
                   ),
-                ),
+                ],
               ),
               const SizedBox(height: 12),
               SizedBox(
@@ -194,7 +180,7 @@ class _LogInState extends State<LogIn> {
                     children: [
                       Text(
                         'Sign in',
-                        style: AppFonts.button.copyWith(color: AppColors.white),
+                        style: const TextStyle(fontFamily: AppFonts.headingFont, fontSize: 14, fontWeight: FontWeight.w600, color: AppColors.white),
                       ),
                       const Spacer(),
                       const Icon(
@@ -208,26 +194,24 @@ class _LogInState extends State<LogIn> {
               const SizedBox(height: 24),
               Row(
                 children: [
-                  const Expanded(child: Divider(color: AppColors.lightDivider)),
+                  Expanded(child: Container(height: 1, color: AppColors.lightDivider)),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 12),
                     child: Text(
                       'or continue with',
-                      style: AppFonts.caption.copyWith(
-                        color: AppColors.lightTextSecondary,
-                      ),
+                      style: const TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 11, color: AppColors.lightTextSecondary),
                     ),
                   ),
-                  const Expanded(child: Divider(color: AppColors.lightDivider)),
+                  Expanded(child: Container(height: 1, color: AppColors.lightDivider)),
                 ],
               ),
               const SizedBox(height: 20),
               SizedBox(
                 width: double.infinity,
                 height: 52,
-                child: OutlinedButton(
+                child: ElevatedButton(
                   onPressed: () {},
-                  style: OutlinedButton.styleFrom(
+                  style: ElevatedButton.styleFrom(
                     foregroundColor: AppColors.primaryDark,
                     side: const BorderSide(color: AppColors.lightBorder),
                     backgroundColor: AppColors.lightSurface,
@@ -242,9 +226,7 @@ class _LogInState extends State<LogIn> {
                       const SizedBox(width: 8),
                       Text(
                         'Google sign in',
-                        style: AppFonts.button.copyWith(
-                          color: AppColors.primaryDark,
-                        ),
+                        style: const TextStyle(fontFamily: AppFonts.headingFont, fontSize: 14, fontWeight: FontWeight.w600, color: AppColors.primaryDark),
                       ),
                     ],
                   ),
@@ -257,15 +239,11 @@ class _LogInState extends State<LogIn> {
                   child: Text.rich(
                     TextSpan(
                       text: 'New here?  ',
-                      style: AppFonts.bodySmall.copyWith(
-                        color: AppColors.lightTextSecondary,
-                      ),
+                      style: const TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 12, color: AppColors.lightTextSecondary),
                       children: [
                         TextSpan(
                           text: 'Create an account',
-                          style: AppFonts.labelMedium.copyWith(
-                            color: AppColors.primaryDark,
-                          ),
+                          style: const TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 12, fontWeight: FontWeight.w500, color: AppColors.primaryDark),
                         ),
                       ],
                     ),

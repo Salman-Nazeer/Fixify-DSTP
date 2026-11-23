@@ -1,6 +1,6 @@
-
+import 'package:fixify/views/coustomeWidgts/app_bar.dart';
 import 'package:flutter/material.dart';
-import'package:fixify/constant/colors.dart';
+import 'package:fixify/constant/colors.dart';
 
 class MyBookingsScreen extends StatelessWidget {
   const MyBookingsScreen({super.key});
@@ -12,40 +12,17 @@ class MyBookingsScreen extends StatelessWidget {
 
     final bool isSmall = width < 360;
 
-    final double horizontalPadding =
-        (width * 0.055).clamp(16.0, 26.0).toDouble();
-
-    // Extra colors to match the Figma screenshot.
-    const Color darkGreen = Color(0xFF165B46);
-    const Color paleGreen = Color(0xFFEAF1E9);
-    const Color mutedGreen = Color(0xFF60776D);
+    final double horizontalPadding = (width * 0.055)
+        .clamp(16.0, 26.0)
+        .toDouble();
 
     return Scaffold(
       backgroundColor: AppColors.lightBackground,
 
       // ---------------- APP BAR ----------------
-      appBar: AppBar(
-        backgroundColor: AppColors.lightBackground,
-        elevation: 0,
-        scrolledUnderElevation: 0,
-        centerTitle: false,
-        titleSpacing: 0,
-        leading: IconButton(
-          onPressed: () => Navigator.maybePop(context),
-          icon: const Icon(
-            Icons.arrow_back_ios_new_rounded,
-            size: 19,
-            color: darkGreen,
-          ),
-        ),
-        title: Text(
-          'My bookings',
-          style: TextStyle(
-            fontSize: isSmall ? 18 : 20,
-            fontWeight: FontWeight.w700,
-            color: AppColors.lightTextPrimary,
-          ),
-        ),
+      appBar: customAppBar(
+        context,
+        title: 'My bookings',
       ),
 
       // ---------------- SCREEN BODY ----------------
@@ -72,7 +49,7 @@ class MyBookingsScreen extends StatelessWidget {
                           height: 34,
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
-                            color: darkGreen,
+                            color: AppColors.primaryDark,
                             borderRadius: BorderRadius.circular(9),
                           ),
                           child: Text(
@@ -102,7 +79,7 @@ class MyBookingsScreen extends StatelessWidget {
                             style: TextStyle(
                               fontSize: isSmall ? 10 : 12,
                               fontWeight: FontWeight.w600,
-                              color: darkGreen,
+                              color: AppColors.primaryDark,
                             ),
                           ),
                         ),
@@ -124,7 +101,7 @@ class MyBookingsScreen extends StatelessWidget {
                             style: TextStyle(
                               fontSize: isSmall ? 10 : 12,
                               fontWeight: FontWeight.w600,
-                              color: darkGreen,
+                              color: AppColors.primaryDark,
                             ),
                           ),
                         ),
@@ -159,8 +136,7 @@ class MyBookingsScreen extends StatelessWidget {
                       children: [
                         // STATUS AND BOOKING ID
                         Row(
-                          mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
                               padding: const EdgeInsets.symmetric(
@@ -168,7 +144,7 @@ class MyBookingsScreen extends StatelessWidget {
                                 vertical: 8,
                               ),
                               decoration: BoxDecoration(
-                                color: paleGreen,
+                                color: AppColors.mint,
                                 borderRadius: BorderRadius.circular(8),
                               ),
                               child: const Text(
@@ -176,7 +152,7 @@ class MyBookingsScreen extends StatelessWidget {
                                 style: TextStyle(
                                   fontSize: 11,
                                   fontWeight: FontWeight.w600,
-                                  color: darkGreen,
+                                  color: AppColors.primaryDark,
                                 ),
                               ),
                             ),
@@ -185,7 +161,7 @@ class MyBookingsScreen extends StatelessWidget {
                               '#KM2048',
                               style: TextStyle(
                                 fontSize: 11,
-                                color: mutedGreen,
+                                color: AppColors.lightTextSecondary,
                               ),
                             ),
                           ],
@@ -223,7 +199,7 @@ class MyBookingsScreen extends StatelessWidget {
                             Icon(
                               Icons.calendar_today_outlined,
                               size: 19,
-                              color: darkGreen,
+                              color: AppColors.primaryDark,
                             ),
                             SizedBox(width: 12),
                             Expanded(
@@ -232,7 +208,7 @@ class MyBookingsScreen extends StatelessWidget {
                                 style: TextStyle(
                                   fontSize: 13,
                                   fontWeight: FontWeight.w600,
-                                  color: darkGreen,
+                                  color: AppColors.primaryDark,
                                 ),
                               ),
                             ),
@@ -250,7 +226,7 @@ class MyBookingsScreen extends StatelessWidget {
                               // Add track booking navigation here.
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: darkGreen,
+                              backgroundColor: AppColors.primaryDark,
                               foregroundColor: AppColors.white,
                               elevation: 0,
                               padding: const EdgeInsets.symmetric(
@@ -261,8 +237,7 @@ class MyBookingsScreen extends StatelessWidget {
                               ),
                             ),
                             child: const Row(
-                              mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
                                   'Track booking',
@@ -274,7 +249,7 @@ class MyBookingsScreen extends StatelessWidget {
                                 Icon(
                                   Icons.arrow_forward_rounded,
                                   size: 21,
-                                  color: Color(0xFFDFF39A),
+                                  color: AppColors.mint,
                                 ),
                               ],
                             ),
@@ -291,15 +266,14 @@ class MyBookingsScreen extends StatelessWidget {
                       vertical: 11,
                     ),
                     child: Row(
-                      mainAxisAlignment:
-                          MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         TextButton(
                           onPressed: () {
                             // Add reschedule navigation here.
                           },
                           style: TextButton.styleFrom(
-                            foregroundColor: darkGreen,
+                            foregroundColor: AppColors.primaryDark,
                             padding: const EdgeInsets.symmetric(
                               horizontal: 2,
                               vertical: 7,
@@ -355,7 +329,7 @@ class MyBookingsScreen extends StatelessWidget {
                             vertical: 8,
                           ),
                           decoration: BoxDecoration(
-                            color: paleGreen,
+                            color: AppColors.mint,
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: const Text(
@@ -363,7 +337,7 @@ class MyBookingsScreen extends StatelessWidget {
                             style: TextStyle(
                               fontSize: 11,
                               fontWeight: FontWeight.w600,
-                              color: darkGreen,
+                              color: AppColors.primaryDark,
                             ),
                           ),
                         ),
@@ -405,7 +379,7 @@ class MyBookingsScreen extends StatelessWidget {
                       vertical: 17,
                     ),
                     decoration: BoxDecoration(
-                      color: paleGreen,
+                      color: AppColors.mint,
                       borderRadius: BorderRadius.circular(16),
                     ),
                     child: Column(
@@ -416,7 +390,7 @@ class MyBookingsScreen extends StatelessWidget {
                           style: TextStyle(
                             fontSize: isSmall ? 13 : 15,
                             fontWeight: FontWeight.w700,
-                            color: darkGreen,
+                            color: AppColors.primaryDark,
                           ),
                         ),
 
@@ -427,139 +401,13 @@ class MyBookingsScreen extends StatelessWidget {
                           style: TextStyle(
                             fontSize: isSmall ? 11 : 12,
                             height: 1.4,
-                            color: darkGreen,
+                            color: AppColors.primaryDark,
                           ),
                         ),
                       ],
                     ),
                   ),
                 ],
-              ),
-            ),
-          ),
-        ),
-      ),
-
-      // ---------------- BOTTOM NAVIGATION ----------------
-      bottomNavigationBar: Container(
-        color: AppColors.lightSurface,
-        child: SafeArea(
-          top: false,
-          child: Center(
-            heightFactor: 1,
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 540),
-              child: SizedBox(
-                height: 72,
-                child: Row(
-                  mainAxisAlignment:
-                      MainAxisAlignment.spaceEvenly,
-                  children: [
-                    // HOME
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment:
-                            MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.home_outlined,
-                            size: 23,
-                            color: AppColors.lightTextSecondary,
-                          ),
-                          const SizedBox(height: 5),
-                          Text(
-                            'Home',
-                            style: TextStyle(
-                              fontSize: 10,
-                              color: AppColors.lightTextSecondary,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    // EXPLORE
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment:
-                            MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.grid_view_outlined,
-                            size: 23,
-                            color: AppColors.lightTextSecondary,
-                          ),
-                          const SizedBox(height: 5),
-                          Text(
-                            'Explore',
-                            style: TextStyle(
-                              fontSize: 10,
-                              color: AppColors.lightTextSecondary,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    // BOOKINGS - SELECTED
-                    Expanded(
-                      child: Center(
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 12,
-                            vertical: 9,
-                          ),
-                          decoration: BoxDecoration(
-                            color: paleGreen,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: const Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(
-                                Icons.calendar_month_outlined,
-                                size: 23,
-                                color: darkGreen,
-                              ),
-                              SizedBox(height: 5),
-                              Text(
-                                'Bookings',
-                                style: TextStyle(
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.w700,
-                                  color: darkGreen,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-
-                    // ACCOUNT
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment:
-                            MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.person_outline_rounded,
-                            size: 23,
-                            color: AppColors.lightTextSecondary,
-                          ),
-                          const SizedBox(height: 5),
-                          Text(
-                            'Account',
-                            style: TextStyle(
-                              fontSize: 10,
-                              color: AppColors.lightTextSecondary,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
               ),
             ),
           ),

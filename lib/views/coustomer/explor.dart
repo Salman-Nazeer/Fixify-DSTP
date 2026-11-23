@@ -3,6 +3,7 @@ import 'package:fixify/constant/colors.dart';
 import 'package:fixify/constant/fontsapp.dart';
 import 'package:fixify/views/coustomer/provider_details.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ExploreServicesScreen extends StatelessWidget {
   const ExploreServicesScreen({super.key});
@@ -77,11 +78,11 @@ class ExploreServicesScreen extends StatelessWidget {
           children: [
             Text(
               'EXPLORE',
-              style: AppFonts.overline.copyWith(color: AppColors.primaryDark),
+              style: const TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 10, fontWeight: FontWeight.w600, color: AppColors.primaryDark),
             ),
             Text(
               'Find a provider',
-              style: AppFonts.titleLarge.copyWith(color: AppColors.primary),
+              style: const TextStyle(fontFamily: AppFonts.headingFont, fontSize: 18, fontWeight: FontWeight.w600, color: AppColors.primary),
             ),
           ],
         ),
@@ -101,12 +102,10 @@ class ExploreServicesScreen extends StatelessWidget {
               height: 48,
               child: TextField(
                 textAlignVertical: TextAlignVertical.center,
-                style: AppFonts.input.copyWith(color: textColor),
+                style: TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 14, color: textColor),
                 decoration: InputDecoration(
                   hintText: 'Search service or location',
-                  hintStyle: AppFonts.hint.copyWith(
-                    color: AppTheme.hintColor(context),
-                  ),
+                  hintStyle: TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 13, color: AppTheme.hintColor(context)),
                   prefixIcon: const Icon(
                     Icons.search_rounded,
                     color: AppColors.primaryDark,
@@ -143,8 +142,8 @@ class ExploreServicesScreen extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    '12 trusted plumbers',
-                    style: AppFonts.titleMedium.copyWith(color: textColor),
+                    '${providers.length} trusted plumbers',
+                    style: TextStyle(fontFamily: AppFonts.headingFont, fontSize: 16, fontWeight: FontWeight.w600, color: textColor),
                   ),
                 ),
                 Container(
@@ -158,11 +157,9 @@ class ExploreServicesScreen extends StatelessWidget {
                   ),
                   child: Text(
                     'NEAR YOU',
-                    style: AppFonts.overline.copyWith(
-                      color: isDarkMode
+                    style: TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 10, fontWeight: FontWeight.w600, color: isDarkMode
                           ? AppColors.primaryLight
-                          : AppColors.primaryDark,
-                    ),
+                          : AppColors.primaryDark),
                   ),
                 ),
               ],
@@ -170,12 +167,7 @@ class ExploreServicesScreen extends StatelessWidget {
             const SizedBox(height: 5),
             Text(
               'Sorted by recommended',
-              style: TextStyle(
-                fontFamily: AppFonts.bodyFont,
-                fontSize: AppFonts.bodySmallSize,
-                fontWeight: FontWeight.w400,
-                color: secondaryTextColor,
-              ),
+              style: TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 12, color: secondaryTextColor),
             ),
 
             const SizedBox(height: 16),
@@ -190,15 +182,8 @@ class ExploreServicesScreen extends StatelessWidget {
                 final isAvailableToday =
                     provider['availability'] == 'Available today';
 
-                return InkWell(
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (_) => ProviderDetailsScreen(),
-                      ),
-                    );
-                  },
-                  borderRadius: BorderRadius.circular(18),
+                return GestureDetector(
+                  onTap: () => Get.to(() => const ProviderDetailsScreen()),
                   child: Container(
                     margin: const EdgeInsets.only(top: 14),
                     padding: EdgeInsets.all(isSmallScreen ? 14 : 16),
@@ -243,9 +228,7 @@ class ExploreServicesScreen extends StatelessWidget {
                                     provider['name']!,
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
-                                    style: AppFonts.titleSmall.copyWith(
-                                      color: textColor,
-                                    ),
+                                    style: TextStyle(fontFamily: AppFonts.headingFont, fontSize: 14, fontWeight: FontWeight.w500, color: textColor),
                                   ),
                                   const SizedBox(height: 5),
                                   Row(
@@ -258,9 +241,7 @@ class ExploreServicesScreen extends StatelessWidget {
                                       const SizedBox(width: 3),
                                       Text(
                                         provider['rating']!,
-                                        style: AppFonts.labelSmall.copyWith(
-                                          color: textColor,
-                                        ),
+                                        style: TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 10, fontWeight: FontWeight.w500, color: textColor),
                                       ),
                                     ],
                                   ),
@@ -275,14 +256,15 @@ class ExploreServicesScreen extends StatelessWidget {
                           ],
                         ),
 
-                        Align(
-                          alignment: Alignment.centerRight,
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 9,
-                              vertical: 6,
-                            ),
-                            decoration: BoxDecoration(
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 9,
+                                vertical: 6,
+                              ),
+                              decoration: BoxDecoration(
                               color: isDarkMode
                                   ? AppColors.darkSurface
                                   : isAvailableToday
@@ -308,22 +290,23 @@ class ExploreServicesScreen extends StatelessWidget {
                                 const SizedBox(width: 4),
                                 Text(
                                   provider['availability']!,
-                                  style: AppFonts.labelSmall.copyWith(
-                                    color: isAvailableToday
+                                  style: TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 10, fontWeight: FontWeight.w500, color: isAvailableToday
                                         ? AppColors.success
                                         : isDarkMode
                                         ? AppColors.primaryLight
-                                        : AppColors.primaryDark,
-                                  ),
+                                        : AppColors.primaryDark),
                                 ),
                               ],
                             ),
                           ),
-                        ),
+                        
+                      ],
+                    ),
                       ],
                     ),
                   ),
                 );
+                
               },
             ),
           ],
