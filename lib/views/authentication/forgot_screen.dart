@@ -1,7 +1,7 @@
 import 'package:fixify/constant/colors.dart';
 import 'package:fixify/constant/fontsapp.dart';
+import 'package:fixify/views/coustomeWidgts/app_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class ForgotScreen extends StatefulWidget {
   const ForgotScreen({super.key});
@@ -23,22 +23,8 @@ class _ForgotScreenState extends State<ForgotScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.lightBackground,
-      appBar: AppBar(
-        backgroundColor: AppColors.lightBackground,
-        surfaceTintColor: AppColors.transparent,
-        elevation: 0,
-        leading: IconButton(
-          onPressed: () => Get.back(),
-          icon: const Icon(
-            Icons.arrow_back_ios_new_rounded,
-            color: AppColors.primaryDark,
-          ),
-        ),
-        title: Text(
-          'Forgot password?',
-          style: const TextStyle(fontFamily: AppFonts.headingFont, fontSize: 18, fontWeight: FontWeight.w600, color: AppColors.secondary),
-        ),
-      ),
+      appBar: customAppBar(context, title: 'Forgot password'),
+
       body: SafeArea(
         top: false,
         child: SingleChildScrollView(
@@ -62,17 +48,31 @@ class _ForgotScreenState extends State<ForgotScreen> {
               const SizedBox(height: 28),
               Text(
                 'Let’s get you back in.',
-                style: const TextStyle(fontFamily: AppFonts.headingFont, fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.primaryDark),
+                style: const TextStyle(
+                  fontFamily: AppFonts.headingFont,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.primaryDark,
+                ),
               ),
               const SizedBox(height: 8),
               Text(
                 'We’ll send a reset link to your registered email address.',
-                style: const TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 14, color: AppColors.lightTextSecondary),
+                style: const TextStyle(
+                  fontFamily: AppFonts.bodyFont,
+                  fontSize: 14,
+                  color: AppColors.lightTextSecondary,
+                ),
               ),
               const SizedBox(height: 28),
               Text(
                 'Email address',
-                style: const TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 12, fontWeight: FontWeight.w500, color: AppColors.lightTextPrimary),
+                style: const TextStyle(
+                  fontFamily: AppFonts.bodyFont,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.lightTextPrimary,
+                ),
               ),
               const SizedBox(height: 8),
               TextField(
@@ -81,7 +81,11 @@ class _ForgotScreenState extends State<ForgotScreen> {
                 style: AppFonts.input,
                 decoration: InputDecoration(
                   hintText: 'aarav.sharma@gmail.com',
-                  hintStyle: const TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 13, color: AppColors.lightTextHint),
+                  hintStyle: const TextStyle(
+                    fontFamily: AppFonts.bodyFont,
+                    fontSize: 13,
+                    color: AppColors.lightTextHint,
+                  ),
                   filled: true,
                   fillColor: AppColors.lightSurface,
                   prefixIcon: const Icon(
@@ -90,9 +94,7 @@ class _ForgotScreenState extends State<ForgotScreen> {
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(16),
-                    borderSide: const BorderSide(
-                      color: AppColors.lightBorder,
-                    ),
+                    borderSide: const BorderSide(color: AppColors.lightBorder),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(16),
@@ -121,7 +123,12 @@ class _ForgotScreenState extends State<ForgotScreen> {
                     children: [
                       Text(
                         'Send reset link',
-                        style: const TextStyle(fontFamily: AppFonts.headingFont, fontSize: 14, fontWeight: FontWeight.w600, color: AppColors.white),
+                        style: const TextStyle(
+                          fontFamily: AppFonts.headingFont,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.white,
+                        ),
                       ),
                       const Spacer(),
                       const Icon(
@@ -146,7 +153,12 @@ class _ForgotScreenState extends State<ForgotScreen> {
                   children: [
                     Text(
                       'Using your phone instead?',
-                      style: const TextStyle(fontFamily: AppFonts.headingFont, fontSize: 14, fontWeight: FontWeight.w500, color: AppColors.primaryDark),
+                      style: const TextStyle(
+                        fontFamily: AppFonts.headingFont,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: AppColors.primaryDark,
+                      ),
                     ),
                     const SizedBox(height: 8),
                     TextButton(
@@ -159,7 +171,12 @@ class _ForgotScreenState extends State<ForgotScreen> {
                       ),
                       child: Text(
                         'Get a verification code via SMS',
-                        style: const TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 12, fontWeight: FontWeight.w500, color: AppColors.primaryDark),
+                        style: const TextStyle(
+                          fontFamily: AppFonts.bodyFont,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                          color: AppColors.primaryDark,
+                        ),
                       ),
                     ),
                   ],
@@ -169,7 +186,11 @@ class _ForgotScreenState extends State<ForgotScreen> {
               Center(
                 child: Text(
                   'Protected with end-to-end encryption',
-                  style: const TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 11, color: AppColors.lightTextSecondary),
+                  style: const TextStyle(
+                    fontFamily: AppFonts.bodyFont,
+                    fontSize: 11,
+                    color: AppColors.lightTextSecondary,
+                  ),
                 ),
               ),
             ],

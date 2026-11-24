@@ -1,8 +1,11 @@
 import 'package:fixify/constant/colors.dart';
 import 'package:fixify/constant/fontsapp.dart';
 import 'package:fixify/controllers/auth_controller.dart';
+import 'package:fixify/views/coustomeWidgts/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+final AuthController controller = Get.find<AuthController>();
 
 class CreateAccount extends StatefulWidget {
   const CreateAccount({super.key});
@@ -16,8 +19,6 @@ class _CreateAccountState extends State<CreateAccount> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-
-  final AuthController controller = Get.find<AuthController>();
 
   @override
   void dispose() {
@@ -37,24 +38,7 @@ class _CreateAccountState extends State<CreateAccount> {
       backgroundColor: AppColors.lightBackground,
 
       // APP BAR
-      appBar: AppBar(
-        backgroundColor: AppColors.lightBackground,
-        surfaceTintColor: AppColors.transparent,
-        elevation: 0,
-        leading: IconButton(
-          onPressed: () {
-            Get.back();
-          },
-          icon: const Icon(
-            Icons.arrow_back_ios_new_rounded,
-            color: AppColors.primaryDark,
-          ),
-        ),
-        title: Text(
-          'Create account',
-          style: const TextStyle(fontFamily: AppFonts.headingFont, fontSize: 18, fontWeight: FontWeight.w600, color: AppColors.secondary),
-        ),
-      ),
+      appBar: customAppBar(context, title: 'Create account'),
 
       // BODY
       body: SafeArea(
@@ -81,7 +65,12 @@ class _CreateAccountState extends State<CreateAccount> {
                     ),
                     child: Text(
                       controller.selectedRole.value.toUpperCase(),
-                      style: const TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 12, fontWeight: FontWeight.w500, color: AppColors.primaryDark),
+                      style: const TextStyle(
+                        fontFamily: AppFonts.bodyFont,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                        color: AppColors.primaryDark,
+                      ),
                     ),
                   ),
                 ),
@@ -91,14 +80,23 @@ class _CreateAccountState extends State<CreateAccount> {
                 // HEADING
                 Text(
                   'A little about you',
-                  style: const TextStyle(fontFamily: AppFonts.headingFont, fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.primaryDark),
+                  style: const TextStyle(
+                    fontFamily: AppFonts.headingFont,
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.primaryDark,
+                  ),
                 ),
 
                 SizedBox(height: 6 * scale),
 
                 Text(
                   'Trusted local services start here.',
-                  style: const TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 14, color: AppColors.lightTextSecondary),
+                  style: const TextStyle(
+                    fontFamily: AppFonts.bodyFont,
+                    fontSize: 14,
+                    color: AppColors.lightTextSecondary,
+                  ),
                 ),
 
                 SizedBox(height: 24 * scale),
@@ -106,7 +104,12 @@ class _CreateAccountState extends State<CreateAccount> {
                 // FULL NAME
                 Text(
                   'Full name',
-                  style: const TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 12, fontWeight: FontWeight.w500, color: AppColors.lightTextPrimary),
+                  style: const TextStyle(
+                    fontFamily: AppFonts.bodyFont,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                    color: AppColors.lightTextPrimary,
+                  ),
                 ),
 
                 SizedBox(height: 8 * scale),
@@ -116,7 +119,11 @@ class _CreateAccountState extends State<CreateAccount> {
                   style: AppFonts.input,
                   decoration: InputDecoration(
                     hintText: 'Aarav Sharma',
-                    hintStyle: const TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 13, color: AppColors.lightTextHint),
+                    hintStyle: const TextStyle(
+                      fontFamily: AppFonts.bodyFont,
+                      fontSize: 13,
+                      color: AppColors.lightTextHint,
+                    ),
                     filled: true,
                     fillColor: AppColors.lightSurface,
                     prefixIcon: const Icon(
@@ -144,7 +151,12 @@ class _CreateAccountState extends State<CreateAccount> {
                 // EMAIL ADDRESS
                 Text(
                   'Email address',
-                  style: const TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 12, fontWeight: FontWeight.w500, color: AppColors.lightTextPrimary),
+                  style: const TextStyle(
+                    fontFamily: AppFonts.bodyFont,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                    color: AppColors.lightTextPrimary,
+                  ),
                 ),
 
                 SizedBox(height: 8 * scale),
@@ -155,7 +167,11 @@ class _CreateAccountState extends State<CreateAccount> {
                   style: AppFonts.input,
                   decoration: InputDecoration(
                     hintText: 'aarav.sharma@gmail.com',
-                    hintStyle: const TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 13, color: AppColors.lightTextHint),
+                    hintStyle: const TextStyle(
+                      fontFamily: AppFonts.bodyFont,
+                      fontSize: 13,
+                      color: AppColors.lightTextHint,
+                    ),
                     filled: true,
                     fillColor: AppColors.lightSurface,
                     prefixIcon: const Icon(
@@ -183,7 +199,12 @@ class _CreateAccountState extends State<CreateAccount> {
                 // PHONE NUMBER
                 Text(
                   'Phone number',
-                  style: const TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 12, fontWeight: FontWeight.w500, color: AppColors.lightTextPrimary),
+                  style: const TextStyle(
+                    fontFamily: AppFonts.bodyFont,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                    color: AppColors.lightTextPrimary,
+                  ),
                 ),
 
                 SizedBox(height: 8 * scale),
@@ -194,7 +215,11 @@ class _CreateAccountState extends State<CreateAccount> {
                   style: AppFonts.input,
                   decoration: InputDecoration(
                     hintText: '+91 98765 43210',
-                    hintStyle: const TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 13, color: AppColors.lightTextHint),
+                    hintStyle: const TextStyle(
+                      fontFamily: AppFonts.bodyFont,
+                      fontSize: 13,
+                      color: AppColors.lightTextHint,
+                    ),
                     filled: true,
                     fillColor: AppColors.lightSurface,
                     prefixIcon: const Icon(
@@ -222,7 +247,12 @@ class _CreateAccountState extends State<CreateAccount> {
                 // PASSWORD
                 Text(
                   'Password',
-                  style: const TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 12, fontWeight: FontWeight.w500, color: AppColors.lightTextPrimary),
+                  style: const TextStyle(
+                    fontFamily: AppFonts.bodyFont,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                    color: AppColors.lightTextPrimary,
+                  ),
                 ),
 
                 SizedBox(height: 8 * scale),
@@ -234,7 +264,11 @@ class _CreateAccountState extends State<CreateAccount> {
                     style: AppFonts.input,
                     decoration: InputDecoration(
                       hintText: 'Enter password',
-                      hintStyle: const TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 13, color: AppColors.lightTextHint),
+                      hintStyle: const TextStyle(
+                        fontFamily: AppFonts.bodyFont,
+                        fontSize: 13,
+                        color: AppColors.lightTextHint,
+                      ),
                       filled: true,
                       fillColor: AppColors.lightSurface,
                       prefixIcon: const Icon(
@@ -274,7 +308,11 @@ class _CreateAccountState extends State<CreateAccount> {
                 // TERMS AND PRIVACY POLICY
                 Text(
                   'By signing up, you agree to our Terms & Privacy Policy.',
-                  style: const TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 11, color: AppColors.lightTextSecondary),
+                  style: const TextStyle(
+                    fontFamily: AppFonts.bodyFont,
+                    fontSize: 11,
+                    color: AppColors.lightTextSecondary,
+                  ),
                 ),
 
                 SizedBox(height: 18 * scale),
@@ -285,7 +323,7 @@ class _CreateAccountState extends State<CreateAccount> {
                   height: 52 * scale,
                   child: ElevatedButton(
                     onPressed: () {
-                      // Register API will be called here.
+                      controller.signUp();
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primaryDark,
@@ -300,7 +338,12 @@ class _CreateAccountState extends State<CreateAccount> {
                       children: [
                         Text(
                           'Create account',
-                          style: const TextStyle(fontFamily: AppFonts.headingFont, fontSize: 14, fontWeight: FontWeight.w600, color: AppColors.white),
+                          style: const TextStyle(
+                            fontFamily: AppFonts.headingFont,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.white,
+                          ),
                         ),
                         const Icon(
                           Icons.arrow_forward_rounded,
@@ -317,7 +360,11 @@ class _CreateAccountState extends State<CreateAccount> {
                 Center(
                   child: Text(
                     'Your account information is private.',
-                    style: const TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 11, color: AppColors.lightTextSecondary),
+                    style: const TextStyle(
+                      fontFamily: AppFonts.bodyFont,
+                      fontSize: 11,
+                      color: AppColors.lightTextSecondary,
+                    ),
                   ),
                 ),
 

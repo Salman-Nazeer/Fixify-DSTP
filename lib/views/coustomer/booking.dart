@@ -45,10 +45,9 @@ class _BookingsScreenState extends State<BookingsScreen> {
 
     return Scaffold(
       backgroundColor: AppTheme.backgroundColor(context),
-      appBar: customAppBar(
-    context,
-    title: 'My bookings',
-  ),
+      
+      appBar: customAppBar(context, title: 'My bookings 2'),
+
       body: SafeArea(
         child: SingleChildScrollView(
           keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
@@ -66,7 +65,12 @@ class _BookingsScreenState extends State<BookingsScreen> {
                 children: [
                   Text(
                     "Service service",
-                    style: TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 12, fontWeight: FontWeight.w500, color: AppTheme.secondaryTextColor(context)),
+                    style: TextStyle(
+                      fontFamily: AppFonts.bodyFont,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                      color: AppTheme.secondaryTextColor(context),
+                    ),
                   ),
                   const SizedBox(height: 7),
                   _buildInfoCard(
@@ -79,7 +83,12 @@ class _BookingsScreenState extends State<BookingsScreen> {
                   const SizedBox(height: 16),
                   Text(
                     "Describe the problem",
-                    style: TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 12, fontWeight: FontWeight.w500, color: AppTheme.secondaryTextColor(context)),
+                    style: TextStyle(
+                      fontFamily: AppFonts.bodyFont,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                      color: AppTheme.secondaryTextColor(context),
+                    ),
                   ),
                   const SizedBox(height: 7),
                   Container(
@@ -96,19 +105,33 @@ class _BookingsScreenState extends State<BookingsScreen> {
                     child: TextField(
                       controller: _problemController,
                       maxLines: 3,
-                      style: TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 14, color: textColor, height: 1.35),
+                      style: TextStyle(
+                        fontFamily: AppFonts.bodyFont,
+                        fontSize: 14,
+                        color: textColor,
+                        height: 1.35,
+                      ),
                       decoration: InputDecoration(
                         isCollapsed: true,
                         border: InputBorder.none,
                         hintText: 'Describe the issue...',
-                        hintStyle: TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 13, color: AppTheme.hintColor(context)),
+                        hintStyle: TextStyle(
+                          fontFamily: AppFonts.bodyFont,
+                          fontSize: 13,
+                          color: AppTheme.hintColor(context),
+                        ),
                       ),
                     ),
                   ),
                   const SizedBox(height: 16),
                   Text(
                     "Service address",
-                    style: TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 12, fontWeight: FontWeight.w500, color: AppTheme.secondaryTextColor(context)),
+                    style: TextStyle(
+                      fontFamily: AppFonts.bodyFont,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                      color: AppTheme.secondaryTextColor(context),
+                    ),
                   ),
                   const SizedBox(height: 7),
                   _buildInfoCard(
@@ -119,10 +142,15 @@ class _BookingsScreenState extends State<BookingsScreen> {
                     surfaceColor: surfaceColor,
                   ),
                   const SizedBox(height: 18),
-                  
+
                   Text(
                     "Choose a date · November 2026",
-                    style: TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 12, fontWeight: FontWeight.w500, color: AppTheme.secondaryTextColor(context)),
+                    style: TextStyle(
+                      fontFamily: AppFonts.bodyFont,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                      color: AppTheme.secondaryTextColor(context),
+                    ),
                   ),
                   const SizedBox(height: 10),
                   Row(
@@ -155,16 +183,26 @@ class _BookingsScreenState extends State<BookingsScreen> {
                                 children: [
                                   Text(
                                     item['day']!,
-                                    style: TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 10, fontWeight: FontWeight.w500, color: isSelected
+                                    style: TextStyle(
+                                      fontFamily: AppFonts.bodyFont,
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w500,
+                                      color: isSelected
                                           ? AppColors.mint
-                                          : secondaryTextColor),
+                                          : secondaryTextColor,
+                                    ),
                                   ),
                                   const SizedBox(height: 4),
                                   Text(
                                     item['date']!,
-                                    style: TextStyle(fontFamily: AppFonts.headingFont, fontSize: 16, fontWeight: FontWeight.w700, color: isSelected
+                                    style: TextStyle(
+                                      fontFamily: AppFonts.headingFont,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w700,
+                                      color: isSelected
                                           ? AppColors.white
-                                          : textColor),
+                                          : textColor,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -177,7 +215,12 @@ class _BookingsScreenState extends State<BookingsScreen> {
                   const SizedBox(height: 18),
                   Text(
                     "Available time slots · IST",
-                    style: TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 12, fontWeight: FontWeight.w500, color: AppTheme.secondaryTextColor(context)),
+                    style: TextStyle(
+                      fontFamily: AppFonts.bodyFont,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                      color: AppTheme.secondaryTextColor(context),
+                    ),
                   ),
                   const SizedBox(height: 10),
                   Row(
@@ -209,9 +252,14 @@ class _BookingsScreenState extends State<BookingsScreen> {
                                 _timeSlots[index],
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
-                                style: TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 10, fontWeight: FontWeight.w600, color: isSelected
+                                style: TextStyle(
+                                  fontFamily: AppFonts.bodyFont,
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w600,
+                                  color: isSelected
                                       ? AppColors.white
-                                      : AppColors.primaryDark),
+                                      : AppColors.primaryDark,
+                                ),
                               ),
                             ),
                           ),
@@ -222,7 +270,11 @@ class _BookingsScreenState extends State<BookingsScreen> {
                   const SizedBox(height: 12),
                   Text(
                     'Times sync with your provider\'s availability.',
-                    style: TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 11, color: secondaryTextColor),
+                    style: TextStyle(
+                      fontFamily: AppFonts.bodyFont,
+                      fontSize: 11,
+                      color: secondaryTextColor,
+                    ),
                   ),
                   const SizedBox(height: 20),
                   SizedBox(
@@ -253,7 +305,12 @@ class _BookingsScreenState extends State<BookingsScreen> {
                         children: [
                           Text(
                             'Review booking',
-                            style: const TextStyle(fontFamily: AppFonts.headingFont, fontSize: 14, fontWeight: FontWeight.w600, color: AppColors.white),
+                            style: const TextStyle(
+                              fontFamily: AppFonts.headingFont,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.white,
+                            ),
                           ),
                           const Icon(
                             Icons.arrow_forward_rounded,
@@ -296,7 +353,13 @@ class _BookingsScreenState extends State<BookingsScreen> {
           Expanded(
             child: Text(
               text,
-              style: TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 14, fontWeight: FontWeight.w500, color: textColor, height: 1.35),
+              style: TextStyle(
+                fontFamily: AppFonts.bodyFont,
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                color: textColor,
+                height: 1.35,
+              ),
             ),
           ),
         ],

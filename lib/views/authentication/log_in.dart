@@ -1,8 +1,9 @@
 import 'package:fixify/constant/colors.dart';
 import 'package:fixify/constant/fontsapp.dart';
 import 'package:fixify/controllers/auth_controller.dart';
-import 'package:fixify/views/authentication/create_account.dart';
 import 'package:fixify/views/authentication/forgot_screen.dart';
+import 'package:fixify/views/authentication/role_decide.dart';
+import 'package:fixify/views/coustomeWidgts/app_bar.dart';
 import 'package:fixify/views/nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,6 +14,8 @@ class LogIn extends StatefulWidget {
   @override
   State<LogIn> createState() => _LogInState();
 }
+
+final AuthController controller = Get.find<AuthController>();
 
 class _LogInState extends State<LogIn> {
   final TextEditingController _emailController = TextEditingController();
@@ -27,26 +30,15 @@ class _LogInState extends State<LogIn> {
 
   @override
   Widget build(BuildContext context) {
-    final AuthController controller = Get.find<AuthController>();
-
     return Scaffold(
       backgroundColor: AppColors.lightBackground,
-      appBar: AppBar(
-        backgroundColor: AppColors.lightBackground,
-        surfaceTintColor: AppColors.transparent,
-        elevation: 0,
-        leading: IconButton(
-          onPressed: () => Get.back(),
-          icon: const Icon(
-            Icons.arrow_back_ios_new_rounded,
-            color: AppColors.primaryDark,
-          ),
-        ),
-        title: Text(
-          'Welcome back',
-          style: const TextStyle(fontFamily: AppFonts.headingFont, fontSize: 18, fontWeight: FontWeight.w600, color: AppColors.secondary),
-        ),
+
+      appBar: customAppBar(
+        context,
+        title: 'Welcome back',
+        showBackButton: false,
       ),
+
       body: SafeArea(
         top: false,
         child: SingleChildScrollView(
@@ -56,23 +48,42 @@ class _LogInState extends State<LogIn> {
             children: [
               Text(
                 'Your home.',
-                style: const TextStyle(fontFamily: AppFonts.headingFont, fontSize: 28, fontWeight: FontWeight.w600, color: AppColors.primaryDark),
+                style: const TextStyle(
+                  fontFamily: AppFonts.headingFont,
+                  fontSize: 28,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.primaryDark,
+                ),
               ),
               Text(
                 'In good hands.',
-                style: const TextStyle(fontFamily: AppFonts.headingFont, fontSize: 28, fontWeight: FontWeight.w600, color: AppColors.primaryDark),
+                style: const TextStyle(
+                  fontFamily: AppFonts.headingFont,
+                  fontSize: 28,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.primaryDark,
+                ),
               ),
               const SizedBox(height: 12),
               Obx(
                 () => Text(
                   'Sign in to continue as ${controller.selectedRole.value.toLowerCase()}.',
-                  style: const TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 14, color: AppColors.lightTextSecondary),
+                  style: const TextStyle(
+                    fontFamily: AppFonts.bodyFont,
+                    fontSize: 14,
+                    color: AppColors.lightTextSecondary,
+                  ),
                 ),
               ),
               const SizedBox(height: 28),
               Text(
                 'Email or phone number',
-                style: const TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 12, fontWeight: FontWeight.w500, color: AppColors.lightTextPrimary),
+                style: const TextStyle(
+                  fontFamily: AppFonts.bodyFont,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.lightTextPrimary,
+                ),
               ),
               const SizedBox(height: 8),
               TextField(
@@ -81,7 +92,11 @@ class _LogInState extends State<LogIn> {
                 style: AppFonts.input,
                 decoration: InputDecoration(
                   hintText: 'aarav.sharma@gmail.com',
-                  hintStyle: const TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 13, color: AppColors.lightTextHint),
+                  hintStyle: const TextStyle(
+                    fontFamily: AppFonts.bodyFont,
+                    fontSize: 13,
+                    color: AppColors.lightTextHint,
+                  ),
                   filled: true,
                   fillColor: AppColors.lightSurface,
                   prefixIcon: const Icon(
@@ -104,7 +119,12 @@ class _LogInState extends State<LogIn> {
               const SizedBox(height: 18),
               Text(
                 'Password',
-                style: const TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 12, fontWeight: FontWeight.w500, color: AppColors.lightTextPrimary),
+                style: const TextStyle(
+                  fontFamily: AppFonts.bodyFont,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.lightTextPrimary,
+                ),
               ),
               const SizedBox(height: 8),
               Obx(
@@ -114,7 +134,11 @@ class _LogInState extends State<LogIn> {
                   style: AppFonts.input,
                   decoration: InputDecoration(
                     hintText: 'Enter password',
-                    hintStyle: const TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 13, color: AppColors.lightTextHint),
+                    hintStyle: const TextStyle(
+                      fontFamily: AppFonts.bodyFont,
+                      fontSize: 13,
+                      color: AppColors.lightTextHint,
+                    ),
                     filled: true,
                     fillColor: AppColors.lightSurface,
                     prefixIcon: const Icon(
@@ -157,7 +181,12 @@ class _LogInState extends State<LogIn> {
                     ),
                     child: Text(
                       'Forgot password?',
-                      style: const TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 12, fontWeight: FontWeight.w500, color: AppColors.primaryDark),
+                      style: const TextStyle(
+                        fontFamily: AppFonts.bodyFont,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                        color: AppColors.primaryDark,
+                      ),
                     ),
                   ),
                 ],
@@ -180,7 +209,12 @@ class _LogInState extends State<LogIn> {
                     children: [
                       Text(
                         'Sign in',
-                        style: const TextStyle(fontFamily: AppFonts.headingFont, fontSize: 14, fontWeight: FontWeight.w600, color: AppColors.white),
+                        style: const TextStyle(
+                          fontFamily: AppFonts.headingFont,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.white,
+                        ),
                       ),
                       const Spacer(),
                       const Icon(
@@ -194,15 +228,23 @@ class _LogInState extends State<LogIn> {
               const SizedBox(height: 24),
               Row(
                 children: [
-                  Expanded(child: Container(height: 1, color: AppColors.lightDivider)),
+                  Expanded(
+                    child: Container(height: 1, color: AppColors.lightDivider),
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 12),
                     child: Text(
                       'or continue with',
-                      style: const TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 11, color: AppColors.lightTextSecondary),
+                      style: const TextStyle(
+                        fontFamily: AppFonts.bodyFont,
+                        fontSize: 11,
+                        color: AppColors.lightTextSecondary,
+                      ),
                     ),
                   ),
-                  Expanded(child: Container(height: 1, color: AppColors.lightDivider)),
+                  Expanded(
+                    child: Container(height: 1, color: AppColors.lightDivider),
+                  ),
                 ],
               ),
               const SizedBox(height: 20),
@@ -226,7 +268,12 @@ class _LogInState extends State<LogIn> {
                       const SizedBox(width: 8),
                       Text(
                         'Google sign in',
-                        style: const TextStyle(fontFamily: AppFonts.headingFont, fontSize: 14, fontWeight: FontWeight.w600, color: AppColors.primaryDark),
+                        style: const TextStyle(
+                          fontFamily: AppFonts.headingFont,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.primaryDark,
+                        ),
                       ),
                     ],
                   ),
@@ -235,15 +282,24 @@ class _LogInState extends State<LogIn> {
               const SizedBox(height: 20),
               Center(
                 child: TextButton(
-                  onPressed: () => Get.to(() => const CreateAccount()),
+                  onPressed: () => Get.to(() => const RoleDecide()),
                   child: Text.rich(
                     TextSpan(
                       text: 'New here?  ',
-                      style: const TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 12, color: AppColors.lightTextSecondary),
+                      style: const TextStyle(
+                        fontFamily: AppFonts.bodyFont,
+                        fontSize: 12,
+                        color: AppColors.lightTextSecondary,
+                      ),
                       children: [
                         TextSpan(
                           text: 'Create an account',
-                          style: const TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 12, fontWeight: FontWeight.w500, color: AppColors.primaryDark),
+                          style: const TextStyle(
+                            fontFamily: AppFonts.bodyFont,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.primaryDark,
+                          ),
                         ),
                       ],
                     ),

@@ -22,7 +22,7 @@ class MyBookingsScreen extends StatelessWidget {
       // ---------------- APP BAR ----------------
       appBar: customAppBar(
         context,
-        title: 'My bookings',
+        title: 'My bookings 1',
       ),
 
       // ---------------- SCREEN BODY ----------------

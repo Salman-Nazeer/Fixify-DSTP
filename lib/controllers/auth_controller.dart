@@ -1,4 +1,4 @@
-import 'package:fixify/views/authentication/role_decide.dart';
+import 'package:fixify/views/authentication/log_in.dart';
 import 'package:get/get.dart';
 
 class AuthController extends GetxController {
@@ -59,37 +59,43 @@ class AuthController extends GetxController {
   // }
 
   // // Sign Up Screen
-  // Future<void> signUp({
-  //   required String name,
-  //   required String email,
-  //   required String password,
-  // }) async {
-  //   isLoading.value = true;
-  //   var myBody = {'name': name, 'email': email, 'password': password};
+  void signUp() {
+    if (selectedRole.value == 'Customer') {
+      Get.offAll(() => const LogIn());
+    } else if (selectedRole.value == 'Service Provider') {
+      // Get.to(() => const LogIn());
+    }
+    // Future<void> signUp({
+    //   required String name,
+    //   required String email,
+    //   required String password,
+    // }) async {
+    //   isLoading.value = true;
+    //   var myBody = {'name': name, 'email': email, 'password': password};
 
-  //   var response = await ApiController().post(
-  //     url: ApiConstant.registerApi,
-  //     body: myBody,
-  //   );
+    //   var response = await ApiController().post(
+    //     url: ApiConstant.registerApi,
+    //     body: myBody,
+    //   );
 
-  //   await Future.delayed(Duration(seconds: 2));
-  //   isLoading.value = false;
+    //   await Future.delayed(Duration(seconds: 2));
+    //   isLoading.value = false;
 
-  //   if (response.$1 == 201 || response.$1 == 200) {
-  //     Get.snackbar("Welcome", "Your Account Is Registered");
-  //     Get.to(() => LogInPage());
-  // } else {
-  //   var loginRespose = jsonDecode(response.$2);
-  //   Get.snackbar("Error", '${loginRespose['message'] ?? 'Login failed'}');
+    //   if (response.$1 == 201 || response.$1 == 200) {
+    //     Get.snackbar("Welcome", "Your Account Is Registered");
+    //     Get.to(() => LogInPage());
+    // } else {
+    //   var loginRespose = jsonDecode(response.$2);
+    //   Get.snackbar("Error", '${loginRespose['message'] ?? 'Login failed'}');
 
-  //   }
-  // }
+    //   }
+    // }
+  }
 
   // Splash Screen
   Future<void> screenLoader() async {
     await Future.delayed(Duration(seconds: 1));
-    // Get.offAll(() => Navbar());
-    Get.offAll(() => RoleDecide());
+    Get.offAll(() => LogIn());
 
     // var response = await ApiController().get(
     //   url: ApiConstant.rememberMeApi,
