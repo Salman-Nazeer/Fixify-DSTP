@@ -78,15 +78,26 @@ class ExploreServicesScreen extends StatelessWidget {
           children: [
             Text(
               'EXPLORE',
-              style: const TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 10, fontWeight: FontWeight.w600, color: AppColors.primaryDark),
+              style: const TextStyle(
+                fontFamily: AppFonts.bodyFont,
+                fontSize: 10,
+                fontWeight: FontWeight.w600,
+                color: AppColors.primaryDark,
+              ),
             ),
             Text(
               'Find a provider',
-              style: const TextStyle(fontFamily: AppFonts.headingFont, fontSize: 18, fontWeight: FontWeight.w600, color: AppColors.primary),
+              style: const TextStyle(
+                fontFamily: AppFonts.headingFont,
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+                color: AppColors.primary,
+              ),
             ),
           ],
         ),
       ),
+
       body: SingleChildScrollView(
         padding: EdgeInsets.fromLTRB(
           size.width * 0.045,
@@ -102,10 +113,18 @@ class ExploreServicesScreen extends StatelessWidget {
               height: 48,
               child: TextField(
                 textAlignVertical: TextAlignVertical.center,
-                style: TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 14, color: textColor),
+                style: TextStyle(
+                  fontFamily: AppFonts.bodyFont,
+                  fontSize: 14,
+                  color: textColor,
+                ),
                 decoration: InputDecoration(
                   hintText: 'Search service or location',
-                  hintStyle: TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 13, color: AppTheme.hintColor(context)),
+                  hintStyle: TextStyle(
+                    fontFamily: AppFonts.bodyFont,
+                    fontSize: 13,
+                    color: AppTheme.hintColor(context),
+                  ),
                   prefixIcon: const Icon(
                     Icons.search_rounded,
                     color: AppColors.primaryDark,
@@ -143,7 +162,12 @@ class ExploreServicesScreen extends StatelessWidget {
                 Expanded(
                   child: Text(
                     '${providers.length} trusted plumbers',
-                    style: TextStyle(fontFamily: AppFonts.headingFont, fontSize: 16, fontWeight: FontWeight.w600, color: textColor),
+                    style: TextStyle(
+                      fontFamily: AppFonts.headingFont,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: textColor,
+                    ),
                   ),
                 ),
                 Container(
@@ -157,9 +181,14 @@ class ExploreServicesScreen extends StatelessWidget {
                   ),
                   child: Text(
                     'NEAR YOU',
-                    style: TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 10, fontWeight: FontWeight.w600, color: isDarkMode
+                    style: TextStyle(
+                      fontFamily: AppFonts.bodyFont,
+                      fontSize: 10,
+                      fontWeight: FontWeight.w600,
+                      color: isDarkMode
                           ? AppColors.primaryLight
-                          : AppColors.primaryDark),
+                          : AppColors.primaryDark,
+                    ),
                   ),
                 ),
               ],
@@ -167,7 +196,11 @@ class ExploreServicesScreen extends StatelessWidget {
             const SizedBox(height: 5),
             Text(
               'Sorted by recommended',
-              style: TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 12, color: secondaryTextColor),
+              style: TextStyle(
+                fontFamily: AppFonts.bodyFont,
+                fontSize: 12,
+                color: secondaryTextColor,
+              ),
             ),
 
             const SizedBox(height: 16),
@@ -228,7 +261,12 @@ class ExploreServicesScreen extends StatelessWidget {
                                     provider['name']!,
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(fontFamily: AppFonts.headingFont, fontSize: 14, fontWeight: FontWeight.w500, color: textColor),
+                                    style: TextStyle(
+                                      fontFamily: AppFonts.headingFont,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                      color: textColor,
+                                    ),
                                   ),
                                   const SizedBox(height: 5),
                                   Row(
@@ -241,7 +279,12 @@ class ExploreServicesScreen extends StatelessWidget {
                                       const SizedBox(width: 3),
                                       Text(
                                         provider['rating']!,
-                                        style: TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 10, fontWeight: FontWeight.w500, color: textColor),
+                                        style: TextStyle(
+                                          fontFamily: AppFonts.bodyFont,
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.w500,
+                                          color: textColor,
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -265,48 +308,51 @@ class ExploreServicesScreen extends StatelessWidget {
                                 vertical: 6,
                               ),
                               decoration: BoxDecoration(
-                              color: isDarkMode
-                                  ? AppColors.darkSurface
-                                  : isAvailableToday
-                                  ? AppColors.successLight
-                                  : AppColors.mint,
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(
-                                  isAvailableToday
-                                      ? Icons.check_circle_outline_rounded
-                                      : Icons.schedule_rounded,
-                                  size: 13,
-                                  color: isAvailableToday
-                                      ? AppColors.success
-                                      : isDarkMode
-                                      ? AppColors.primaryLight
-                                      : AppColors.primaryDark,
-                                ),
-                                const SizedBox(width: 4),
-                                Text(
-                                  provider['availability']!,
-                                  style: TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 10, fontWeight: FontWeight.w500, color: isAvailableToday
+                                color: isDarkMode
+                                    ? AppColors.darkSurface
+                                    : isAvailableToday
+                                    ? AppColors.successLight
+                                    : AppColors.mint,
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(
+                                    isAvailableToday
+                                        ? Icons.check_circle_outline_rounded
+                                        : Icons.schedule_rounded,
+                                    size: 13,
+                                    color: isAvailableToday
                                         ? AppColors.success
                                         : isDarkMode
                                         ? AppColors.primaryLight
-                                        : AppColors.primaryDark),
-                                ),
-                              ],
+                                        : AppColors.primaryDark,
+                                  ),
+                                  const SizedBox(width: 4),
+                                  Text(
+                                    provider['availability']!,
+                                    style: TextStyle(
+                                      fontFamily: AppFonts.bodyFont,
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w500,
+                                      color: isAvailableToday
+                                          ? AppColors.success
+                                          : isDarkMode
+                                          ? AppColors.primaryLight
+                                          : AppColors.primaryDark,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                        
-                      ],
-                    ),
+                          ],
+                        ),
                       ],
                     ),
                   ),
                 );
-                
               },
             ),
           ],

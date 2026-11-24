@@ -24,10 +24,7 @@ class ProviderDetailsScreen extends StatelessWidget {
       backgroundColor: AppTheme.backgroundColor(context),
 
       // APP BAR
-      appBar: customAppBar(
-    context,
-    title: 'Provider details',
-  ),
+      appBar: customAppBar(context, title: 'Provider details'),
 
       body: SafeArea(
         child: Column(
@@ -84,7 +81,12 @@ class ProviderDetailsScreen extends StatelessWidget {
                                         const SizedBox(width: 3),
                                         Text(
                                           'VERIFIED',
-                                          style: const TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 10, fontWeight: FontWeight.w700, color: AppColors.primaryDark),
+                                          style: const TextStyle(
+                                            fontFamily: AppFonts.bodyFont,
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.w700,
+                                            color: AppColors.primaryDark,
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -93,7 +95,12 @@ class ProviderDetailsScreen extends StatelessWidget {
 
                                     Text(
                                       'Available today',
-                                      style: const TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 10, fontWeight: FontWeight.w600, color: AppColors.primaryDark),
+                                      style: const TextStyle(
+                                        fontFamily: AppFonts.bodyFont,
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.w600,
+                                        color: AppColors.primaryDark,
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -103,7 +110,12 @@ class ProviderDetailsScreen extends StatelessWidget {
                           const SizedBox(height: 15),
                           Text(
                             'Greenline Plumbing',
-                            style: const TextStyle(fontFamily: AppFonts.headingFont, fontSize: 20, fontWeight: FontWeight.w600, color: AppColors.white),
+                            style: const TextStyle(
+                              fontFamily: AppFonts.headingFont,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.white,
+                            ),
                           ),
                           const SizedBox(height: 10),
                           Row(
@@ -116,7 +128,11 @@ class ProviderDetailsScreen extends StatelessWidget {
                               const SizedBox(width: 4),
                               Text(
                                 '4.9 (128 reviews)',
-                                style: const TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 11, color: AppColors.white),
+                                style: const TextStyle(
+                                  fontFamily: AppFonts.bodyFont,
+                                  fontSize: 11,
+                                  color: AppColors.white,
+                                ),
                               ),
                               Padding(
                                 padding: const EdgeInsets.symmetric(
@@ -130,7 +146,11 @@ class ProviderDetailsScreen extends StatelessWidget {
                               ),
                               Text(
                                 '6 years of experience',
-                                style: const TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 11, color: AppColors.white),
+                                style: const TextStyle(
+                                  fontFamily: AppFonts.bodyFont,
+                                  fontSize: 11,
+                                  color: AppColors.white,
+                                ),
                               ),
                             ],
                           ),
@@ -144,13 +164,23 @@ class ProviderDetailsScreen extends StatelessWidget {
                     // DESCRIPTION
                     Text(
                       'Reliable repairs. Zero stress.',
-                      style: TextStyle(fontFamily: AppFonts.headingFont, fontSize: 18, fontWeight: FontWeight.w600, color: textColor),
+                      style: TextStyle(
+                        fontFamily: AppFonts.headingFont,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        color: textColor,
+                      ),
                     ),
                     const SizedBox(height: 8),
                     Text(
                       'Leak repairs, installations and everyday plumbing, '
                       'handled by trained, background-checked experts.',
-                      style: TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 12, color: secondaryTextColor, height: 1.5),
+                      style: TextStyle(
+                        fontFamily: AppFonts.bodyFont,
+                        fontSize: 12,
+                        color: secondaryTextColor,
+                        height: 1.5,
+                      ),
                     ),
 
                     const SizedBox(height: 27),
@@ -158,7 +188,12 @@ class ProviderDetailsScreen extends StatelessWidget {
                     // SERVICES
                     Text(
                       'Services available',
-                      style: TextStyle(fontFamily: AppFonts.headingFont, fontSize: 18, fontWeight: FontWeight.w600, color: textColor),
+                      style: TextStyle(
+                        fontFamily: AppFonts.headingFont,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        color: textColor,
+                      ),
                     ),
                     const SizedBox(height: 12),
 
@@ -170,25 +205,30 @@ class ProviderDetailsScreen extends StatelessWidget {
                             bottom: index == services.length - 1 ? 0 : 8,
                           ),
                           child: Container(
-                          width: double.infinity,
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 13,
-                            vertical: 13,
-                          ),
-                          decoration: BoxDecoration(
-                            color: AppTheme.surfaceColor(context),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  service['name']!,
-                                  style: TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 12, fontWeight: FontWeight.w500, color: textColor),
+                            width: double.infinity,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 13,
+                              vertical: 13,
+                            ),
+                            decoration: BoxDecoration(
+                              color: AppTheme.surfaceColor(context),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    service['name']!,
+                                    style: TextStyle(
+                                      fontFamily: AppFonts.bodyFont,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
+                                      color: textColor,
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
+                              ],
+                            ),
                           ),
                         );
                       }),
@@ -207,13 +247,22 @@ class ProviderDetailsScreen extends StatelessWidget {
                         const SizedBox(width: 4),
                         Text(
                           '4.9',
-                          style: TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 12, fontWeight: FontWeight.w700, color: textColor),
+                          style: TextStyle(
+                            fontFamily: AppFonts.bodyFont,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                            color: textColor,
+                          ),
                         ),
                         const SizedBox(width: 7),
                         Expanded(
                           child: Text(
                             '"On time, tidy and fixed it in one visit."',
-                            style: TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 12, color: textColor),
+                            style: TextStyle(
+                              fontFamily: AppFonts.bodyFont,
+                              fontSize: 12,
+                              color: textColor,
+                            ),
                           ),
                         ),
                       ],
@@ -221,7 +270,11 @@ class ProviderDetailsScreen extends StatelessWidget {
                     const SizedBox(height: 8),
                     Text(
                       'Priya S. · Verified booking · 14 Nov',
-                      style: TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 11, color: secondaryTextColor),
+                      style: TextStyle(
+                        fontFamily: AppFonts.bodyFont,
+                        fontSize: 11,
+                        color: secondaryTextColor,
+                      ),
                     ),
                     const SizedBox(height: 20),
                   ],
@@ -236,8 +289,6 @@ class ProviderDetailsScreen extends StatelessWidget {
                 width: double.infinity,
                 height: 50,
                 child: ElevatedButton(
-
-
                   onPressed: () => Get.to(() => const BookingsScreen()),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primaryDark,
@@ -252,7 +303,12 @@ class ProviderDetailsScreen extends StatelessWidget {
                       Expanded(
                         child: Text(
                           'Select service',
-                          style: const TextStyle(fontFamily: AppFonts.headingFont, fontSize: 14, fontWeight: FontWeight.w600, color: AppColors.white),
+                          style: const TextStyle(
+                            fontFamily: AppFonts.headingFont,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.white,
+                          ),
                         ),
                       ),
                       const Icon(

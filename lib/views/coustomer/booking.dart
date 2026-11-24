@@ -2,6 +2,7 @@ import 'package:fixify/app/app_theme.dart';
 import 'package:fixify/constant/colors.dart';
 import 'package:fixify/constant/fontsapp.dart';
 import 'package:fixify/views/coustomeWidgts/app_bar.dart';
+import 'package:fixify/views/coustomer/track_booking_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -45,8 +46,8 @@ class _BookingsScreenState extends State<BookingsScreen> {
 
     return Scaffold(
       backgroundColor: AppTheme.backgroundColor(context),
-      
-      appBar: customAppBar(context, title: 'My bookings 2'),
+
+      appBar: customAppBar(context, title: 'My bookings'),
 
       body: SafeArea(
         child: SingleChildScrollView(
@@ -283,8 +284,8 @@ class _BookingsScreenState extends State<BookingsScreen> {
                     child: ElevatedButton(
                       onPressed: () {
                         Get.snackbar(
-                          'Booking',
-                          'Booking details are ready to review',
+                          'Booking Done',
+                          'Your booking has been confirmed.',
                           snackPosition: SnackPosition.BOTTOM,
                           backgroundColor: AppColors.primaryDark,
                           colorText: AppColors.white,
@@ -304,7 +305,47 @@ class _BookingsScreenState extends State<BookingsScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Review booking',
+                            'Booked',
+                            style: const TextStyle(
+                              fontFamily: AppFonts.headingFont,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.white,
+                            ),
+                          ),
+                          const Icon(
+                            Icons.arrow_forward_rounded,
+                            size: 20,
+                            color: AppColors.mint,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+
+                  SizedBox(height: 12),
+
+                  SizedBox(
+                    width: double.infinity,
+                    height: 52,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Get.to(TrackBookingScreen());
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.primaryDark,
+                        foregroundColor: AppColors.white,
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14),
+                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: 18),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Track Booking',
                             style: const TextStyle(
                               fontFamily: AppFonts.headingFont,
                               fontSize: 14,

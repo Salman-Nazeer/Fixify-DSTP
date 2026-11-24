@@ -38,10 +38,7 @@ class _RateYourServiceScreenState extends State<RateYourServiceScreen> {
       resizeToAvoidBottomInset: true,
 
       // ---------------- APP BAR ----------------
-      appBar: customAppBar(
-    context,
-    title: 'Rate your service',
-  ),
+      appBar: customAppBar(context, title: 'Rate your service'),
 
       // ---------------- BODY ----------------
       body: SingleChildScrollView(
