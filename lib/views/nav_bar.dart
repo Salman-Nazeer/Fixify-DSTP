@@ -19,7 +19,7 @@ class _NavbarState extends State<Navbar> {
     const DashboardScreen(),
     const ExploreServicesScreen(),
     // const BookingsScreen(),
-    const ProfileScreen(),
+    const CustomerProfileScreen(),
   ];
 
   RxInt myScreenIndex = 0.obs;

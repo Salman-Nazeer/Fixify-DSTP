@@ -17,7 +17,7 @@ class DashboardScreen extends StatelessWidget {
     final backgroundColor = AppTheme.backgroundColor(context);
     final surfaceColor = AppTheme.surfaceColor(context);
     final textColor = AppTheme.primaryTextColor(context);
-    final secondaryTextColor = AppTheme.secondaryTextColor(context);
+    // final secondaryTextColor = AppTheme.secondaryTextColor(context);
 
     // Services data
     final List<Map<String, dynamic>> services = [
@@ -53,11 +53,21 @@ class DashboardScreen extends StatelessWidget {
                       children: [
                         Text(
                           'YOUR HOME, SORTED',
-                          style: const TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 10, fontWeight: FontWeight.w600, color: AppColors.primaryDark),
+                          style: const TextStyle(
+                            fontFamily: AppFonts.bodyFont,
+                            fontSize: 10,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.primaryDark,
+                          ),
                         ),
                         Text(
                           'Kaamly',
-                          style: const TextStyle(fontFamily: AppFonts.headingFont, fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.primary),
+                          style: const TextStyle(
+                            fontFamily: AppFonts.headingFont,
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.primary,
+                          ),
                         ),
                       ],
                     ),
@@ -71,30 +81,6 @@ class DashboardScreen extends StatelessWidget {
                       color: AppColors.primaryDark,
                     ),
                   ),
-                  IconButton(
-                    onPressed: () {},
-                    tooltip: 'Notifications',
-                    icon: const Icon(
-                      Icons.notifications_none_rounded,
-                      color: AppColors.primaryDark,
-                    ),
-                  ),
-                ],
-              ),
-
-              // LOCATION
-              Row(
-                children: [
-                  const Icon(
-                    Icons.location_on_outlined,
-                    size: 15,
-                    color: AppColors.primaryDark,
-                  ),
-                  const SizedBox(width: 5),
-                  Text(
-                    'Home · Indiranagar, Bengaluru',
-                    style: TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 12, color: textColor),
-                  ),
                 ],
               ),
 
@@ -105,10 +91,18 @@ class DashboardScreen extends StatelessWidget {
                 height: 46,
                 child: TextField(
                   textAlignVertical: TextAlignVertical.center,
-                  style: TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 14, color: textColor),
+                  style: TextStyle(
+                    fontFamily: AppFonts.bodyFont,
+                    fontSize: 14,
+                    color: textColor,
+                  ),
                   decoration: InputDecoration(
                     hintText: 'What can we help with?',
-                    hintStyle: TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 13, color: AppTheme.hintColor(context)),
+                    hintStyle: TextStyle(
+                      fontFamily: AppFonts.bodyFont,
+                      fontSize: 13,
+                      color: AppTheme.hintColor(context),
+                    ),
                     prefixIcon: const Icon(
                       Icons.search_rounded,
                       color: AppColors.primaryDark,
@@ -161,7 +155,12 @@ class DashboardScreen extends StatelessWidget {
                       ),
                       child: Text(
                         'TRUSTED LOCAL HELP',
-                        style: const TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 10, fontWeight: FontWeight.w500, color: AppColors.primaryDark),
+                        style: const TextStyle(
+                          fontFamily: AppFonts.bodyFont,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w500,
+                          color: AppColors.primaryDark,
+                        ),
                       ),
                     ),
 
@@ -172,12 +171,21 @@ class DashboardScreen extends StatelessWidget {
                       children: [
                         Text(
                           'Less to do.\nMore living.',
-                          style: const TextStyle(fontFamily: AppFonts.headingFont, fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.white),
+                          style: const TextStyle(
+                            fontFamily: AppFonts.headingFont,
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.white,
+                          ),
                         ),
                         const SizedBox(height: 7),
                         Text(
                           'Book reliable experts right in your neighborhood.',
-                          style: const TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 12, color: AppColors.white),
+                          style: const TextStyle(
+                            fontFamily: AppFonts.bodyFont,
+                            fontSize: 12,
+                            color: AppColors.white,
+                          ),
                         ),
                       ],
                     ),
@@ -193,13 +201,11 @@ class DashboardScreen extends StatelessWidget {
                 children: [
                   Text(
                     'Explore services',
-                    style: TextStyle(fontFamily: AppFonts.headingFont, fontSize: 16, fontWeight: FontWeight.w600, color: textColor),
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      'View all',
-                      style: const TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 10, fontWeight: FontWeight.w500, color: AppColors.primaryDark),
+                    style: TextStyle(
+                      fontFamily: AppFonts.headingFont,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: textColor,
                     ),
                   ),
                 ],
@@ -208,112 +214,54 @@ class DashboardScreen extends StatelessWidget {
               const SizedBox(height: 8),
 
               // SERVICES GRID
-              Column(
-                children: List.generate(
-                  (services.length / 3).ceil(),
-                  (rowIndex) {
-                    final start = rowIndex * 3;
-                    final rowServices = services.skip(start).take(3).toList();
-                    return Padding(
-                      padding: EdgeInsets.only(
-                        bottom: rowIndex ==
-                                (services.length / 3).ceil() - 1
-                            ? 0
-                            : 9,
-                      ),
-                      child: Row(
-                        children: List.generate(3, (columnIndex) {
-                          final service = columnIndex < rowServices.length
-                              ? rowServices[columnIndex]
-                              : null;
-                          return Expanded(
-                            child: Padding(
-                              padding: EdgeInsets.only(
-                                right: columnIndex == 2 ? 0 : 9,
-                              ),
-                              child: service == null
-                                  ? const SizedBox()
-                                  : GestureDetector(
-                                      onTap: () {},
-                                      child: Container(
-                                        height: isSmallScreen ? 88 : 96,
-                                        decoration: BoxDecoration(
-                                          color: surfaceColor,
-                                          borderRadius:
-                                              BorderRadius.circular(12),
-                                        ),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Icon(
-                                              service['icon'] as IconData,
-                                              size:
-                                                  isSmallScreen ? 19 : 22,
-                                              color: AppColors.primaryDark,
-                                            ),
-                                            const SizedBox(height: 7),
-                                            Text(
-                                              service['name'] as String,
-                                              textAlign: TextAlign.center,
-                                              style:
-                                                  TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 12, fontWeight: FontWeight.w500, color: textColor),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                            ),
-                          );
-                        }),
-                      ),
-                    );
-                  },
-                ),
-              ),
+              GridView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: services.length,
 
-              const SizedBox(height: 16),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  crossAxisSpacing: 9,
+                  mainAxisSpacing: 9,
+                  mainAxisExtent: isSmallScreen ? 88 : 96,
+                ),
 
-              // TRUST CARD
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 13,
-                  vertical: 12,
-                ),
-                decoration: BoxDecoration(
-                  color: isDarkMode
-                      ? AppTheme.cardColor(context)
-                      : AppColors.mint.withValues(alpha: 0.55),
-                  borderRadius: BorderRadius.circular(13),
-                ),
-                child: Row(
-                  children: [
-                    const Icon(
-                      Icons.verified_user_outlined,
-                      color: AppColors.primaryDark,
-                      size: 23,
-                    ),
-                    const SizedBox(width: 10),
-                    Expanded(
+                itemBuilder: (context, index) {
+                  final service = services[index];
+
+                  return GestureDetector(
+                    onTap: () {},
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: surfaceColor,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            'Good people. Great work.',
-                            style: TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 12, fontWeight: FontWeight.w500, color: textColor),
+                          Icon(
+                            service['icon'] as IconData,
+                            size: isSmallScreen ? 19 : 22,
+                            color: AppColors.primaryDark,
                           ),
-                          const SizedBox(height: 4),
+
+                          const SizedBox(height: 7),
+
                           Text(
-                            'Verified experts • Convenient booking',
-                            style: TextStyle(fontFamily: AppFonts.bodyFont, fontSize: 11, color: secondaryTextColor),
+                            service['name'] as String,
+                            textAlign: TextAlign.center,
+                            style: AppFonts.labelMedium.copyWith(
+                              color: textColor,
+                            ),
                           ),
                         ],
                       ),
                     ),
-                  ],
-                ),
+                  );
+                },
               ),
+
+              const SizedBox(height: 16),
             ],
           ),
         ),

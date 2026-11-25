@@ -15,6 +15,7 @@ class BookingsScreen extends StatefulWidget {
 
 class _BookingsScreenState extends State<BookingsScreen> {
   final TextEditingController _problemController = TextEditingController();
+  final TextEditingController _addressController = TextEditingController();
 
   int _selectedDateIndex = 1;
   int _selectedSlotIndex = 1;
@@ -32,13 +33,15 @@ class _BookingsScreenState extends State<BookingsScreen> {
   @override
   void dispose() {
     _problemController.dispose();
+    _addressController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
-    // final isSmall = size.width < 360;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final itemWidth = (screenWidth - 50) / _dates.length;
     final textColor = AppTheme.primaryTextColor(context);
     final secondaryTextColor = AppTheme.secondaryTextColor(context);
     final surfaceColor = AppTheme.surfaceColor(context);
@@ -135,13 +138,42 @@ class _BookingsScreenState extends State<BookingsScreen> {
                     ),
                   ),
                   const SizedBox(height: 7),
-                  _buildInfoCard(
-                    context,
-                    text: 'Home · 42, 12th Main, Indiranagar, Bengaluru',
-                    icon: Icons.location_on_outlined,
-                    textColor: textColor,
-                    surfaceColor: surfaceColor,
+
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    decoration: BoxDecoration(
+                      color: surfaceColor,
+                      borderRadius: BorderRadius.circular(14),
+                      border: Border.all(color: AppTheme.borderColor(context)),
+                    ),
+                    child: TextField(
+                      controller: _addressController,
+                      textAlignVertical: TextAlignVertical.center,
+                      style: TextStyle(
+                        fontFamily: AppFonts.bodyFont,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: textColor,
+                        height: 1.35,
+                      ),
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        prefixIcon: Icon(
+                          Icons.location_on_outlined,
+                          color: AppTheme.hintColor(context),
+                          size: 20,
+                        ),
+                        hintText: 'Enter your service address',
+                        hintStyle: TextStyle(
+                          fontFamily: AppFonts.bodyFont,
+                          fontSize: 13,
+                          color: AppTheme.hintColor(context),
+                        ),
+                      ),
+                    ),
                   ),
+
                   const SizedBox(height: 18),
 
                   Text(
@@ -154,20 +186,26 @@ class _BookingsScreenState extends State<BookingsScreen> {
                     ),
                   ),
                   const SizedBox(height: 10),
-                  Row(
-                    children: List.generate(_dates.length, (index) {
-                      final item = _dates[index];
-                      final isSelected = index == _selectedDateIndex;
-                      return Expanded(
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                            right: index == _dates.length - 1 ? 0 : 8,
-                          ),
+
+                  SizedBox(
+                    height: 70,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: _dates.length,
+                      itemBuilder: (context, index) {
+                        final item = _dates[index];
+                        final isSelected = index == _selectedDateIndex;
+
+                        return Container(
+                          width: itemWidth,
+                          padding: const EdgeInsets.symmetric(horizontal: 4),
                           child: GestureDetector(
-                            onTap: () =>
-                                setState(() => _selectedDateIndex = index),
+                            onTap: () {
+                              setState(() {
+                                _selectedDateIndex = index;
+                              });
+                            },
                             child: Container(
-                              padding: const EdgeInsets.symmetric(vertical: 10),
                               decoration: BoxDecoration(
                                 color: isSelected
                                     ? AppColors.primaryDark
@@ -180,14 +218,11 @@ class _BookingsScreenState extends State<BookingsScreen> {
                                 ),
                               ),
                               child: Column(
-                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
                                     item['day']!,
-                                    style: TextStyle(
-                                      fontFamily: AppFonts.bodyFont,
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.w500,
+                                    style: AppFonts.labelSmall.copyWith(
                                       color: isSelected
                                           ? AppColors.mint
                                           : secondaryTextColor,
@@ -196,10 +231,8 @@ class _BookingsScreenState extends State<BookingsScreen> {
                                   const SizedBox(height: 4),
                                   Text(
                                     item['date']!,
-                                    style: TextStyle(
-                                      fontFamily: AppFonts.headingFont,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w700,
+                                    style: AppFonts.titleMedium.copyWith(
+                                      fontWeight: FontWeight.bold,
                                       color: isSelected
                                           ? AppColors.white
                                           : textColor,
@@ -209,10 +242,11 @@ class _BookingsScreenState extends State<BookingsScreen> {
                               ),
                             ),
                           ),
-                        ),
-                      );
-                    }),
+                        );
+                      },
+                    ),
                   ),
+
                   const SizedBox(height: 18),
                   Text(
                     "Available time slots · IST",
@@ -317,8 +351,7 @@ class _BookingsScreenState extends State<BookingsScreen> {
                             Icons.arrow_forward_rounded,
                             size: 20,
                             color: AppColors.mint,
-                          ),
-                        ],
+                          ),                        ],
                       ),
                     ),
                   ),

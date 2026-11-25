@@ -1,6 +1,15 @@
+import 'package:fixify/app/app_theme.dart';
+import 'package:fixify/constant/fontsapp.dart';
+import 'package:fixify/controllers/trackbooking_controller.dart';
 import 'package:fixify/views/coustomeWidgts/app_bar.dart';
+import 'package:fixify/views/coustomer/review_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:fixify/constant/colors.dart';
+import 'package:get/get.dart';
+
+final TrackBookingController trackBookingController = Get.put(
+  TrackBookingController(),
+);
 
 class TrackBookingScreen extends StatelessWidget {
   const TrackBookingScreen({super.key});
@@ -16,8 +25,19 @@ class TrackBookingScreen extends StatelessWidget {
         .clamp(16.0, 28.0)
         .toDouble();
 
+    final Color textColor = AppTheme.primaryTextColor(context);
+    final Color secondaryTextColor = AppTheme.secondaryTextColor(context);
+    final Color surfaceColor = AppTheme.surfaceColor(context);
+    final Color borderColor = AppTheme.borderColor(context);
+    final Color activeColor = AppTheme.isDark(context)
+        ? AppColors.primaryLight
+        : AppColors.primaryDark;
+    final Color pendingColor = AppTheme.isDark(context)
+        ? AppColors.darkCard
+        : AppColors.mint;
+
     return Scaffold(
-      backgroundColor: AppColors.lightBackground,
+      backgroundColor: AppTheme.backgroundColor(context),
 
       // ---------------- APP BAR ----------------
       appBar: customAppBar(context, title: 'Track booking'),
@@ -70,6 +90,7 @@ class TrackBookingScreen extends StatelessWidget {
                               Text(
                                 'LIVE UPDATE',
                                 style: TextStyle(
+                                  fontFamily: AppFonts.bodyFont,
                                   fontSize: 10,
                                   fontWeight: FontWeight.w700,
                                   color: AppColors.primaryDark,
@@ -84,6 +105,7 @@ class TrackBookingScreen extends StatelessWidget {
                         Text(
                           'Your expert is on the way',
                           style: TextStyle(
+                            fontFamily: AppFonts.headingFont,
                             fontSize: isSmall ? 17 : 20,
                             fontWeight: FontWeight.w700,
                             color: AppColors.white,
@@ -95,8 +117,9 @@ class TrackBookingScreen extends StatelessWidget {
                         Text(
                           'Arriving at 11:05 am · Updated just now',
                           style: TextStyle(
+                            fontFamily: AppFonts.bodyFont,
                             fontSize: isSmall ? 10 : 12,
-                            color: AppColors.white,
+                            color: AppColors.mint,
                           ),
                         ),
                       ],
@@ -109,9 +132,10 @@ class TrackBookingScreen extends StatelessWidget {
                   Text(
                     'Tap & leak repair  ·  #KM2048',
                     style: TextStyle(
+                      fontFamily: AppFonts.headingFont,
                       fontSize: isSmall ? 12 : 13,
                       fontWeight: FontWeight.w600,
-                      color: AppColors.lightTextPrimary,
+                      color: textColor,
                     ),
                   ),
 
@@ -155,20 +179,22 @@ class TrackBookingScreen extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
+                            Text(
                               'Booking confirmed',
                               style: TextStyle(
-                                fontSize: 13,
+                                fontFamily: AppFonts.headingFont,
+                                fontSize: 14,
                                 fontWeight: FontWeight.w700,
-                                color: AppColors.lightTextPrimary,
+                                color: textColor,
                               ),
                             ),
                             const SizedBox(height: 5),
                             Text(
                               '19 Nov · 9:30 am',
                               style: TextStyle(
-                                fontSize: 11,
-                                color: AppColors.lightTextSecondary,
+                                fontFamily: AppFonts.bodyFont,
+                                fontSize: 12,
+                                color: secondaryTextColor,
                               ),
                             ),
                           ],
@@ -213,20 +239,22 @@ class TrackBookingScreen extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
+                            Text(
                               'Accepted by provider',
                               style: TextStyle(
-                                fontSize: 13,
+                                fontFamily: AppFonts.headingFont,
+                                fontSize: 14,
                                 fontWeight: FontWeight.w700,
-                                color: AppColors.lightTextPrimary,
+                                color: textColor,
                               ),
                             ),
                             const SizedBox(height: 5),
                             Text(
                               '19 Nov · 9:34 am',
                               style: TextStyle(
-                                fontSize: 11,
-                                color: AppColors.lightTextSecondary,
+                                fontFamily: AppFonts.bodyFont,
+                                fontSize: 12,
+                                color: secondaryTextColor,
                               ),
                             ),
                           ],
@@ -256,11 +284,7 @@ class TrackBookingScreen extends StatelessWidget {
                                 size: 14,
                               ),
                             ),
-                            Container(
-                              width: 2,
-                              height: 26,
-                              color: AppColors.lightBorder,
-                            ),
+                            Container(width: 2, height: 26, color: borderColor),
                           ],
                         ),
                       ),
@@ -271,20 +295,22 @@ class TrackBookingScreen extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
+                            Text(
                               'Provider on the way',
                               style: TextStyle(
-                                fontSize: 13,
+                                fontFamily: AppFonts.headingFont,
+                                fontSize: 14,
                                 fontWeight: FontWeight.w700,
-                                color: AppColors.primaryDark,
+                                color: activeColor,
                               ),
                             ),
                             const SizedBox(height: 5),
                             Text(
                               'Arriving in 12 minutes',
                               style: TextStyle(
-                                fontSize: 11,
-                                color: AppColors.lightTextSecondary,
+                                fontFamily: AppFonts.bodyFont,
+                                fontSize: 12,
+                                color: secondaryTextColor,
                               ),
                             ),
                           ],
@@ -304,21 +330,17 @@ class TrackBookingScreen extends StatelessWidget {
                             Container(
                               width: 20,
                               height: 20,
-                              decoration: const BoxDecoration(
-                                color: AppColors.mint,
+                              decoration: BoxDecoration(
+                                color: pendingColor,
                                 shape: BoxShape.circle,
                               ),
-                              child: const Icon(
+                              child: Icon(
                                 Icons.access_time_rounded,
-                                color: AppColors.lightTextSecondary,
+                                color: secondaryTextColor,
                                 size: 13,
                               ),
                             ),
-                            Container(
-                              width: 2,
-                              height: 26,
-                              color: AppColors.lightBorder,
-                            ),
+                            Container(width: 2, height: 26, color: borderColor),
                           ],
                         ),
                       ),
@@ -332,17 +354,19 @@ class TrackBookingScreen extends StatelessWidget {
                             Text(
                               'Service in progress',
                               style: TextStyle(
-                                fontSize: 13,
+                                fontFamily: AppFonts.headingFont,
+                                fontSize: 14,
                                 fontWeight: FontWeight.w700,
-                                color: AppColors.lightTextSecondary,
+                                color: secondaryTextColor,
                               ),
                             ),
                             const SizedBox(height: 5),
                             Text(
                               'Starts after your expert arrives',
                               style: TextStyle(
-                                fontSize: 11,
-                                color: AppColors.lightTextSecondary,
+                                fontFamily: AppFonts.bodyFont,
+                                fontSize: 12,
+                                color: secondaryTextColor,
                               ),
                             ),
                           ],
@@ -358,13 +382,13 @@ class TrackBookingScreen extends StatelessWidget {
                       Container(
                         width: 20,
                         height: 20,
-                        decoration: const BoxDecoration(
-                          color: AppColors.mint,
+                        decoration: BoxDecoration(
+                          color: pendingColor,
                           shape: BoxShape.circle,
                         ),
-                        child: const Icon(
+                        child: Icon(
                           Icons.access_time_rounded,
-                          color: AppColors.lightTextSecondary,
+                          color: secondaryTextColor,
                           size: 13,
                         ),
                       ),
@@ -378,17 +402,19 @@ class TrackBookingScreen extends StatelessWidget {
                             Text(
                               'Service completed',
                               style: TextStyle(
-                                fontSize: 13,
+                                fontFamily: AppFonts.headingFont,
+                                fontSize: 14,
                                 fontWeight: FontWeight.w700,
-                                color: AppColors.lightTextSecondary,
+                                color: secondaryTextColor,
                               ),
                             ),
                             const SizedBox(height: 5),
                             Text(
                               "You'll be notified when it's done",
                               style: TextStyle(
-                                fontSize: 11,
-                                color: AppColors.lightTextSecondary,
+                                fontFamily: AppFonts.bodyFont,
+                                fontSize: 12,
+                                color: secondaryTextColor,
                               ),
                             ),
                           ],
@@ -407,14 +433,15 @@ class TrackBookingScreen extends StatelessWidget {
                       vertical: 17,
                     ),
                     decoration: BoxDecoration(
-                      color: AppColors.lightSurface,
+                      color: surfaceColor,
                       borderRadius: BorderRadius.circular(18),
+                      border: Border.all(color: borderColor),
                     ),
                     child: Row(
                       children: [
-                        const Icon(
+                        Icon(
                           Icons.plumbing_outlined,
-                          color: AppColors.primaryDark,
+                          color: activeColor,
                           size: 26,
                         ),
 
@@ -427,9 +454,10 @@ class TrackBookingScreen extends StatelessWidget {
                               Text(
                                 'Greenline Plumbing',
                                 style: TextStyle(
-                                  fontSize: isSmall ? 12 : 14,
+                                  fontFamily: AppFonts.headingFont,
+                                  fontSize: isSmall ? 13 : 14,
                                   fontWeight: FontWeight.w700,
-                                  color: AppColors.lightTextPrimary,
+                                  color: textColor,
                                 ),
                               ),
 
@@ -438,8 +466,9 @@ class TrackBookingScreen extends StatelessWidget {
                               Text(
                                 'Verified partner · ★ 4.9',
                                 style: TextStyle(
-                                  fontSize: isSmall ? 10 : 11,
-                                  color: AppColors.lightTextSecondary,
+                                  fontFamily: AppFonts.bodyFont,
+                                  fontSize: isSmall ? 11 : 12,
+                                  color: secondaryTextColor,
                                 ),
                               ),
                             ],
@@ -450,9 +479,9 @@ class TrackBookingScreen extends StatelessWidget {
                           onPressed: () {
                             // Add provider call functionality.
                           },
-                          icon: const Icon(
+                          icon: Icon(
                             Icons.call_outlined,
-                            color: AppColors.primaryDark,
+                            color: activeColor,
                             size: 20,
                           ),
                         ),
@@ -460,7 +489,38 @@ class TrackBookingScreen extends StatelessWidget {
                     ),
                   ),
 
-                  // Riview Button bna ga yaha per jo task complete hone k bad show hoga
+                  // Rate Your Service Button
+                  const SizedBox(height: 16),
+                  Obx(
+                    () => trackBookingController.review.value
+                        ? SizedBox(
+                            width: double.infinity,
+                            height: 52,
+                            child: ElevatedButton.icon(
+                              onPressed: () {
+                                Get.to(() => const RateYourServiceScreen());
+                              },
+                              icon: const Icon(Icons.star_rounded, size: 20),
+                              label: const Text(
+                                'Leave a Review',
+                                style: TextStyle(
+                                  fontFamily: AppFonts.headingFont,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: AppColors.primaryDark,
+                                foregroundColor: AppColors.white,
+                                elevation: 0,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(14),
+                                ),
+                              ),
+                            ),
+                          )
+                        : const SizedBox.shrink(),
+                  ),
                 ],
               ),
             ),

@@ -1,6 +1,8 @@
+import 'package:fixify/app/app_theme.dart';
 import 'package:fixify/views/coustomeWidgts/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:fixify/constant/colors.dart';
+import 'package:fixify/constant/fontsapp.dart';
 
 class RateYourServiceScreen extends StatefulWidget {
   const RateYourServiceScreen({super.key});
@@ -32,9 +34,16 @@ class _RateYourServiceScreenState extends State<RateYourServiceScreen> {
     final double horizontalPadding = (width * 0.055)
         .clamp(16.0, 28.0)
         .toDouble();
+    final Color textColor = AppTheme.primaryTextColor(context);
+    final Color secondaryTextColor = AppTheme.secondaryTextColor(context);
+    final Color surfaceColor = AppTheme.surfaceColor(context);
+    final Color borderColor = AppTheme.borderColor(context);
+    final Color accentColor = AppTheme.isDark(context)
+        ? AppColors.primaryLight
+        : AppColors.primaryDark;
 
     return Scaffold(
-      backgroundColor: AppColors.lightBackground,
+      backgroundColor: AppTheme.backgroundColor(context),
       resizeToAvoidBottomInset: true,
 
       // ---------------- APP BAR ----------------
@@ -78,6 +87,7 @@ class _RateYourServiceScreenState extends State<RateYourServiceScreen> {
                         Text(
                           'SERVICE COMPLETED',
                           style: TextStyle(
+                            fontFamily: AppFonts.bodyFont,
                             fontSize: 10,
                             fontWeight: FontWeight.w700,
                             color: AppColors.primaryDark,
@@ -93,9 +103,10 @@ class _RateYourServiceScreenState extends State<RateYourServiceScreen> {
                   Text(
                     'How did we do?',
                     style: TextStyle(
+                      fontFamily: AppFonts.headingFont,
                       fontSize: isSmall ? 25 : 28,
                       fontWeight: FontWeight.w700,
-                      color: AppColors.lightTextPrimary,
+                      color: textColor,
                     ),
                   ),
 
@@ -104,21 +115,21 @@ class _RateYourServiceScreenState extends State<RateYourServiceScreen> {
                   Text(
                     'Tap & leak repair · Greenline Plumbing',
                     style: TextStyle(
-                      fontSize: isSmall ? 11 : 12,
-                      color: AppColors.lightTextSecondary,
+                      fontFamily: AppFonts.bodyFont,
+                      fontSize: isSmall ? 12 : 14,
+                      color: secondaryTextColor,
                     ),
                   ),
 
                   const SizedBox(height: 4),
 
-                  Text(
-                    'Booking #KM2048 · 19 Nov',
-                    style: TextStyle(
-                      fontSize: isSmall ? 11 : 12,
-                      color: AppColors.lightTextSecondary,
-                    ),
-                  ),
-
+                  // Text(
+                  //   'Booking #KM2048 · 19 Nov',
+                  //   style: TextStyle(
+                  //     fontSize: isSmall ? 11 : 12,
+                  //     color: AppColors.lightTextSecondary,
+                  //   ),
+                  // ),
                   const SizedBox(height: 30),
 
                   // ---------------- STAR RATING ----------------
@@ -141,7 +152,7 @@ class _RateYourServiceScreenState extends State<RateYourServiceScreen> {
                               ? Icons.star_rounded
                               : Icons.star_outline_rounded,
                           size: isSmall ? 31 : 35,
-                          color: AppColors.primaryDark,
+                          color: accentColor,
                         ),
                       );
                     }),
@@ -162,9 +173,10 @@ class _RateYourServiceScreenState extends State<RateYourServiceScreen> {
                           ? 'We can do better.'
                           : 'Sorry to hear that.',
                       style: TextStyle(
-                        fontSize: isSmall ? 11 : 13,
+                        fontFamily: AppFonts.bodyFont,
+                        fontSize: isSmall ? 12 : 14,
                         fontWeight: FontWeight.w500,
-                        color: AppColors.primaryDark,
+                        color: accentColor,
                       ),
                       textAlign: TextAlign.center,
                     ),
@@ -176,8 +188,10 @@ class _RateYourServiceScreenState extends State<RateYourServiceScreen> {
                   Text(
                     'What went well?',
                     style: TextStyle(
-                      fontSize: isSmall ? 11 : 12,
-                      color: AppColors.lightTextSecondary,
+                      fontFamily: AppFonts.bodyFont,
+                      fontSize: isSmall ? 12 : 14,
+                      fontWeight: FontWeight.w500,
+                      color: secondaryTextColor,
                     ),
                   ),
 
@@ -203,16 +217,20 @@ class _RateYourServiceScreenState extends State<RateYourServiceScreen> {
                             decoration: BoxDecoration(
                               color: selectedTags.contains('On time')
                                   ? AppColors.mint
-                                  : AppColors.white,
+                                  : surfaceColor,
                               borderRadius: BorderRadius.circular(9),
+                              border: Border.all(color: borderColor),
                             ),
                             child: Text(
                               'On time',
                               style: TextStyle(
-                                fontSize: isSmall ? 10 : 11,
+                                fontFamily: AppFonts.bodyFont,
+                                fontSize: 12,
                                 fontWeight: FontWeight.w600,
-                                color: AppColors.primaryDark,
-                              ),
+                                color: selectedTags.contains('On time')
+                                    ? AppColors.primaryDark
+                                    : textColor,
+                              ),  
                             ),
                           ),
                         ),
@@ -239,15 +257,19 @@ class _RateYourServiceScreenState extends State<RateYourServiceScreen> {
                             decoration: BoxDecoration(
                               color: selectedTags.contains('Professional')
                                   ? AppColors.mint
-                                  : AppColors.white,
+                                  : surfaceColor,
                               borderRadius: BorderRadius.circular(9),
+                              border: Border.all(color: borderColor),
                             ),
                             child: Text(
                               'Professional',
                               style: TextStyle(
-                                fontSize: isSmall ? 10 : 11,
+                                fontFamily: AppFonts.bodyFont,
+                                fontSize: 12,
                                 fontWeight: FontWeight.w600,
-                                color: AppColors.primaryDark,
+                                color: selectedTags.contains('Professional')
+                                    ? AppColors.primaryDark
+                                    : textColor,
                               ),
                             ),
                           ),
@@ -275,15 +297,19 @@ class _RateYourServiceScreenState extends State<RateYourServiceScreen> {
                             decoration: BoxDecoration(
                               color: selectedTags.contains('Tidy work')
                                   ? AppColors.mint
-                                  : AppColors.white,
+                                  : surfaceColor,
                               borderRadius: BorderRadius.circular(9),
+                              border: Border.all(color: borderColor),
                             ),
                             child: Text(
                               'Tidy work',
                               style: TextStyle(
-                                fontSize: isSmall ? 10 : 11,
+                                fontFamily: AppFonts.bodyFont,
+                                fontSize: 12,
                                 fontWeight: FontWeight.w600,
-                                color: AppColors.primaryDark,
+                                color: selectedTags.contains('Tidy work')
+                                    ? AppColors.primaryDark
+                                    : textColor,
                               ),
                             ),
                           ),
@@ -298,100 +324,43 @@ class _RateYourServiceScreenState extends State<RateYourServiceScreen> {
                   Text(
                     'Write a review',
                     style: TextStyle(
-                      fontSize: isSmall ? 11 : 12,
-                      color: AppColors.lightTextSecondary,
+                      fontFamily: AppFonts.bodyFont,
+                      fontSize: isSmall ? 12 : 14,
+                      fontWeight: FontWeight.w500,
+                      color: secondaryTextColor,
                     ),
                   ),
 
                   const SizedBox(height: 12),
 
-                  Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: AppColors.lightSurface,
-                      borderRadius: BorderRadius.circular(16),
+                  TextField(
+                    controller: reviewController,
+                    textAlignVertical: TextAlignVertical.center,
+                    maxLines: 3,
+                    minLines: 3,
+                    maxLength: 500,
+                    onChanged: (value) {},
+                    style: TextStyle(
+                      fontFamily: AppFonts.bodyFont,
+                      fontSize: isSmall ? 13 : 14,
+                      height: 1.4,
+                      color: textColor,
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        TextField(
-                          controller: reviewController,
-                          maxLines: 3,
-                          minLines: 3,
-                          maxLength: 500,
-                          buildCounter:
-                              (
-                                context, {
-                                required currentLength,
-                                required isFocused,
-                                required maxLength,
-                              }) {
-                                return null;
-                              },
-                          onChanged: (value) {
-                            setState(() {});
-                          },
-                          style: TextStyle(
-                            fontSize: isSmall ? 12 : 13,
-                            height: 1.4,
-                            color: AppColors.lightTextPrimary,
-                          ),
-                          decoration: const InputDecoration(
-                            border: InputBorder.none,
-                            contentPadding: EdgeInsets.fromLTRB(15, 16, 15, 4),
-                            hintText: 'Share your experience...',
-                          ),
-                        ),
-
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(15, 0, 15, 13),
-                          child: Text(
-                            '${reviewController.text.length} / 500',
-                            style: const TextStyle(
-                              fontSize: 10,
-                              color: AppColors.lightTextSecondary,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  const SizedBox(height: 20),
-
-                  // ---------------- REPORT OPTION ----------------
-                  GestureDetector(
-                    onTap: () {
-                      // Add complaint screen navigation here.
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 6),
-                      child: Row(
-                        children: [
-                          const Icon(
-                            Icons.outlined_flag_rounded,
-                            size: 18,
-                            color: AppColors.error,
-                          ),
-
-                          const SizedBox(width: 11),
-
-                          Expanded(
-                            child: Text(
-                              'Report provider or raise a complaint',
-                              style: TextStyle(
-                                fontSize: isSmall ? 11 : 12,
-                                color: AppColors.error,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                        ],
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide(color: borderColor, width: 1),
+                      ),
+                      contentPadding: EdgeInsets.fromLTRB(15, 16, 15, 4),
+                      hintText: 'Share your experience...',
+                      hintStyle: TextStyle(
+                        fontFamily: AppFonts.bodyFont,
+                        fontSize: isSmall ? 13 : 14,
+                        height: 1.4,
+                        color: AppTheme.hintColor(context),
                       ),
                     ),
                   ),
-
-                  const SizedBox(height: 15),
                 ],
               ),
             ),
@@ -405,7 +374,7 @@ class _RateYourServiceScreenState extends State<RateYourServiceScreen> {
         children: [
           // -------- SUBMIT BUTTON --------
           Container(
-            color: AppColors.lightBackground,
+            color: AppTheme.backgroundColor(context),
             padding: EdgeInsets.fromLTRB(
               horizontalPadding,
               8,
@@ -437,6 +406,7 @@ class _RateYourServiceScreenState extends State<RateYourServiceScreen> {
                         Text(
                           'Submit review & feedback',
                           style: TextStyle(
+                            fontFamily: AppFonts.headingFont,
                             fontSize: 13,
                             fontWeight: FontWeight.w600,
                           ),
@@ -445,128 +415,6 @@ class _RateYourServiceScreenState extends State<RateYourServiceScreen> {
                           Icons.arrow_forward_rounded,
                           size: 21,
                           color: AppColors.mint,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-
-          // ---------------- BOTTOM NAVIGATION ----------------
-          Container(
-            color: AppColors.lightSurface,
-            child: SafeArea(
-              top: false,
-              child: Center(
-                heightFactor: 1,
-                child: ConstrainedBox(
-                  constraints: const BoxConstraints(maxWidth: 540),
-                  child: SizedBox(
-                    height: 72,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        // HOME
-                        Expanded(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.home_outlined,
-                                size: 23,
-                                color: AppColors.lightTextSecondary,
-                              ),
-                              const SizedBox(height: 5),
-                              Text(
-                                'Home',
-                                style: TextStyle(
-                                  fontSize: 10,
-                                  color: AppColors.lightTextSecondary,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-
-                        // EXPLORE
-                        Expanded(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.grid_view_outlined,
-                                size: 23,
-                                color: AppColors.lightTextSecondary,
-                              ),
-                              const SizedBox(height: 5),
-                              Text(
-                                'Explore',
-                                style: TextStyle(
-                                  fontSize: 10,
-                                  color: AppColors.lightTextSecondary,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-
-                        // BOOKINGS
-                        Expanded(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.calendar_month_outlined,
-                                size: 23,
-                                color: AppColors.lightTextSecondary,
-                              ),
-                              const SizedBox(height: 5),
-                              Text(
-                                'Bookings',
-                                style: TextStyle(
-                                  fontSize: 10,
-                                  color: AppColors.lightTextSecondary,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-
-                        // ACCOUNT - SELECTED
-                        Expanded(
-                          child: Center(
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 14,
-                                vertical: 9,
-                              ),
-                              decoration: BoxDecoration(
-                                color: AppColors.mint,
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: const Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Icon(
-                                    Icons.person_outline_rounded,
-                                    size: 23,
-                                    color: AppColors.primaryDark,
-                                  ),
-                                  SizedBox(height: 5),
-                                  Text(
-                                    'Account',
-                                    style: TextStyle(
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.w700,
-                                      color: AppColors.primaryDark,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
                         ),
                       ],
                     ),
