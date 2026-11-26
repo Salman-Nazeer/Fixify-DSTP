@@ -1,5 +1,10 @@
+import 'package:fixify/views/coustomeWidgts/app_bar.dart';
+import 'package:fixify/views/nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:fixify/constant/colors.dart';
+import 'package:fixify/constant/fontsapp.dart';
+import 'package:fixify/app/app_theme.dart';
+import 'package:get/get.dart';
 
 class BecomeProviderScreen extends StatelessWidget {
   const BecomeProviderScreen({super.key});
@@ -9,28 +14,20 @@ class BecomeProviderScreen extends StatelessWidget {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
 
-    // Check current theme
-    bool isDark = Theme.of(context).brightness == Brightness.dark;
-
-    // Theme colors
-    Color background = isDark
-        ? AppColors.darkBackground
-        : AppColors.lightBackground;
-
-    Color surface = isDark
-        ? AppColors.darkSurface
-        : AppColors.lightSurface;
-
-    Color textPrimary = isDark
-        ? AppColors.darkTextPrimary
-        : AppColors.lightTextPrimary;
-
-    Color textSecondary = isDark
-        ? AppColors.darkTextSecondary
-        : AppColors.lightTextSecondary;
+    final isDark = AppTheme.isDark(context);
+    final background = AppTheme.backgroundColor(context);
+    final surface = AppTheme.surfaceColor(context);
+    final textPrimary = AppTheme.primaryTextColor(context);
+    final textSecondary = AppTheme.secondaryTextColor(context);
 
     return Scaffold(
       backgroundColor: background,
+
+      appBar: customAppBar(
+        context,
+        title: "Become a provider",
+        showBackButton: true,
+      ),
 
       body: SafeArea(
         child: Padding(
@@ -42,13 +39,11 @@ class BecomeProviderScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
               Expanded(
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-
                       // Partner registration label
                       Container(
                         width: 180,
@@ -57,9 +52,7 @@ class BecomeProviderScreen extends StatelessWidget {
                           vertical: 8,
                         ),
                         decoration: BoxDecoration(
-                          color: isDark
-                              ? AppColors.darkCard
-                              : AppColors.mint,
+                          color: isDark ? AppColors.darkCard : AppColors.mint,
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Text(
@@ -81,6 +74,7 @@ class BecomeProviderScreen extends StatelessWidget {
                         "Bring your skills.\n"
                         "We’ll bring the bookings.",
                         style: TextStyle(
+                          fontFamily: AppFonts.headingFont,
                           fontSize: (width * 0.065)
                               .clamp(22.0, 32.0)
                               .toDouble(),
@@ -95,10 +89,7 @@ class BecomeProviderScreen extends StatelessWidget {
                       // Business name label
                       Text(
                         "Business / display name",
-                        style: TextStyle(
-                          fontSize: 13,
-                          color: textSecondary,
-                        ),
+                        style: TextStyle(fontSize: 13, color: textSecondary),
                       ),
 
                       const SizedBox(height: 8),
@@ -111,10 +102,7 @@ class BecomeProviderScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(14),
                         ),
                         child: TextField(
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: textPrimary,
-                          ),
+                          style: TextStyle(fontSize: 14, color: textPrimary),
                           decoration: InputDecoration(
                             hintText: "Greenline Plumbing",
                             hintStyle: TextStyle(
@@ -122,8 +110,7 @@ class BecomeProviderScreen extends StatelessWidget {
                               fontSize: 13,
                             ),
                             border: InputBorder.none,
-                            contentPadding:
-                                const EdgeInsets.symmetric(
+                            contentPadding: const EdgeInsets.symmetric(
                               horizontal: 16,
                               vertical: 14,
                             ),
@@ -136,10 +123,7 @@ class BecomeProviderScreen extends StatelessWidget {
                       // Primary service label
                       Text(
                         "Primary service",
-                        style: TextStyle(
-                          fontSize: 13,
-                          color: textSecondary,
-                        ),
+                        style: TextStyle(fontSize: 13, color: textSecondary),
                       ),
 
                       const SizedBox(height: 8),
@@ -152,16 +136,13 @@ class BecomeProviderScreen extends StatelessWidget {
                         child: Container(
                           width: double.infinity,
                           height: 50,
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 16,
-                          ),
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
                           decoration: BoxDecoration(
                             color: surface,
                             borderRadius: BorderRadius.circular(14),
                           ),
                           child: Row(
                             children: [
-
                               Text(
                                 "Plumbing",
                                 style: TextStyle(
@@ -187,10 +168,7 @@ class BecomeProviderScreen extends StatelessWidget {
                       // Experience and service area label
                       Text(
                         "Experience & service area",
-                        style: TextStyle(
-                          fontSize: 13,
-                          color: textSecondary,
-                        ),
+                        style: TextStyle(fontSize: 13, color: textSecondary),
                       ),
 
                       const SizedBox(height: 8),
@@ -203,20 +181,15 @@ class BecomeProviderScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(14),
                         ),
                         child: TextField(
-                          style: TextStyle(
-                            fontSize: 13,
-                            color: textPrimary,
-                          ),
+                          style: TextStyle(fontSize: 13, color: textPrimary),
                           decoration: InputDecoration(
-                            hintText:
-                                "6 years · Bengaluru · Within 5 km",
+                            hintText: "6 years · Bengaluru · Within 5 km",
                             hintStyle: TextStyle(
                               fontSize: 13,
                               color: textPrimary,
                             ),
                             border: InputBorder.none,
-                            contentPadding:
-                                const EdgeInsets.symmetric(
+                            contentPadding: const EdgeInsets.symmetric(
                               horizontal: 16,
                               vertical: 14,
                             ),
@@ -232,23 +205,19 @@ class BecomeProviderScreen extends StatelessWidget {
                         height: 54,
                         child: ElevatedButton(
                           onPressed: () {
-                            // Create provider profile logic
+                            Get.offAll(() => const Navbar());
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.primary,
                             foregroundColor: AppColors.white,
                             elevation: 0,
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 16,
-                            ),
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
                             shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.circular(14),
+                              borderRadius: BorderRadius.circular(14),
                             ),
                           ),
                           child: const Row(
                             children: [
-
                               Text(
                                 "Create provider profile",
                                 style: TextStyle(
@@ -278,10 +247,7 @@ class BecomeProviderScreen extends StatelessWidget {
               // Bottom encryption text
               Text(
                 "Protected with end-to-end encryption",
-                style: TextStyle(
-                  fontSize: 11,
-                  color: textSecondary,
-                ),
+                style: TextStyle(fontSize: 11, color: textSecondary),
               ),
 
               SizedBox(height: height * 0.025),

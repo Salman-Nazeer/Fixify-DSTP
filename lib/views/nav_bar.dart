@@ -1,11 +1,17 @@
 import 'package:fixify/app/app_theme.dart';
 import 'package:fixify/constant/colors.dart';
 import 'package:fixify/constant/fontsapp.dart';
+import 'package:fixify/controllers/auth_controller.dart';
 import 'package:fixify/views/coustomer/dashboard.dart';
 import 'package:fixify/views/coustomer/explor.dart';
 import 'package:fixify/views/coustomer/profile.dart';
+import 'package:fixify/views/provider/booking_request_screen.dart';
+import 'package:fixify/views/provider/provider_dashboard_screen.dart';
+import 'package:fixify/views/provider/provider_profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+final AuthController authController = Get.find<AuthController>();
 
 class Navbar extends StatefulWidget {
   const Navbar({super.key});
@@ -15,11 +21,16 @@ class Navbar extends StatefulWidget {
 }
 
 class _NavbarState extends State<Navbar> {
-  final List<Widget> myScreenList = [
+  final List<Widget> coustomerScreenList = [
     const DashboardScreen(),
     const ExploreServicesScreen(),
-    // const BookingsScreen(),
     const CustomerProfileScreen(),
+  ];
+
+  final List<Widget> providerScreenList = [
+    const ProviderDashboardScreen(),
+    const BookingRequestScreen(),
+    const ProviderProfileScreen(),
   ];
 
   RxInt myScreenIndex = 0.obs;
@@ -39,7 +50,11 @@ class _NavbarState extends State<Navbar> {
     return Scaffold(
       backgroundColor: AppTheme.backgroundColor(context),
 
-      body: Obx(() => myScreenList[myScreenIndex.value]),
+      body: Obx(
+        () => authController.selectedRole.value == 'Customer'
+            ? coustomerScreenList[myScreenIndex.value]
+            : providerScreenList[myScreenIndex.value],
+      ),
 
       bottomNavigationBar: Obx(
         () => BottomNavigationBar(
@@ -73,17 +88,28 @@ class _NavbarState extends State<Navbar> {
           type: BottomNavigationBarType.fixed,
           elevation: 8,
 
-          items: const [
+          items: [
             BottomNavigationBarItem(
               icon: Icon(Icons.home_outlined),
               activeIcon: Icon(Icons.home_rounded),
               label: 'Home',
             ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.grid_view_outlined),
-              activeIcon: Icon(Icons.grid_view_rounded),
-              label: 'Explore',
-            ),
+            // BottomNavigationBarItem(
+            //   icon: Icon(Icons.grid_view_outlined),
+            //   activeIcon: Icon(Icons.grid_view_rounded),
+            //   label: 'Explore',
+            // ),
+            authController.selectedRole.value == 'Customer'
+                ? BottomNavigationBarItem(
+                    icon: Icon(Icons.grid_view_outlined),
+                    activeIcon: Icon(Icons.grid_view_rounded),
+                    label: 'Explore',
+                  )
+                : BottomNavigationBarItem(
+                    icon: Icon(Icons.calendar_today_outlined),
+                    activeIcon: Icon(Icons.calendar_today_rounded),
+                    label: 'Bookings',
+                  ),
             // BottomNavigationBarItem(
             //   icon: Icon(Icons.calendar_today_outlined),
             //   activeIcon: Icon(Icons.calendar_today_rounded),

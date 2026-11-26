@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fixify/constant/colors.dart';
+import 'package:fixify/constant/fontsapp.dart';
+import 'package:fixify/app/app_theme.dart';
 
 class ProviderDashboardScreen extends StatefulWidget {
   const ProviderDashboardScreen({super.key});
@@ -9,47 +11,24 @@ class ProviderDashboardScreen extends StatefulWidget {
       _ProviderDashboardScreenState();
 }
 
-class _ProviderDashboardScreenState
-    extends State<ProviderDashboardScreen> {
-
+class _ProviderDashboardScreenState extends State<ProviderDashboardScreen> {
   bool isOnline = true;
 
   @override
   Widget build(BuildContext context) {
-
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
 
     // Responsive horizontal padding
-    double horizontalPadding =
-        width > 600 ? (width - 550) / 2 : width * 0.06;
+    double horizontalPadding = width > 600 ? (width - 550) / 2 : width * 0.06;
 
-    // Check current theme
-    bool isDark =
-        Theme.of(context).brightness == Brightness.dark;
-
-    // Theme colors
-    Color background = isDark
-        ? AppColors.darkBackground
-        : AppColors.lightBackground;
-
-    Color surface = isDark
-        ? AppColors.darkSurface
-        : AppColors.lightSurface;
-
-    Color textPrimary = isDark
-        ? AppColors.darkTextPrimary
-        : AppColors.lightTextPrimary;
-
-    Color textSecondary = isDark
-        ? AppColors.darkTextSecondary
-        : AppColors.lightTextSecondary;
-
-    Color softColor = isDark
-        ? AppColors.darkCard
-        : AppColors.mint;
-
-    Color actionColor = isDark
+    final isDark = AppTheme.isDark(context);
+    final background = AppTheme.backgroundColor(context);
+    final surface = AppTheme.surfaceColor(context);
+    final textPrimary = AppTheme.primaryTextColor(context);
+    final textSecondary = AppTheme.secondaryTextColor(context);
+    final softColor = isDark ? AppColors.darkCard : AppColors.mint;
+    final actionColor = isDark
         ? AppColors.primaryLight
         : AppColors.primaryDark;
 
@@ -68,7 +47,6 @@ class _ProviderDashboardScreenState
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
               // ==============================
               // ONLINE / OFFLINE STATUS
               // ==============================
@@ -83,18 +61,14 @@ class _ProviderDashboardScreenState
 
                 child: Row(
                   children: [
-
                     Expanded(
                       child: Column(
-                        crossAxisAlignment:
-                            CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-
                           Text(
-                            isOnline
-                                ? "You're online"
-                                : "You're offline",
+                            isOnline ? "You're online" : "You're offline",
                             style: TextStyle(
+                              fontFamily: AppFonts.headingFont,
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
                               color: actionColor,
@@ -134,8 +108,7 @@ class _ProviderDashboardScreenState
                           color: isOnline
                               ? AppColors.primaryDark
                               : AppColors.darkTextHint,
-                          borderRadius:
-                              BorderRadius.circular(30),
+                          borderRadius: BorderRadius.circular(30),
                         ),
 
                         child: Row(
@@ -163,10 +136,10 @@ class _ProviderDashboardScreenState
               // ==============================
               // GREETING SECTION
               // ==============================
-
               Text(
-                "Good morning, Rajesh",
+                "Good morning, Hadi",
                 style: TextStyle(
+                  fontFamily: AppFonts.headingFont,
                   fontSize: 24,
                   fontWeight: FontWeight.w600,
                   color: textPrimary,
@@ -177,10 +150,7 @@ class _ProviderDashboardScreenState
 
               Text(
                 "Let's make someone's day easier.",
-                style: TextStyle(
-                  fontSize: 13,
-                  color: textSecondary,
-                ),
+                style: TextStyle(fontSize: 13, color: textSecondary),
               ),
 
               SizedBox(height: height * 0.025),
@@ -188,10 +158,8 @@ class _ProviderDashboardScreenState
               // ==============================
               // RATING AND TODAY'S JOBS
               // ==============================
-
               Row(
                 children: [
-
                   // Customer rating card
                   Expanded(
                     child: Container(
@@ -199,15 +167,12 @@ class _ProviderDashboardScreenState
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
                         color: AppColors.primaryDark,
-                        borderRadius:
-                            BorderRadius.circular(18),
+                        borderRadius: BorderRadius.circular(18),
                       ),
 
                       child: Column(
-                        crossAxisAlignment:
-                            CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-
                           const Text(
                             "CUSTOMER RATING",
                             style: TextStyle(
@@ -249,17 +214,14 @@ class _ProviderDashboardScreenState
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
                         color: surface,
-                        borderRadius:
-                            BorderRadius.circular(18),
+                        borderRadius: BorderRadius.circular(18),
                       ),
 
                       child: Column(
-                        crossAxisAlignment:
-                            CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-
                           Text(
-                            "TODAY'S JOBS",
+                            "JOBS COMPLETETD",
                             style: TextStyle(
                               fontSize: 10,
                               fontWeight: FontWeight.w600,
@@ -279,11 +241,8 @@ class _ProviderDashboardScreenState
                           ),
 
                           Text(
-                            "2 completed · 2 upcoming",
-                            style: TextStyle(
-                              fontSize: 9,
-                              color: textSecondary,
-                            ),
+                            "2 completed",
+                            style: TextStyle(fontSize: 9, color: textSecondary),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -299,34 +258,33 @@ class _ProviderDashboardScreenState
               // ==============================
               // NEXT JOB HEADING
               // ==============================
-
               Row(
-                mainAxisAlignment:
-                    MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-
                   Text(
                     "Your next job",
                     style: TextStyle(
+                      fontFamily: AppFonts.headingFont,
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
                       color: textPrimary,
                     ),
                   ),
 
-                  TextButton(
-                    onPressed: () {
-                      // Navigate to all jobs
-                    },
-                    child: Text(
-                      "View all",
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                        color: actionColor,
-                      ),
-                    ),
-                  ),
+                  // TextButton(
+                  //   onPressed: () {
+                  //     // Navigate to all jobs
+                  //   },
+                  //   child: Text(
+                  //     "View all",
+                  //     style: TextStyle(
+                  //       fontSize: 12,
+                  //       fontWeight: FontWeight.w600,
+                  //       color: actionColor,
+                  //     ),
+                  //   ),
+                  // ),
+                
                 ],
               ),
 
@@ -335,7 +293,6 @@ class _ProviderDashboardScreenState
               // ==============================
               // UPCOMING JOB CARD
               // ==============================
-
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(16),
@@ -347,7 +304,6 @@ class _ProviderDashboardScreenState
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-
                     // Job time label
                     Container(
                       padding: const EdgeInsets.symmetric(
@@ -385,11 +341,8 @@ class _ProviderDashboardScreenState
 
                     // Customer name and time
                     Text(
-                      "Aarav Sharma · 11 am–1 pm",
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: textSecondary,
-                      ),
+                      "Ali · 11 am–1 pm",
+                      style: TextStyle(fontSize: 12, color: textSecondary),
                     ),
 
                     const SizedBox(height: 16),
@@ -397,7 +350,6 @@ class _ProviderDashboardScreenState
                     // Location and distance
                     Row(
                       children: [
-
                         Icon(
                           Icons.location_on_outlined,
                           color: actionColor,
@@ -408,11 +360,8 @@ class _ProviderDashboardScreenState
 
                         Expanded(
                           child: Text(
-                            "Indiranagar · 2.1 km away",
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: textPrimary,
-                            ),
+                            "Karachi, Pakistan",
+                            style: TextStyle(fontSize: 12, color: textPrimary),
                           ),
                         ),
                       ],
@@ -426,7 +375,6 @@ class _ProviderDashboardScreenState
               // ==============================
               // OPEN BOOKING BUTTON
               // ==============================
-
               SizedBox(
                 width: double.infinity,
                 height: 53,
@@ -440,9 +388,7 @@ class _ProviderDashboardScreenState
                     backgroundColor: AppColors.primaryDark,
                     foregroundColor: AppColors.white,
                     elevation: 0,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(14),
                     ),
@@ -450,10 +396,9 @@ class _ProviderDashboardScreenState
 
                   child: const Row(
                     children: [
-
                       Expanded(
                         child: Text(
-                          "Open booking · #KM2048",
+                          "Open booking details",
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
@@ -476,23 +421,22 @@ class _ProviderDashboardScreenState
               // ==============================
               // NEW REQUESTS TEXT
               // ==============================
+              // GestureDetector(
+              //   onTap: () {
+              //     // Navigate to new requests
+              //   },
 
-              GestureDetector(
-                onTap: () {
-                  // Navigate to new requests
-                },
+              //   child: Text(
+              //     "2 new requests waiting for your response →",
+              //     style: TextStyle(
+              //       fontSize: 12,
+              //       fontWeight: FontWeight.w600,
+              //       color: actionColor,
+              //     ),
+              //   ),
+              // ),
 
-                child: Text(
-                  "2 new requests waiting for your response →",
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                    color: actionColor,
-                  ),
-                ),
-              ),
-
-              const SizedBox(height: 20),
+              // const SizedBox(height: 20),
             ],
           ),
         ),
@@ -501,135 +445,118 @@ class _ProviderDashboardScreenState
       // ==============================
       // BOTTOM NAVIGATION BAR
       // ==============================
+      // bottomNavigationBar: Container(
+      //   color: surface,
 
-      bottomNavigationBar: Container(
-        color: surface,
+      //   child: SafeArea(
+      //     top: false,
 
-        child: SafeArea(
-          top: false,
+      //     child: Padding(
+      //       padding: EdgeInsets.symmetric(
+      //         horizontal: horizontalPadding,
+      //         vertical: 8,
+      //       ),
 
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: horizontalPadding,
-              vertical: 8,
-            ),
+      //       child: Row(
+      //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      //         children: [
+      //           // HOME TAB
+      //           GestureDetector(
+      //             onTap: () {
+      //               // Already on home screen
+      //             },
 
-            child: Row(
-              mainAxisAlignment:
-                  MainAxisAlignment.spaceBetween,
-              children: [
+      //             child: Container(
+      //               width: 70,
+      //               padding: const EdgeInsets.symmetric(vertical: 9),
+      //               decoration: BoxDecoration(
+      //                 color: softColor,
+      //                 borderRadius: BorderRadius.circular(13),
+      //               ),
 
-                // HOME TAB
-                GestureDetector(
-                  onTap: () {
-                    // Already on home screen
-                  },
+      //               child: Column(
+      //                 mainAxisSize: MainAxisSize.min,
+      //                 children: [
+      //                   Icon(Icons.home_outlined, color: actionColor, size: 23),
 
-                  child: Container(
-                    width: 70,
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 9,
-                    ),
-                    decoration: BoxDecoration(
-                      color: softColor,
-                      borderRadius: BorderRadius.circular(13),
-                    ),
+      //                   const SizedBox(height: 5),
 
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
+      //                   Text(
+      //                     "Home",
+      //                     style: TextStyle(
+      //                       fontSize: 11,
+      //                       color: actionColor,
+      //                       fontWeight: FontWeight.w600,
+      //                     ),
+      //                   ),
+      //                 ],
+      //               ),
+      //             ),
+      //           ),
 
-                        Icon(
-                          Icons.home_outlined,
-                          color: actionColor,
-                          size: 23,
-                        ),
+      //           // REQUESTS TAB
+      //           GestureDetector(
+      //             onTap: () {
+      //               // Navigate to requests screen
+      //             },
 
-                        const SizedBox(height: 5),
+      //             child: SizedBox(
+      //               width: 70,
 
-                        Text(
-                          "Home",
-                          style: TextStyle(
-                            fontSize: 11,
-                            color: actionColor,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+      //               child: Column(
+      //                 mainAxisSize: MainAxisSize.min,
+      //                 children: [
+      //                   Icon(
+      //                     Icons.calendar_today_outlined,
+      //                     color: textSecondary,
+      //                     size: 21,
+      //                   ),
 
-                // REQUESTS TAB
-                GestureDetector(
-                  onTap: () {
-                    // Navigate to requests screen
-                  },
+      //                   const SizedBox(height: 6),
 
-                  child: SizedBox(
-                    width: 70,
+      //                   Text(
+      //                     "Requests",
+      //                     style: TextStyle(fontSize: 11, color: textSecondary),
+      //                   ),
+      //                 ],
+      //               ),
+      //             ),
+      //           ),
 
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
+      //           // PROFILE TAB
+      //           GestureDetector(
+      //             onTap: () {
+      //               // Navigate to provider profile
+      //             },
 
-                        Icon(
-                          Icons.calendar_today_outlined,
-                          color: textSecondary,
-                          size: 21,
-                        ),
+      //             child: SizedBox(
+      //               width: 70,
 
-                        const SizedBox(height: 6),
+      //               child: Column(
+      //                 mainAxisSize: MainAxisSize.min,
+      //                 children: [
+      //                   Icon(
+      //                     Icons.person_outline,
+      //                     color: textSecondary,
+      //                     size: 23,
+      //                   ),
 
-                        Text(
-                          "Requests",
-                          style: TextStyle(
-                            fontSize: 11,
-                            color: textSecondary,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+      //                   const SizedBox(height: 5),
 
-                // PROFILE TAB
-                GestureDetector(
-                  onTap: () {
-                    // Navigate to provider profile
-                  },
-
-                  child: SizedBox(
-                    width: 70,
-
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-
-                        Icon(
-                          Icons.person_outline,
-                          color: textSecondary,
-                          size: 23,
-                        ),
-
-                        const SizedBox(height: 5),
-
-                        Text(
-                          "Profile",
-                          style: TextStyle(
-                            fontSize: 11,
-                            color: textSecondary,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
+      //                   Text(
+      //                     "Profile",
+      //                     style: TextStyle(fontSize: 11, color: textSecondary),
+      //                   ),
+      //                 ],
+      //               ),
+      //             ),
+      //           ),
+      //         ],
+      //       ),
+      //     ),
+      //   ),
+      // ),
+   
     );
   }
 }

@@ -1,114 +1,188 @@
-import 'package:flutter/material.dart';
-import 'package:fixify/constant/colors.dart';
+import 'dart:io';
 
-class ProviderProfileScreen extends StatelessWidget {
+import 'package:fixify/app/app_theme.dart';
+import 'package:fixify/constant/colors.dart';
+import 'package:fixify/constant/fontsapp.dart';
+import 'package:fixify/controllers/theme_controller.dart';
+import 'package:fixify/views/coustomeWidgts/app_bar.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+
+class ProviderProfileScreen extends StatefulWidget {
   const ProviderProfileScreen({super.key});
 
   @override
+  State<ProviderProfileScreen> createState() => _ProviderProfileScreenState();
+}
+
+class _ProviderProfileScreenState extends State<ProviderProfileScreen> {
+  final ThemeController _themeController = Get.find<ThemeController>();
+  File? _providerImage;
+  bool _isAvailable = true;
+
+  final List<Map<String, dynamic>> _providerMenuItems = [
+    {'icon': Icons.dark_mode_outlined, 'title': 'Appearance'},
+    {'icon': Icons.lock_outline, 'title': 'Change password'},
+    {'icon': Icons.headset_mic_outlined, 'title': 'Help & support'},
+    {'icon': Icons.privacy_tip_outlined, 'title': 'Privacy policy'},
+  ];
+
+  final String _activeService = 'Tap & leak repair';
+
+  Future<void> _pickProfileImage() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+    if (image != null && mounted) {
+      setState(() {
+        _providerImage = File(image.path);
+      });
+    }
+  }
+
+  void _showAppearanceDialog() {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    showDialog<void>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Appearance'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                leading: const Icon(Icons.light_mode_rounded),
+                title: const Text('Light mode'),
+                trailing: !isDark
+                    ? const Icon(Icons.check, color: AppColors.primary)
+                    : null,
+                onTap: () {
+                  Navigator.pop(context);
+                  _themeController.toggleTheme(false);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.dark_mode_rounded),
+                title: const Text('Dark mode'),
+                trailing: isDark
+                    ? const Icon(Icons.check, color: AppColors.primary)
+                    : null,
+                onTap: () {
+                  Navigator.pop(context);
+                  _themeController.toggleTheme(true);
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
-
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
-
-    double horizontalPadding =
-        width > 600 ? (width - 550) / 2 : width * 0.06;
-
-    // Check current theme
-    bool isDark =
-        Theme.of(context).brightness == Brightness.dark;
-
-    // Theme colors
-    Color background = isDark
-        ? AppColors.darkBackground
-        : AppColors.lightBackground;
-
-    Color surface = isDark
-        ? AppColors.darkSurface
-        : AppColors.lightSurface;
-
-    Color textPrimary = isDark
-        ? AppColors.darkTextPrimary
-        : AppColors.lightTextPrimary;
-
-    Color textSecondary = isDark
-        ? AppColors.darkTextSecondary
-        : AppColors.lightTextSecondary;
-
-    Color softColor = isDark
-        ? AppColors.darkCard
-        : AppColors.mint;
-
-    Color actionColor = isDark
-        ? AppColors.primaryLight
-        : AppColors.primaryDark;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final scale = (screenWidth / 390).clamp(0.85, 1.15).toDouble();
+    final surfaceColor = AppTheme.surfaceColor(context);
+    final textColor = AppTheme.primaryTextColor(context);
+    final secondaryTextColor = AppTheme.secondaryTextColor(context);
+    final isDarkMode = AppTheme.isDark(context);
 
     return Scaffold(
-      backgroundColor: background,
-
+      backgroundColor: AppTheme.backgroundColor(context),
+      appBar: customAppBar(
+        context,
+        title: 'Provider profile',
+        showBackButton: false,
+      ),
       body: SafeArea(
-        bottom: false,
-
         child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(
-            horizontal: horizontalPadding,
-            vertical: height * 0.025,
-          ),
-
+          padding: EdgeInsets.all(16 * scale),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
-              // ==============================
               // PROVIDER PROFILE CARD
-              // ==============================
-
               Container(
                 width: double.infinity,
-                padding: const EdgeInsets.all(16),
+                padding: EdgeInsets.all(16 * scale),
                 decoration: BoxDecoration(
                   color: AppColors.primaryDark,
                   borderRadius: BorderRadius.circular(18),
                 ),
-
                 child: Column(
-                  crossAxisAlignment:
-                      CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-
                     Row(
                       children: [
+                        _providerImage != null
+                            ? GestureDetector(
+                                onTap: _pickProfileImage,
+                                child: CircleAvatar(
+                                  radius: 30 * scale,
+                                  backgroundColor: AppColors.mint,
+                                  child: CircleAvatar(
+                                    radius: 28 * scale,
+                                    backgroundImage: FileImage(_providerImage!),
+                                  ),
+                                ),
+                              )
+                            : CircleAvatar(
+                                radius: 30 * scale,
+                                backgroundColor: AppColors.mint,
+                                child: IconButton(
+                                  padding: EdgeInsets.zero,
+                                  constraints: const BoxConstraints(),
+                                  icon: const Icon(Icons.camera_alt_outlined),
+                                  iconSize: 22 * scale,
+                                  color: AppColors.primaryDark,
+                                  onPressed: _pickProfileImage,
+                                ),
+                              ),
 
-                        const Icon(
-                          Icons.build_outlined,
-                          size: 26,
-                          color: AppColors.mint,
-                        ),
+                        SizedBox(width: 12 * scale),
 
-                        const SizedBox(width: 16),
-
-                        const Expanded(
+                        Expanded(
                           child: Column(
-                            crossAxisAlignment:
-                                CrossAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-
                               Text(
-                                "Greenline Plumbing",
-                                style: TextStyle(
+                                'Greenline Plumbing',
+                                style: const TextStyle(
+                                  fontFamily: AppFonts.headingFont,
                                   fontSize: 18,
                                   fontWeight: FontWeight.w600,
                                   color: AppColors.white,
                                 ),
                               ),
-
-                              SizedBox(height: 6),
-
+                              const SizedBox(height: 4),
                               Text(
-                                "Rajesh Kumar · Verified partner",
-                                style: TextStyle(
-                                  fontSize: 11,
+                                'greenline.plumbing@email.com',
+                                style: const TextStyle(
+                                  fontFamily: AppFonts.bodyFont,
+                                  fontSize: 12,
                                   color: AppColors.mint,
                                 ),
+                              ),
+                              const SizedBox(height: 6),
+                              Row(
+                                children: [
+                                  const Icon(
+                                    Icons.verified,
+                                    color: AppColors.mint,
+                                    size: 14,
+                                  ),
+                                  const SizedBox(width: 4),
+                                  Text(
+                                    'Verified provider · 6 yrs exp',
+                                    style: const TextStyle(
+                                      fontFamily: AppFonts.bodyFont,
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w500,
+                                      color: AppColors.mint,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
@@ -116,32 +190,164 @@ class ProviderProfileScreen extends StatelessWidget {
                       ],
                     ),
 
-                    const SizedBox(height: 20),
+                    SizedBox(height: 14 * scale),
 
-                    // Edit profile button
-                    GestureDetector(
-                      onTap: () {
-                        // Navigate to edit profile
-                      },
-
-                      child: const Row(
-                        children: [
-
-                          Text(
-                            "Edit profile",
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.mint,
+                    // STATS ROW
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                              vertical: 10 * scale,
+                              horizontal: 10 * scale,
+                            ),
+                            decoration: BoxDecoration(
+                              color: AppColors.white.withAlpha(20),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Column(
+                              children: [
+                                Text(
+                                  '4.9 ★',
+                                  style: const TextStyle(
+                                    fontFamily: AppFonts.headingFont,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.white,
+                                  ),
+                                ),
+                                const SizedBox(height: 2),
+                                Text(
+                                  '128 reviews',
+                                  style: const TextStyle(
+                                    fontFamily: AppFonts.bodyFont,
+                                    fontSize: 11,
+                                    color: AppColors.mint,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
+                        ),
+                        SizedBox(width: 10 * scale),
+                        Expanded(
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                              vertical: 10 * scale,
+                              horizontal: 10 * scale,
+                            ),
+                            decoration: BoxDecoration(
+                              color: AppColors.white.withAlpha(20),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Column(
+                              children: [
+                                Text(
+                                  '96%',
+                                  style: const TextStyle(
+                                    fontFamily: AppFonts.headingFont,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.white,
+                                  ),
+                                ),
+                                const SizedBox(height: 2),
+                                Text(
+                                  'Completion',
+                                  style: const TextStyle(
+                                    fontFamily: AppFonts.bodyFont,
+                                    fontSize: 11,
+                                    color: AppColors.mint,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 10 * scale),
+                        Expanded(
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                              vertical: 10 * scale,
+                              horizontal: 10 * scale,
+                            ),
+                            decoration: BoxDecoration(
+                              color: AppColors.white.withAlpha(20),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Column(
+                              children: [
+                                Text(
+                                  '214',
+                                  style: const TextStyle(
+                                    fontFamily: AppFonts.headingFont,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.white,
+                                  ),
+                                ),
+                                const SizedBox(height: 2),
+                                Text(
+                                  'Jobs done',
+                                  style: const TextStyle(
+                                    fontFamily: AppFonts.bodyFont,
+                                    fontSize: 11,
+                                    color: AppColors.mint,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
 
-                          SizedBox(width: 6),
+                    SizedBox(height: 12 * scale),
 
-                          Icon(
-                            Icons.arrow_forward,
-                            size: 15,
-                            color: AppColors.mint,
+                    // AVAILABILITY TOGGLE
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 12 * scale,
+                        vertical: 6 * scale,
+                      ),
+                      decoration: BoxDecoration(
+                        color: AppColors.white.withAlpha(20),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              CircleAvatar(
+                                radius: 4,
+                                backgroundColor: _isAvailable
+                                    ? AppColors.mint
+                                    : AppColors.warning,
+                              ),
+                              SizedBox(width: 8 * scale),
+                              Text(
+                                _isAvailable
+                                    ? 'Accepting bookings today'
+                                    : 'Paused for today',
+                                style: const TextStyle(
+                                  fontFamily: AppFonts.bodyFont,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                  color: AppColors.white,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Switch(
+                            value: _isAvailable,
+                            activeTrackColor: AppColors.mint,
+                            activeThumbColor: AppColors.primaryDark,
+                            onChanged: (value) {
+                              setState(() {
+                                _isAvailable = value;
+                              });
+                            },
                           ),
                         ],
                       ),
@@ -150,469 +356,178 @@ class ProviderProfileScreen extends StatelessWidget {
                 ),
               ),
 
-              SizedBox(height: height * 0.025),
+              SizedBox(height: 22 * scale),
 
-              // ==============================
-              // SERVICES SECTION HEADING
-              // ==============================
-
-              Row(
-                mainAxisAlignment:
-                    MainAxisAlignment.spaceBetween,
-                children: [
-
-                  Expanded(
-                    child: Text(
-                      "Services you offer",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        color: textPrimary,
-                      ),
-                    ),
-                  ),
-
-                  TextButton(
-                    onPressed: () {
-                      // Add new service
-                    },
-
-                    child: Text(
-                      "+ Add",
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                        color: actionColor,
-                      ),
-                    ),
-                  ),
-                ],
+              // ACTIVE SERVICE SECTION
+              Text(
+                'ACTIVE SERVICE',
+                style: TextStyle(
+                  fontFamily: AppFonts.bodyFont,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w600,
+                  color: secondaryTextColor,
+                ),
               ),
-
-              const SizedBox(height: 6),
-
-              // ==============================
-              // SERVICE 1 - TAP & LEAK REPAIR
-              // ==============================
-
+              SizedBox(height: 10 * scale),
               Container(
                 width: double.infinity,
-                padding: const EdgeInsets.all(16),
+                padding: EdgeInsets.all(12 * scale),
                 decoration: BoxDecoration(
-                  color: surface,
-                  borderRadius: BorderRadius.circular(15),
+                  color: surfaceColor,
+                  borderRadius: BorderRadius.circular(14),
                 ),
-
                 child: Row(
                   children: [
-
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment:
-                            CrossAxisAlignment.start,
-                        children: [
-
-                          Text(
-                            "Tap & leak repair",
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w600,
-                              color: textPrimary,
-                            ),
-                          ),
-
-                          const SizedBox(height: 9),
-
-                          Text(
-                            "60 min · Repair & inspection",
-                            style: TextStyle(
-                              fontSize: 11,
-                              color: textSecondary,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    const SizedBox(width: 10),
-
-                    GestureDetector(
-                      onTap: () {
-                        // Edit tap and leak repair
-                      },
-
-                      child: Text(
-                        "Edit",
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                          color: actionColor,
-                        ),
-                      ),
-                    ),
-
-                    const SizedBox(width: 10),
-                  ],
-                ),
-              ),
-
-              const SizedBox(height: 13),
-
-              // ==============================
-              // SERVICE 2 - DRAIN CLEANING
-              // ==============================
-
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: surface,
-                  borderRadius: BorderRadius.circular(15),
-                ),
-
-                child: Row(
-                  children: [
-
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment:
-                            CrossAxisAlignment.start,
-                        children: [
-
-                          Text(
-                            "Drain cleaning",
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w600,
-                              color: textPrimary,
-                            ),
-                          ),
-
-                          const SizedBox(height: 9),
-
-                          Text(
-                            "90 min · Drain maintenance",
-                            style: TextStyle(
-                              fontSize: 11,
-                              color: textSecondary,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    const SizedBox(width: 10),
-
-                    GestureDetector(
-                      onTap: () {
-                        // Edit drain cleaning
-                      },
-
-                      child: Text(
-                        "Edit",
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                          color: actionColor,
-                        ),
-                      ),
-                    ),
-
-                    const SizedBox(width: 10),
-                  ],
-                ),
-              ),
-
-              const SizedBox(height: 13),
-
-              // ==============================
-              // SERVICE 3 - BATHROOM FITTINGS
-              // ==============================
-
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: surface,
-                  borderRadius: BorderRadius.circular(15),
-                ),
-
-                child: Row(
-                  children: [
-
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment:
-                            CrossAxisAlignment.start,
-                        children: [
-
-                          Text(
-                            "Bathroom fittings",
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w600,
-                              color: textPrimary,
-                            ),
-                          ),
-
-                          const SizedBox(height: 9),
-
-                          Text(
-                            "120 min · Installation service",
-                            style: TextStyle(
-                              fontSize: 11,
-                              color: textSecondary,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    const SizedBox(width: 10),
-
-                    GestureDetector(
-                      onTap: () {
-                        // Edit bathroom fittings
-                      },
-
-                      child: Text(
-                        "Edit",
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                          color: actionColor,
-                        ),
-                      ),
-                    ),
-
-                    const SizedBox(width: 10),
-                  ],
-                ),
-              ),
-
-              SizedBox(height: height * 0.04),
-
-              // ==============================
-              // SERVICE AREA AND EXPERIENCE
-              // ==============================
-
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: softColor,
-                  borderRadius: BorderRadius.circular(15),
-                ),
-
-                child: Column(
-                  crossAxisAlignment:
-                      CrossAxisAlignment.start,
-                  children: [
-
-                    Text(
-                      "Service area & experience",
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                        color: actionColor,
-                      ),
-                    ),
-
-                    const SizedBox(height: 10),
-
-                    Text(
-                      "Indiranagar, Bengaluru · Within 5 km",
-                      style: TextStyle(
-                        fontSize: 11,
-                        color: actionColor,
-                      ),
-                    ),
-
-                    const SizedBox(height: 4),
-
-                    Text(
-                      "6 years in plumbing · English, Hindi, Kannada",
-                      style: TextStyle(
-                        fontSize: 11,
-                        height: 1.4,
-                        color: actionColor,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-
-              SizedBox(height: height * 0.045),
-
-              // ==============================
-              // LOGOUT BUTTON
-              // ==============================
-
-              GestureDetector(
-                onTap: () {
-                  // Logout logic
-                },
-
-                child: const Row(
-                  children: [
-
                     Icon(
-                      Icons.logout,
-                      size: 21,
-                      color: AppColors.error,
+                      Icons.check_circle_outline,
+                      size: 18 * scale,
+                      color: isDarkMode
+                          ? AppColors.primaryLight
+                          : AppColors.primaryDark,
                     ),
-
-                    SizedBox(width: 12),
-
+                    SizedBox(width: 10 * scale),
                     Expanded(
                       child: Text(
-                        "Log out of your account",
+                        _activeService,
                         style: TextStyle(
+                          fontFamily: AppFonts.bodyFont,
                           fontSize: 14,
-                          fontWeight: FontWeight.w500,
+                          color: textColor,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              SizedBox(height: 22 * scale),
+
+              // PREFERENCES & BUSINESS SETTINGS
+              Text(
+                'BUSINESS & PREFERENCES',
+                style: TextStyle(
+                  fontFamily: AppFonts.bodyFont,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w600,
+                  color: secondaryTextColor,
+                ),
+              ),
+              SizedBox(height: 10 * scale),
+              Container(
+                decoration: BoxDecoration(
+                  color: surfaceColor,
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: _providerMenuItems.length,
+                  itemBuilder: (context, index) {
+                    final item = _providerMenuItems[index];
+                    return GestureDetector(
+                      onTap: () {
+                        if (item['title'] == 'Appearance') {
+                          _showAppearanceDialog();
+                        }
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.all(12 * scale),
+                        child: Row(
+                          children: [
+                            Container(
+                              height: 38 * scale,
+                              width: 38 * scale,
+                              decoration: BoxDecoration(
+                                color: isDarkMode
+                                    ? AppColors.primaryDark.withAlpha(51)
+                                    : AppColors.mint,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Icon(
+                                item['icon'] as IconData,
+                                size: 20 * scale,
+                                color: isDarkMode
+                                    ? AppColors.primaryLight
+                                    : AppColors.primaryDark,
+                              ),
+                            ),
+                            SizedBox(width: 12 * scale),
+                            Expanded(
+                              child: Text(
+                                item['title'] as String,
+                                style: TextStyle(
+                                  fontFamily: AppFonts.bodyFont,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                  color: textColor,
+                                ),
+                              ),
+                            ),
+                            Icon(
+                              Icons.arrow_forward_ios,
+                              size: 14 * scale,
+                              color: secondaryTextColor,
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+
+              SizedBox(height: 20 * scale),
+
+              // LOGOUT BUTTON
+              GestureDetector(
+                onTap: () {},
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.symmetric(vertical: 14 * scale),
+                  decoration: BoxDecoration(
+                    color: surfaceColor,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: AppColors.error.withAlpha(51)),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        Icons.logout,
+                        color: AppColors.error,
+                        size: 20,
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        'Log out',
+                        style: const TextStyle(
+                          fontFamily: AppFonts.headingFont,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
                           color: AppColors.error,
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
 
-              const SizedBox(height: 24),
+              SizedBox(height: 20 * scale),
+
+              // VERSION FOOTER
+              Center(
+                child: Text(
+                  'Kaamly Provider · Version 1.0.0',
+                  style: TextStyle(
+                    fontFamily: AppFonts.bodyFont,
+                    fontSize: 11,
+                    color: secondaryTextColor,
+                  ),
+                ),
+              ),
+
+              SizedBox(height: 10 * scale),
             ],
-          ),
-        ),
-      ),
-
-      // ==============================
-      // BOTTOM NAVIGATION BAR
-      // ==============================
-
-      bottomNavigationBar: Container(
-        color: surface,
-
-        child: SafeArea(
-          top: false,
-
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: horizontalPadding,
-              vertical: 8,
-            ),
-
-            child: Row(
-              mainAxisAlignment:
-                  MainAxisAlignment.spaceBetween,
-              children: [
-
-                // HOME TAB
-                GestureDetector(
-                  onTap: () {
-                    // Navigate to provider dashboard
-                  },
-
-                  child: SizedBox(
-                    width: 70,
-
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-
-                        Icon(
-                          Icons.home_outlined,
-                          size: 23,
-                          color: textSecondary,
-                        ),
-
-                        const SizedBox(height: 5),
-
-                        Text(
-                          "Home",
-                          style: TextStyle(
-                            fontSize: 11,
-                            color: textSecondary,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-
-                // REQUESTS TAB
-                GestureDetector(
-                  onTap: () {
-                    // Navigate to booking requests
-                  },
-
-                  child: SizedBox(
-                    width: 70,
-
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-
-                        Icon(
-                          Icons.calendar_today_outlined,
-                          size: 21,
-                          color: textSecondary,
-                        ),
-
-                        const SizedBox(height: 5),
-
-                        Text(
-                          "Requests",
-                          style: TextStyle(
-                            fontSize: 11,
-                            color: textSecondary,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-
-                // PROFILE TAB (SELECTED)
-                GestureDetector(
-                  onTap: () {
-                    // Already on profile screen
-                  },
-
-                  child: Container(
-                    width: 70,
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 9,
-                    ),
-                    decoration: BoxDecoration(
-                      color: softColor,
-                      borderRadius: BorderRadius.circular(13),
-                    ),
-
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-
-                        Icon(
-                          Icons.person_outline,
-                          size: 23,
-                          color: actionColor,
-                        ),
-
-                        const SizedBox(height: 5),
-
-                        Text(
-                          "Profile",
-                          style: TextStyle(
-                            fontSize: 11,
-                            fontWeight: FontWeight.w600,
-                            color: actionColor,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
           ),
         ),
       ),

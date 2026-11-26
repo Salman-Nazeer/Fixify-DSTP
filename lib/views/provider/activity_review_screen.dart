@@ -1,56 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:fixify/constant/colors.dart';
+import 'package:fixify/constant/fontsapp.dart';
+import 'package:fixify/app/app_theme.dart';
 
 class ActivityReviewsScreen extends StatelessWidget {
   const ActivityReviewsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
 
     // Responsive horizontal padding
-    double horizontalPadding =
-        width > 600 ? (width - 550) / 2 : width * 0.06;
+    double horizontalPadding = width > 600 ? (width - 550) / 2 : width * 0.06;
 
-    // Check current theme
-    bool isDark =
-        Theme.of(context).brightness == Brightness.dark;
+    final isDark = AppTheme.isDark(context);
+    final background = AppTheme.backgroundColor(context);
+    final surface = AppTheme.surfaceColor(context);
+    final textPrimary = AppTheme.primaryTextColor(context);
+    final textSecondary = AppTheme.secondaryTextColor(context);
 
-    // Theme colors
-    Color background = isDark
-        ? AppColors.darkBackground
-        : AppColors.lightBackground;
+    Color softColor = isDark ? AppColors.darkCard : AppColors.mint;
 
-    Color surface = isDark
-        ? AppColors.darkSurface
-        : AppColors.lightSurface;
-
-    Color textPrimary = isDark
-        ? AppColors.darkTextPrimary
-        : AppColors.lightTextPrimary;
-
-    Color textSecondary = isDark
-        ? AppColors.darkTextSecondary
-        : AppColors.lightTextSecondary;
-
-    Color softColor = isDark
-        ? AppColors.darkCard
-        : AppColors.mint;
-
-    Color actionColor = isDark
-        ? AppColors.primaryLight
-        : AppColors.primaryDark;
+    Color actionColor = isDark ? AppColors.primaryLight : AppColors.primaryDark;
 
     // Weekly chart data
-    List<String> days = [
-      "M", "T", "W", "T", "F", "S", "S"
-    ];
+    List<String> days = ["M", "T", "W", "T", "F", "S", "S"];
 
-    List<double> barHeights = [
-      45, 68, 45, 90, 68, 45, 45
-    ];
+    List<double> barHeights = [45, 68, 45, 90, 68, 45, 45];
 
     return Scaffold(
       backgroundColor: background,
@@ -67,7 +44,6 @@ class ActivityReviewsScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
               // ==============================
               // WEEKLY ACTIVITY CARD
               // ==============================
@@ -83,7 +59,6 @@ class ActivityReviewsScreen extends StatelessWidget {
                 child: const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-
                     Text(
                       "THIS WEEK · 16–22 NOV",
                       style: TextStyle(
@@ -108,10 +83,7 @@ class ActivityReviewsScreen extends StatelessWidget {
 
                     Text(
                       "Completed this week · +18% vs last week",
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: AppColors.white,
-                      ),
+                      style: TextStyle(fontSize: 12, color: AppColors.white),
                     ),
                   ],
                 ),
@@ -122,13 +94,9 @@ class ActivityReviewsScreen extends StatelessWidget {
               // ==============================
               // WEEKLY CHART HEADING
               // ==============================
-
               Text(
                 "Completed visits · daily",
-                style: TextStyle(
-                  fontSize: 12,
-                  color: textSecondary,
-                ),
+                style: TextStyle(fontSize: 12, color: textSecondary),
               ),
 
               const SizedBox(height: 10),
@@ -136,57 +104,46 @@ class ActivityReviewsScreen extends StatelessWidget {
               // ==============================
               // WEEKLY BAR CHART
               // ==============================
-
               SizedBox(
                 height: 120,
                 width: double.infinity,
 
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
-                  children: List.generate(
-                    days.length,
+                  children: List.generate(days.length, (index) {
+                    return Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          // Chart bar
+                          Container(
+                            width: (width * 0.065).clamp(15.0, 30.0).toDouble(),
 
-                    (index) {
-                      return Expanded(
-                        child: Column(
-                          mainAxisAlignment:
-                              MainAxisAlignment.end,
-                          children: [
+                            height: barHeights[index],
 
-                            // Chart bar
-                            Container(
-                              width: (width * 0.065)
-                                  .clamp(15.0, 30.0)
-                                  .toDouble(),
+                            decoration: BoxDecoration(
+                              color: index == 5
+                                  ? AppColors.primaryDark
+                                  : AppColors.primaryLight.withAlpha(150),
 
-                              height: barHeights[index],
-
-                              decoration: BoxDecoration(
-                                color: index == 5
-                                    ? AppColors.primaryDark
-                                    : AppColors.primaryLight
-                                        .withOpacity(0.25),
-
-                                borderRadius:
-                                    BorderRadius.circular(6),
-                              ),
+                              borderRadius: BorderRadius.circular(6),
                             ),
+                          ),
 
-                            const SizedBox(height: 12),
+                          const SizedBox(height: 12),
 
-                            // Day name
-                            Text(
-                              days[index],
-                              style: TextStyle(
-                                fontSize: 11,
-                                color: textSecondary,
-                              ),
+                          // Day name
+                          Text(
+                            days[index],
+                            style: TextStyle(
+                              fontSize: 11,
+                              color: textSecondary,
                             ),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
+                          ),
+                        ],
+                      ),
+                    );
+                  }),
                 ),
               ),
 
@@ -195,10 +152,10 @@ class ActivityReviewsScreen extends StatelessWidget {
               // ==============================
               // CUSTOMER REVIEWS HEADING
               // ==============================
-
               Text(
                 "What customers say",
                 style: TextStyle(
+                  fontFamily: AppFonts.headingFont,
                   fontSize: 19,
                   fontWeight: FontWeight.w600,
                   color: textPrimary,
@@ -210,7 +167,6 @@ class ActivityReviewsScreen extends StatelessWidget {
               // ==============================
               // OVERALL CUSTOMER RATING
               // ==============================
-
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(16),
@@ -221,7 +177,6 @@ class ActivityReviewsScreen extends StatelessWidget {
 
                 child: Row(
                   children: [
-
                     // Rating number
                     Text(
                       "4.9",
@@ -237,10 +192,8 @@ class ActivityReviewsScreen extends StatelessWidget {
                     // Stars and total reviews
                     Expanded(
                       child: Column(
-                        crossAxisAlignment:
-                            CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-
                           Row(
                             children: List.generate(
                               5,
@@ -256,10 +209,7 @@ class ActivityReviewsScreen extends StatelessWidget {
 
                           Text(
                             "128 verified customer reviews",
-                            style: TextStyle(
-                              fontSize: 11,
-                              color: actionColor,
-                            ),
+                            style: TextStyle(fontSize: 11, color: actionColor),
                           ),
                         ],
                       ),
@@ -273,7 +223,6 @@ class ActivityReviewsScreen extends StatelessWidget {
               // ==============================
               // CUSTOMER REVIEW CARD
               // ==============================
-
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(16),
@@ -283,22 +232,16 @@ class ActivityReviewsScreen extends StatelessWidget {
                 ),
 
                 child: Column(
-                  crossAxisAlignment:
-                      CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-
                     // Customer stars and name
                     Row(
                       children: [
-
                         Row(
                           children: List.generate(
                             5,
-                            (index) => Icon(
-                              Icons.star,
-                              size: 14,
-                              color: actionColor,
-                            ),
+                            (index) =>
+                                Icon(Icons.star, size: 14, color: actionColor),
                           ),
                         ),
 
@@ -333,7 +276,6 @@ class ActivityReviewsScreen extends StatelessWidget {
                     // Review date and reply button
                     Row(
                       children: [
-
                         Expanded(
                           child: Text(
                             "Tap repair · 14 Nov",
@@ -351,7 +293,6 @@ class ActivityReviewsScreen extends StatelessWidget {
 
                           child: Row(
                             children: [
-
                               Text(
                                 "Reply to review",
                                 style: TextStyle(
@@ -378,139 +319,6 @@ class ActivityReviewsScreen extends StatelessWidget {
 
               const SizedBox(height: 24),
             ],
-          ),
-        ),
-      ),
-
-      // ==============================
-      // BOTTOM NAVIGATION BAR
-      // ==============================
-
-      bottomNavigationBar: Container(
-        color: surface,
-
-        child: SafeArea(
-          top: false,
-
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: horizontalPadding,
-              vertical: 8,
-            ),
-
-            child: Row(
-              mainAxisAlignment:
-                  MainAxisAlignment.spaceBetween,
-              children: [
-
-                // HOME TAB (SELECTED)
-                GestureDetector(
-                  onTap: () {
-                    // Navigate to provider dashboard
-                  },
-
-                  child: Container(
-                    width: 70,
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 9,
-                    ),
-                    decoration: BoxDecoration(
-                      color: softColor,
-                      borderRadius: BorderRadius.circular(13),
-                    ),
-
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-
-                        Icon(
-                          Icons.home_outlined,
-                          size: 23,
-                          color: actionColor,
-                        ),
-
-                        const SizedBox(height: 5),
-
-                        Text(
-                          "Home",
-                          style: TextStyle(
-                            fontSize: 11,
-                            fontWeight: FontWeight.w600,
-                            color: actionColor,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-
-                // REQUESTS TAB
-                GestureDetector(
-                  onTap: () {
-                    // Navigate to booking requests
-                  },
-
-                  child: SizedBox(
-                    width: 70,
-
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-
-                        Icon(
-                          Icons.calendar_today_outlined,
-                          size: 21,
-                          color: textSecondary,
-                        ),
-
-                        const SizedBox(height: 5),
-
-                        Text(
-                          "Requests",
-                          style: TextStyle(
-                            fontSize: 11,
-                            color: textSecondary,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-
-                // PROFILE TAB
-                GestureDetector(
-                  onTap: () {
-                    // Navigate to provider profile
-                  },
-
-                  child: SizedBox(
-                    width: 70,
-
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-
-                        Icon(
-                          Icons.person_outline,
-                          size: 23,
-                          color: textSecondary,
-                        ),
-
-                        const SizedBox(height: 5),
-
-                        Text(
-                          "Profile",
-                          style: TextStyle(
-                            fontSize: 11,
-                            color: textSecondary,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
           ),
         ),
       ),

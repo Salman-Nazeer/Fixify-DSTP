@@ -1,4 +1,5 @@
 import 'package:fixify/views/authentication/log_in.dart';
+import 'package:fixify/views/provider/become_provider_screen.dart';
 import 'package:get/get.dart';
 
 class AuthController extends GetxController {
@@ -63,7 +64,7 @@ class AuthController extends GetxController {
     if (selectedRole.value == 'Customer') {
       Get.offAll(() => const LogIn());
     } else if (selectedRole.value == 'Service Provider') {
-      // Get.to(() => const LogIn());
+      Get.to(() => const BecomeProviderScreen());
     }
     // Future<void> signUp({
     //   required String name,
