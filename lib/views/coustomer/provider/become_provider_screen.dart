@@ -1,0 +1,294 @@
+import 'package:flutter/material.dart';
+import 'package:fixify/constant/colors.dart';
+
+class BecomeProviderScreen extends StatelessWidget {
+  const BecomeProviderScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+
+    // Check current theme
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
+
+    // Theme colors
+    Color background = isDark
+        ? AppColors.darkBackground
+        : AppColors.lightBackground;
+
+    Color surface = isDark
+        ? AppColors.darkSurface
+        : AppColors.lightSurface;
+
+    Color textPrimary = isDark
+        ? AppColors.darkTextPrimary
+        : AppColors.lightTextPrimary;
+
+    Color textSecondary = isDark
+        ? AppColors.darkTextSecondary
+        : AppColors.lightTextSecondary;
+
+    return Scaffold(
+      backgroundColor: background,
+
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: width * 0.06,
+            vertical: height * 0.025,
+          ),
+
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+
+                      // Partner registration label
+                      Container(
+                        width: 180,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 8,
+                        ),
+                        decoration: BoxDecoration(
+                          color: isDark
+                              ? AppColors.darkCard
+                              : AppColors.mint,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Text(
+                          "PARTNER REGISTRATION",
+                          style: TextStyle(
+                            color: isDark
+                                ? AppColors.primaryLight
+                                : AppColors.primaryDark,
+                            fontSize: 11,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+
+                      SizedBox(height: height * 0.025),
+
+                      // Main heading
+                      Text(
+                        "Bring your skills.\n"
+                        "We’ll bring the bookings.",
+                        style: TextStyle(
+                          fontSize: (width * 0.065)
+                              .clamp(22.0, 32.0)
+                              .toDouble(),
+                          fontWeight: FontWeight.bold,
+                          color: textPrimary,
+                          height: 1.3,
+                        ),
+                      ),
+
+                      SizedBox(height: height * 0.03),
+
+                      // Business name label
+                      Text(
+                        "Business / display name",
+                        style: TextStyle(
+                          fontSize: 13,
+                          color: textSecondary,
+                        ),
+                      ),
+
+                      const SizedBox(height: 8),
+
+                      // Business name text field
+                      Container(
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color: surface,
+                          borderRadius: BorderRadius.circular(14),
+                        ),
+                        child: TextField(
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: textPrimary,
+                          ),
+                          decoration: InputDecoration(
+                            hintText: "Greenline Plumbing",
+                            hintStyle: TextStyle(
+                              color: textPrimary,
+                              fontSize: 13,
+                            ),
+                            border: InputBorder.none,
+                            contentPadding:
+                                const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 14,
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      SizedBox(height: height * 0.022),
+
+                      // Primary service label
+                      Text(
+                        "Primary service",
+                        style: TextStyle(
+                          fontSize: 13,
+                          color: textSecondary,
+                        ),
+                      ),
+
+                      const SizedBox(height: 8),
+
+                      // Primary service selection
+                      GestureDetector(
+                        onTap: () {
+                          // Service selection logic
+                        },
+                        child: Container(
+                          width: double.infinity,
+                          height: 50,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                          ),
+                          decoration: BoxDecoration(
+                            color: surface,
+                            borderRadius: BorderRadius.circular(14),
+                          ),
+                          child: Row(
+                            children: [
+
+                              Text(
+                                "Plumbing",
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  color: textPrimary,
+                                ),
+                              ),
+
+                              const SizedBox(width: 5),
+
+                              Icon(
+                                Icons.keyboard_arrow_down,
+                                size: 16,
+                                color: textPrimary,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+
+                      SizedBox(height: height * 0.022),
+
+                      // Experience and service area label
+                      Text(
+                        "Experience & service area",
+                        style: TextStyle(
+                          fontSize: 13,
+                          color: textSecondary,
+                        ),
+                      ),
+
+                      const SizedBox(height: 8),
+
+                      // Experience and service area text field
+                      Container(
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color: surface,
+                          borderRadius: BorderRadius.circular(14),
+                        ),
+                        child: TextField(
+                          style: TextStyle(
+                            fontSize: 13,
+                            color: textPrimary,
+                          ),
+                          decoration: InputDecoration(
+                            hintText:
+                                "6 years · Bengaluru · Within 5 km",
+                            hintStyle: TextStyle(
+                              fontSize: 13,
+                              color: textPrimary,
+                            ),
+                            border: InputBorder.none,
+                            contentPadding:
+                                const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 14,
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      SizedBox(height: height * 0.04),
+
+                      // Create provider profile button
+                      SizedBox(
+                        width: double.infinity,
+                        height: 54,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            // Create provider profile logic
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColors.primary,
+                            foregroundColor: AppColors.white,
+                            elevation: 0,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.circular(14),
+                            ),
+                          ),
+                          child: const Row(
+                            children: [
+
+                              Text(
+                                "Create provider profile",
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+
+                              Spacer(),
+
+                              Icon(
+                                Icons.arrow_forward,
+                                color: AppColors.mint,
+                                size: 22,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 16),
+
+              // Bottom encryption text
+              Text(
+                "Protected with end-to-end encryption",
+                style: TextStyle(
+                  fontSize: 11,
+                  color: textSecondary,
+                ),
+              ),
+
+              SizedBox(height: height * 0.025),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
