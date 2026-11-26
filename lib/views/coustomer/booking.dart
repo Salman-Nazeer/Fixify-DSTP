@@ -1,10 +1,19 @@
 import 'package:fixify/app/app_theme.dart';
 import 'package:fixify/constant/colors.dart';
 import 'package:fixify/constant/fontsapp.dart';
+import 'package:fixify/controllers/mybooking_controller.dart';
 import 'package:fixify/views/coustomeWidgts/app_bar.dart';
 import 'package:fixify/views/coustomer/track_booking_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+final BookingController bookingController = Get.put(BookingController());
+
+final today = DateTime.now();
+final dates = List.generate(
+  5,
+  (index) => DateTime(today.year, today.month, today.day + index),
+);
 
 class BookingsScreen extends StatefulWidget {
   const BookingsScreen({super.key});
@@ -17,19 +26,6 @@ class _BookingsScreenState extends State<BookingsScreen> {
   final TextEditingController _problemController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
 
-  int _selectedDateIndex = 1;
-  int _selectedSlotIndex = 1;
-
-  final List<Map<String, String>> _dates = [
-    {'day': 'Wed', 'date': '18'},
-    {'day': 'Thu', 'date': '19'},
-    {'day': 'Fri', 'date': '20'},
-    {'day': 'Sat', 'date': '21'},
-    {'day': 'Sun', 'date': '22'},
-  ];
-
-  final List<String> _timeSlots = ['09–11 am', '11 am–1 pm', '02–04 pm'];
-
   @override
   void dispose() {
     _problemController.dispose();
@@ -39,13 +35,14 @@ class _BookingsScreenState extends State<BookingsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.sizeOf(context);
-    final screenWidth = MediaQuery.of(context).size.width;
-    final itemWidth = (screenWidth - 50) / _dates.length;
     final textColor = AppTheme.primaryTextColor(context);
     final secondaryTextColor = AppTheme.secondaryTextColor(context);
     final surfaceColor = AppTheme.surfaceColor(context);
-    final horizontalPadding = (size.width * 0.055).clamp(16.0, 28.0);
+    final borderColor = AppTheme.borderColor(context);
+    final hintColor = AppTheme.hintColor(context);
+
+    double screenWidth = MediaQuery.of(context).size.width;
+    double scale = screenWidth / 390;
 
     return Scaffold(
       backgroundColor: AppTheme.backgroundColor(context),
@@ -54,183 +51,222 @@ class _BookingsScreenState extends State<BookingsScreen> {
 
       body: SafeArea(
         child: SingleChildScrollView(
-          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-          padding: EdgeInsets.fromLTRB(
-            horizontalPadding,
-            8,
-            horizontalPadding,
-            24,
-          ),
-          child: Center(
-            child: SizedBox(
-              width: double.infinity,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Service service",
-                    style: TextStyle(
-                      fontFamily: AppFonts.bodyFont,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                      color: AppTheme.secondaryTextColor(context),
-                    ),
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: 20 * scale,
+              vertical: 12 * scale,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // SELECTED SERVICE
+                Text(
+                  'Selected service',
+                  style: AppFonts.labelMedium.copyWith(
+                    color: secondaryTextColor,
                   ),
-                  const SizedBox(height: 7),
-                  _buildInfoCard(
-                    context,
-                    text: 'Tap & leak repair · Greenline Plumbing',
-                    icon: Icons.handyman_outlined,
-                    textColor: textColor,
-                    surfaceColor: surfaceColor,
+                ),
+
+                SizedBox(height: 7 * scale),
+
+                Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 14 * scale,
+                    vertical: 13 * scale,
                   ),
-                  const SizedBox(height: 16),
-                  Text(
-                    "Describe the problem",
-                    style: TextStyle(
-                      fontFamily: AppFonts.bodyFont,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                      color: AppTheme.secondaryTextColor(context),
-                    ),
+                  decoration: BoxDecoration(
+                    color: surfaceColor,
+                    borderRadius: BorderRadius.circular(14),
+                    border: Border.all(color: borderColor),
                   ),
-                  const SizedBox(height: 7),
-                  Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 14,
-                      vertical: 10,
-                    ),
-                    decoration: BoxDecoration(
-                      color: surfaceColor,
-                      borderRadius: BorderRadius.circular(14),
-                      border: Border.all(color: AppTheme.borderColor(context)),
-                    ),
-                    child: TextField(
-                      controller: _problemController,
-                      maxLines: 3,
-                      style: TextStyle(
-                        fontFamily: AppFonts.bodyFont,
-                        fontSize: 14,
-                        color: textColor,
-                        height: 1.35,
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.handyman_outlined,
+                        size: 20 * scale,
+                        color: AppColors.primaryDark,
                       ),
-                      decoration: InputDecoration(
-                        isCollapsed: true,
-                        border: InputBorder.none,
-                        hintText: 'Describe the issue...',
-                        hintStyle: TextStyle(
-                          fontFamily: AppFonts.bodyFont,
-                          fontSize: 13,
-                          color: AppTheme.hintColor(context),
+
+                      SizedBox(width: 10 * scale),
+
+                      Expanded(
+                        child: Text(
+                          'Tap & leak repair · Greenline Plumbing',
+                          style: AppFonts.bodyMedium.copyWith(
+                            color: textColor,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
-                    ),
+                    ],
                   ),
-                  const SizedBox(height: 16),
-                  Text(
-                    "Service address",
-                    style: TextStyle(
-                      fontFamily: AppFonts.bodyFont,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                      color: AppTheme.secondaryTextColor(context),
-                    ),
-                  ),
-                  const SizedBox(height: 7),
+                ),
 
-                  Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
-                    decoration: BoxDecoration(
-                      color: surfaceColor,
-                      borderRadius: BorderRadius.circular(14),
-                      border: Border.all(color: AppTheme.borderColor(context)),
+                SizedBox(height: 16 * scale),
+
+                // DESCRIBE PROBLEM
+                Text(
+                  'Describe the problem',
+                  style: AppFonts.labelMedium.copyWith(
+                    color: secondaryTextColor,
+                  ),
+                ),
+
+                SizedBox(height: 7 * scale),
+
+                Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 14 * scale,
+                    vertical: 10 * scale,
+                  ),
+                  decoration: BoxDecoration(
+                    color: surfaceColor,
+                    borderRadius: BorderRadius.circular(14),
+                    border: Border.all(color: borderColor),
+                  ),
+                  child: TextField(
+                    controller: _problemController,
+                    maxLines: 3,
+                    style: AppFonts.bodyMedium.copyWith(color: textColor),
+                    decoration: InputDecoration(
+                      isCollapsed: true,
+                      border: InputBorder.none,
+                      hintText: 'Describe the issue...',
+                      hintStyle: AppFonts.hint.copyWith(color: hintColor),
                     ),
-                    child: TextField(
-                      controller: _addressController,
-                      textAlignVertical: TextAlignVertical.center,
-                      style: TextStyle(
-                        fontFamily: AppFonts.bodyFont,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        color: textColor,
-                        height: 1.35,
+                  ),
+                ),
+
+                SizedBox(height: 16 * scale),
+
+                // SERVICE ADDRESS
+                Text(
+                  'Service address',
+                  style: AppFonts.labelMedium.copyWith(
+                    color: secondaryTextColor,
+                  ),
+                ),
+
+                SizedBox(height: 7 * scale),
+
+                Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.symmetric(horizontal: 12 * scale),
+                  decoration: BoxDecoration(
+                    color: surfaceColor,
+                    borderRadius: BorderRadius.circular(14),
+                    border: Border.all(color: borderColor),
+                  ),
+                  child: TextField(
+                    controller: _addressController,
+                    style: AppFonts.bodyMedium.copyWith(color: textColor),
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      prefixIcon: Icon(
+                        Icons.location_on_outlined,
+                        color: hintColor,
+                        size: 20 * scale,
                       ),
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        prefixIcon: Icon(
-                          Icons.location_on_outlined,
-                          color: AppTheme.hintColor(context),
-                          size: 20,
-                        ),
-                        hintText: 'Enter your service address',
-                        hintStyle: TextStyle(
-                          fontFamily: AppFonts.bodyFont,
-                          fontSize: 13,
-                          color: AppTheme.hintColor(context),
-                        ),
+                      hintText: 'Enter your service address',
+                      hintStyle: AppFonts.hint.copyWith(color: hintColor),
+                    ),
+                  ),
+                ),
+
+                SizedBox(height: 18 * scale),
+
+                // CHOOSE DATE
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Choose a date',
+                      style: AppFonts.labelMedium.copyWith(
+                        color: secondaryTextColor,
                       ),
                     ),
-                  ),
 
-                  const SizedBox(height: 18),
-
-                  Text(
-                    "Choose a date · November 2026",
-                    style: TextStyle(
-                      fontFamily: AppFonts.bodyFont,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                      color: AppTheme.secondaryTextColor(context),
+                    IconButton(
+                      onPressed: () {
+                        bookingController.selectDate(context);
+                      },
+                      icon: const Icon(
+                        Icons.calendar_month_outlined,
+                        color: AppColors.primaryDark,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 10),
+                  ],
+                ),
 
-                  SizedBox(
-                    height: 70,
+                SizedBox(height: 10 * scale),
+
+                // DATE SELECTION LIST
+                Obx(() {
+                  DateTime selectedDate = bookingController.selectedDate.value;
+
+                  DateTime startDate = dates.contains(selectedDate)
+                      ? today
+                      : selectedDate;
+
+                  final bookingDates = List.generate(
+                    5,
+                    (index) => DateTime(
+                      startDate.year,
+                      startDate.month,
+                      startDate.day + index,
+                    ),
+                  );
+
+                  return SizedBox(
+                    height: 70 * scale,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: _dates.length,
+                      itemCount: bookingDates.length,
                       itemBuilder: (context, index) {
-                        final item = _dates[index];
-                        final isSelected = index == _selectedDateIndex;
+                        final date = bookingDates[index];
+
+                        bool isSelected = date == selectedDate;
 
                         return Container(
-                          width: itemWidth,
-                          padding: const EdgeInsets.symmetric(horizontal: 4),
+                          width: (screenWidth - 40 * scale) / 5,
+                          padding: EdgeInsets.symmetric(horizontal: 4 * scale),
                           child: GestureDetector(
                             onTap: () {
-                              setState(() {
-                                _selectedDateIndex = index;
-                              });
+                              bookingController.changeDate(date);
                             },
                             child: Container(
                               decoration: BoxDecoration(
                                 color: isSelected
                                     ? AppColors.primaryDark
                                     : surfaceColor,
+
                                 borderRadius: BorderRadius.circular(13),
+
                                 border: Border.all(
                                   color: isSelected
                                       ? AppColors.primaryDark
-                                      : AppTheme.borderColor(context),
+                                      : borderColor,
                                 ),
                               ),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    item['day']!,
+                                    bookingController.weekdays[date.weekday -
+                                        1],
                                     style: AppFonts.labelSmall.copyWith(
                                       color: isSelected
                                           ? AppColors.mint
                                           : secondaryTextColor,
                                     ),
                                   ),
-                                  const SizedBox(height: 4),
+
+                                  SizedBox(height: 4 * scale),
+
                                   Text(
-                                    item['date']!,
+                                    '${date.day}',
                                     style: AppFonts.titleMedium.copyWith(
                                       fontWeight: FontWeight.bold,
                                       color: isSelected
@@ -245,198 +281,177 @@ class _BookingsScreenState extends State<BookingsScreen> {
                         );
                       },
                     ),
-                  ),
+                  );
+                }),
 
-                  const SizedBox(height: 18),
-                  Text(
-                    "Available time slots · IST",
-                    style: TextStyle(
-                      fontFamily: AppFonts.bodyFont,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                      color: AppTheme.secondaryTextColor(context),
-                    ),
+                SizedBox(height: 8 * scale),
+
+                // DISPLAY SELECTED DATE
+                Obx(
+                  () => Text(
+                    'Selected date: '
+                    '${bookingController.selectedDate.value.day}/'
+                    '${bookingController.selectedDate.value.month}/'
+                    '${bookingController.selectedDate.value.year}',
+                    style: AppFonts.caption.copyWith(color: secondaryTextColor),
                   ),
-                  const SizedBox(height: 10),
-                  Row(
-                    children: List.generate(_timeSlots.length, (index) {
-                      final isSelected = index == _selectedSlotIndex;
-                      return Expanded(
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                            right: index == _timeSlots.length - 1 ? 0 : 8,
-                          ),
-                          child: GestureDetector(
-                            onTap: () =>
-                                setState(() => _selectedSlotIndex = index),
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(vertical: 12),
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                color: isSelected
-                                    ? AppColors.primaryDark
-                                    : surfaceColor,
-                                borderRadius: BorderRadius.circular(11),
-                                border: Border.all(
-                                  color: isSelected
-                                      ? AppColors.primaryDark
-                                      : AppTheme.borderColor(context),
-                                ),
-                              ),
-                              child: Text(
-                                _timeSlots[index],
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  fontFamily: AppFonts.bodyFont,
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.w600,
-                                  color: isSelected
-                                      ? AppColors.white
-                                      : AppColors.primaryDark,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      );
-                    }),
+                ),
+
+                SizedBox(height: 18 * scale),
+
+                // CHOOSE TIME
+                Text(
+                  'Choose a time',
+                  style: AppFonts.labelMedium.copyWith(
+                    color: secondaryTextColor,
                   ),
-                  const SizedBox(height: 12),
-                  Text(
-                    'Times sync with your provider\'s availability.',
-                    style: TextStyle(
-                      fontFamily: AppFonts.bodyFont,
-                      fontSize: 11,
-                      color: secondaryTextColor,
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  SizedBox(
+                ),
+
+                SizedBox(height: 10 * scale),
+
+                // TIME SELECTION
+                Obx(
+                  () => SizedBox(
                     width: double.infinity,
-                    height: 52,
                     child: ElevatedButton(
                       onPressed: () {
-                        Get.snackbar(
-                          'Booking Done',
-                          'Your booking has been confirmed.',
-                          snackPosition: SnackPosition.BOTTOM,
-                          backgroundColor: AppColors.primaryDark,
-                          colorText: AppColors.white,
-                          margin: const EdgeInsets.all(16),
-                        );
+                        bookingController.selectTime(context);
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.primaryDark,
-                        foregroundColor: AppColors.white,
+                        backgroundColor: surfaceColor,
+                        foregroundColor: AppColors.primaryDark,
                         elevation: 0,
+
+                        padding: EdgeInsets.symmetric(vertical: 14 * scale),
+
+                        side: BorderSide(color: borderColor),
+
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(14),
+                          borderRadius: BorderRadius.circular(11),
                         ),
-                        padding: const EdgeInsets.symmetric(horizontal: 18),
                       ),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            'Booked',
-                            style: const TextStyle(
-                              fontFamily: AppFonts.headingFont,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.white,
-                            ),
+                          Icon(
+                            Icons.schedule_outlined,
+                            color: AppColors.primaryDark,
+                            size: 20 * scale,
                           ),
-                          const Icon(
-                            Icons.arrow_forward_rounded,
-                            size: 20,
-                            color: AppColors.mint,
-                          ),                        ],
-                      ),
-                    ),
-                  ),
 
-                  SizedBox(height: 12),
+                          SizedBox(width: 10 * scale),
 
-                  SizedBox(
-                    width: double.infinity,
-                    height: 52,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Get.to(TrackBookingScreen());
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.primaryDark,
-                        foregroundColor: AppColors.white,
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(14),
-                        ),
-                        padding: const EdgeInsets.symmetric(horizontal: 18),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
                           Text(
-                            'Track Booking',
-                            style: const TextStyle(
-                              fontFamily: AppFonts.headingFont,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.white,
+                            bookingController.selectedTime.value.format(
+                              context,
                             ),
-                          ),
-                          const Icon(
-                            Icons.arrow_forward_rounded,
-                            size: 20,
-                            color: AppColors.mint,
+                            style: AppFonts.bodyMedium.copyWith(
+                              color: textColor,
+                            ),
                           ),
                         ],
                       ),
                     ),
                   ),
-                ],
-              ),
+                ),
+
+                SizedBox(height: 12 * scale),
+
+                Text(
+                  'Choose the date and time that works for your booking.',
+                  style: AppFonts.caption.copyWith(color: secondaryTextColor),
+                ),
+
+                SizedBox(height: 20 * scale),
+
+                // BOOK SERVICE BUTTON
+                SizedBox(
+                  width: double.infinity,
+                  height: 52 * scale,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      bookingController.bookService(
+                        problem: _problemController.text,
+                        address: _addressController.text,
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.primaryDark,
+                      foregroundColor: AppColors.white,
+                      elevation: 0,
+
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(14),
+                      ),
+
+                      padding: EdgeInsets.symmetric(horizontal: 18 * scale),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Book service',
+                          style: AppFonts.button.copyWith(
+                            color: AppColors.white,
+                          ),
+                        ),
+
+                        Icon(
+                          Icons.arrow_forward_rounded,
+                          size: 20 * scale,
+                          color: AppColors.mint,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+
+                SizedBox(height: 12 * scale),
+
+                // TRACK BOOKING BUTTON
+                SizedBox(
+                  width: double.infinity,
+                  height: 52 * scale,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Get.to(() => TrackBookingScreen());
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.primaryDark,
+                      foregroundColor: AppColors.white,
+                      elevation: 0,
+
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(14),
+                      ),
+
+                      padding: EdgeInsets.symmetric(horizontal: 18 * scale),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Track Booking',
+                          style: AppFonts.button.copyWith(
+                            color: AppColors.white,
+                          ),
+                        ),
+
+                        Icon(
+                          Icons.arrow_forward_rounded,
+                          size: 20 * scale,
+                          color: AppColors.mint,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+
+                SizedBox(height: 20 * scale),
+              ],
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildInfoCard(
-    BuildContext context, {
-    required String text,
-    required IconData icon,
-    required Color textColor,
-    required Color surfaceColor,
-  }) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 13),
-      decoration: BoxDecoration(
-        color: surfaceColor,
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: AppTheme.borderColor(context)),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Icon(icon, size: 18, color: AppColors.primaryDark),
-          const SizedBox(width: 10),
-          Expanded(
-            child: Text(
-              text,
-              style: TextStyle(
-                fontFamily: AppFonts.bodyFont,
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-                color: textColor,
-                height: 1.35,
-              ),
-            ),
-          ),
-        ],
       ),
     );
   }

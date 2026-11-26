@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:fixify/controllers/theme_controller.dart';
 import 'package:fixify/views/coustomeWidgts/app_bar.dart';
 import 'package:flutter/material.dart';
@@ -5,28 +7,43 @@ import 'package:fixify/app/app_theme.dart';
 import 'package:fixify/constant/colors.dart';
 import 'package:fixify/constant/fontsapp.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 final themeController = Get.find<ThemeController>();
 
-class CustomerProfileScreen extends StatelessWidget {
+final List<Map<String, dynamic>> settingsItems = [
+  {'icon': Icons.dark_mode_outlined, 'title': 'Appearance'},
+  {'icon': Icons.lock_outline, 'title': 'Change password'},
+  {'icon': Icons.headset_mic_outlined, 'title': 'Help & support'},
+  {'icon': Icons.privacy_tip_outlined, 'title': 'Privacy policy'},
+];
+
+Rx<File?> myImage = Rx<File?>(null);
+
+class CustomerProfileScreen extends StatefulWidget {
   const CustomerProfileScreen({super.key});
 
+  @override
+  State<CustomerProfileScreen> createState() => _CustomerProfileScreenState();
+}
+
+class _CustomerProfileScreenState extends State<CustomerProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final scale = (screenWidth / 390).clamp(0.85, 1.15).toDouble();
-
     final surfaceColor = AppTheme.surfaceColor(context);
     final textColor = AppTheme.primaryTextColor(context);
     final secondaryTextColor = AppTheme.secondaryTextColor(context);
     final isDarkMode = AppTheme.isDark(context);
 
-    final List<Map<String, dynamic>> settingsItems = [
-      {'icon': Icons.dark_mode_outlined, 'title': 'Appearance'},
-      {'icon': Icons.lock_outline, 'title': 'Change password'},
-      {'icon': Icons.headset_mic_outlined, 'title': 'Help & support'},
-      {'icon': Icons.privacy_tip_outlined, 'title': 'Privacy policy'},
-    ];
+    void pickProfileImage() async {
+      final ImagePicker picker = ImagePicker();
+      final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        myImage.value = File(image.path);
+      }
+    }
 
     return Scaffold(
       backgroundColor: AppTheme.backgroundColor(context),
@@ -51,17 +68,41 @@ class CustomerProfileScreen extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        // PROFILE IMAGE
-                        CircleAvatar(
-                          radius: 30 * scale,
-                          backgroundColor: AppColors.mint,
-                          child: Icon(
-                            Icons.person_outline,
-                            size: 34 * scale,
-                            color: AppColors.primaryDark,
-                          ),
-                        ),
+                        myImage.value != null
+                            ? GestureDetector(
+                                onTap: pickProfileImage,
+                                child: CircleAvatar(
+                                  radius: 30 * scale,
+                                  backgroundColor: AppColors.mint,
+                                  child: CircleAvatar(
+                                    radius: 28 * scale,
+                                    backgroundImage: FileImage(myImage.value!),
+                                  ),
+                                ),
+                              )
+                            : CircleAvatar(
+                                radius: 30 * scale,
+                                backgroundColor: AppColors.mint,
+                                child: IconButton(
+                                  padding: EdgeInsets.zero,
+                                  constraints: const BoxConstraints(),
+                                  icon: const Icon(Icons.camera_alt_outlined),
+                                  iconSize: 22 * scale,
+                                  color: AppColors.primaryDark,
+                                  onPressed: pickProfileImage,
+                                ),
+                              ),
 
+                        // PROFILE IMAGE
+                        // CircleAvatar(
+                        //   radius: 30 * scale,
+                        //   backgroundColor: AppColors.mint,
+                        //   child: Icon(
+                        //     Icons.person_outline,
+                        //     size: 34 * scale,
+                        //     color: AppColors.primaryDark,
+                        //   ),
+                        // ),
                         SizedBox(width: 12 * scale),
 
                         // CUSTOMER INFORMATION
@@ -106,16 +147,6 @@ class CustomerProfileScreen extends StatelessWidget {
                                 ],
                               ),
                             ],
-                          ),
-                        ),
-
-                        // EDIT PROFILE
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.edit_outlined,
-                            color: AppColors.white,
-                            size: 20,
                           ),
                         ),
                       ],

@@ -130,7 +130,7 @@ class TrackBookingScreen extends StatelessWidget {
 
                   // -------- BOOKING REFERENCE --------
                   Text(
-                    'Tap & leak repair  ·  #KM2048',
+                    'Tap & leak repair',
                     style: TextStyle(
                       fontFamily: AppFonts.headingFont,
                       fontSize: isSmall ? 12 : 13,
@@ -264,116 +264,116 @@ class TrackBookingScreen extends StatelessWidget {
                   ),
 
                   // -------- STEP 3: PROVIDER ON THE WAY --------
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        width: 20,
-                        child: Column(
-                          children: [
-                            Container(
-                              width: 20,
-                              height: 20,
-                              decoration: const BoxDecoration(
-                                color: AppColors.primaryDark,
-                                shape: BoxShape.circle,
-                              ),
-                              child: const Icon(
-                                Icons.location_on_outlined,
-                                color: AppColors.white,
-                                size: 14,
-                              ),
-                            ),
-                            Container(width: 2, height: 26, color: borderColor),
-                          ],
-                        ),
-                      ),
+                  // Row(
+                  //   crossAxisAlignment: CrossAxisAlignment.start,
+                  //   children: [
+                  //     SizedBox(
+                  //       width: 20,
+                  //       child: Column(
+                  //         children: [
+                  //           Container(
+                  //             width: 20,
+                  //             height: 20,
+                  //             decoration: const BoxDecoration(
+                  //               color: AppColors.primaryDark,
+                  //               shape: BoxShape.circle,
+                  //             ),
+                  //             child: const Icon(
+                  //               Icons.location_on_outlined,
+                  //               color: AppColors.white,
+                  //               size: 14,
+                  //             ),
+                  //           ),
+                  //           Container(width: 2, height: 26, color: borderColor),
+                  //         ],
+                  //       ),
+                  //     ),
 
-                      const SizedBox(width: 13),
+                  //     const SizedBox(width: 13),
 
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Provider on the way',
-                              style: TextStyle(
-                                fontFamily: AppFonts.headingFont,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w700,
-                                color: activeColor,
-                              ),
-                            ),
-                            const SizedBox(height: 5),
-                            Text(
-                              'Arriving in 12 minutes',
-                              style: TextStyle(
-                                fontFamily: AppFonts.bodyFont,
-                                fontSize: 12,
-                                color: secondaryTextColor,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                  //     Expanded(
+                  //       child: Column(
+                  //         crossAxisAlignment: CrossAxisAlignment.start,
+                  //         children: [
+                  //           Text(
+                  //             'Provider on the way',
+                  //             style: TextStyle(
+                  //               fontFamily: AppFonts.headingFont,
+                  //               fontSize: 14,
+                  //               fontWeight: FontWeight.w700,
+                  //               color: activeColor,
+                  //             ),
+                  //           ),
+                  //           const SizedBox(height: 5),
+                  //           Text(
+                  //             'Arriving in 12 minutes',
+                  //             style: TextStyle(
+                  //               fontFamily: AppFonts.bodyFont,
+                  //               fontSize: 12,
+                  //               color: secondaryTextColor,
+                  //             ),
+                  //           ),
+                  //         ],
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
 
                   // -------- STEP 4: SERVICE IN PROGRESS --------
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        width: 20,
-                        child: Column(
-                          children: [
-                            Container(
-                              width: 20,
-                              height: 20,
-                              decoration: BoxDecoration(
-                                color: pendingColor,
-                                shape: BoxShape.circle,
-                              ),
-                              child: Icon(
-                                Icons.access_time_rounded,
-                                color: secondaryTextColor,
-                                size: 13,
-                              ),
-                            ),
-                            Container(width: 2, height: 26, color: borderColor),
-                          ],
-                        ),
-                      ),
+                  // Row(
+                  //   crossAxisAlignment: CrossAxisAlignment.start,
+                  //   children: [
+                  //     SizedBox(
+                  //       width: 20,
+                  //       child: Column(
+                  //         children: [
+                  //           Container(
+                  //             width: 20,
+                  //             height: 20,
+                  //             decoration: BoxDecoration(
+                  //               color: pendingColor,
+                  //               shape: BoxShape.circle,
+                  //             ),
+                  //             child: Icon(
+                  //               Icons.access_time_rounded,
+                  //               color: secondaryTextColor,
+                  //               size: 13,
+                  //             ),
+                  //           ),
+                  //           Container(width: 2, height: 26, color: borderColor),
+                  //         ],
+                  //       ),
+                  //     ),
 
-                      const SizedBox(width: 13),
+                  //     const SizedBox(width: 13),
 
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Service in progress',
-                              style: TextStyle(
-                                fontFamily: AppFonts.headingFont,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w700,
-                                color: secondaryTextColor,
-                              ),
-                            ),
-                            const SizedBox(height: 5),
-                            Text(
-                              'Starts after your expert arrives',
-                              style: TextStyle(
-                                fontFamily: AppFonts.bodyFont,
-                                fontSize: 12,
-                                color: secondaryTextColor,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                  //     Expanded(
+                  //       child: Column(
+                  //         crossAxisAlignment: CrossAxisAlignment.start,
+                  //         children: [
+                  //           Text(
+                  //             'Service in progress',
+                  //             style: TextStyle(
+                  //               fontFamily: AppFonts.headingFont,
+                  //               fontSize: 14,
+                  //               fontWeight: FontWeight.w700,
+                  //               color: secondaryTextColor,
+                  //             ),
+                  //           ),
+                  //           const SizedBox(height: 5),
+                  //           Text(
+                  //             'Starts after your expert arrives',
+                  //             style: TextStyle(
+                  //               fontFamily: AppFonts.bodyFont,
+                  //               fontSize: 12,
+                  //               color: secondaryTextColor,
+                  //             ),
+                  //           ),
+                  //         ],
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
 
                   // -------- STEP 5: SERVICE COMPLETED --------
                   Row(
