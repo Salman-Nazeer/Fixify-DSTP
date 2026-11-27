@@ -128,37 +128,26 @@ class BecomeProviderScreen extends StatelessWidget {
 
                       const SizedBox(height: 8),
 
-                      // Primary service selection
-                      GestureDetector(
-                        onTap: () {
-                          // Service selection logic
-                        },
-                        child: Container(
-                          width: double.infinity,
-                          height: 50,
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          decoration: BoxDecoration(
-                            color: surface,
-                            borderRadius: BorderRadius.circular(14),
-                          ),
-                          child: Row(
-                            children: [
-                              Text(
-                                "Plumbing",
-                                style: TextStyle(
-                                  fontSize: 13,
-                                  color: textPrimary,
-                                ),
-                              ),
-
-                              const SizedBox(width: 5),
-
-                              Icon(
-                                Icons.keyboard_arrow_down,
-                                size: 16,
-                                color: textPrimary,
-                              ),
-                            ],
+                      // Primary service text field
+                      Container(
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color: surface,
+                          borderRadius: BorderRadius.circular(14),
+                        ),
+                        child: TextField(
+                          style: TextStyle(fontSize: 13, color: textPrimary),
+                          decoration: InputDecoration(
+                            hintText: "Plumbing",
+                            hintStyle: TextStyle(
+                              fontSize: 13,
+                              color: textPrimary,
+                            ),
+                            border: InputBorder.none,
+                            contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 14,
+                            ),
                           ),
                         ),
                       ),
@@ -241,16 +230,6 @@ class BecomeProviderScreen extends StatelessWidget {
                   ),
                 ),
               ),
-
-              const SizedBox(height: 16),
-
-              // Bottom encryption text
-              Text(
-                "Protected with end-to-end encryption",
-                style: TextStyle(fontSize: 11, color: textSecondary),
-              ),
-
-              SizedBox(height: height * 0.025),
             ],
           ),
         ),

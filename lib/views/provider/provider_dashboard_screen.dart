@@ -13,6 +13,7 @@ class ProviderDashboardScreen extends StatefulWidget {
 
 class _ProviderDashboardScreenState extends State<ProviderDashboardScreen> {
   bool isOnline = true;
+  bool isJobCompleted = false;
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +29,7 @@ class _ProviderDashboardScreenState extends State<ProviderDashboardScreen> {
     final textPrimary = AppTheme.primaryTextColor(context);
     final textSecondary = AppTheme.secondaryTextColor(context);
     final softColor = isDark ? AppColors.darkCard : AppColors.mint;
-    final actionColor = isDark
-        ? AppColors.primaryLight
-        : AppColors.primaryDark;
+    final actionColor = isDark ? AppColors.primaryLight : AppColors.primaryDark;
 
     return Scaffold(
       backgroundColor: background,
@@ -284,7 +283,6 @@ class _ProviderDashboardScreenState extends State<ProviderDashboardScreen> {
                   //     ),
                   //   ),
                   // ),
-                
                 ],
               ),
 
@@ -355,208 +353,74 @@ class _ProviderDashboardScreenState extends State<ProviderDashboardScreen> {
                           color: actionColor,
                           size: 21,
                         ),
-
                         const SizedBox(width: 8),
-
                         Expanded(
-                          child: Text(
-                            "Karachi, Pakistan",
-                            style: TextStyle(fontSize: 12, color: textPrimary),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "42, 12th Main, Indiranagar",
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: textPrimary,
+                                ),
+                              ),
+                              const SizedBox(height: 2),
+                              Text(
+                                "Karachi, Pakistan",
+                                style: TextStyle(
+                                  fontSize: 11,
+                                  color: textSecondary,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
                     ),
-                  ],
-                ),
-              ),
 
-              SizedBox(height: height * 0.022),
+                    const SizedBox(height: 18),
 
-              // ==============================
-              // OPEN BOOKING BUTTON
-              // ==============================
-              SizedBox(
-                width: double.infinity,
-                height: 53,
-
-                child: ElevatedButton(
-                  onPressed: () {
-                    // Navigate to booking details
-                  },
-
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.primaryDark,
-                    foregroundColor: AppColors.white,
-                    elevation: 0,
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(14),
-                    ),
-                  ),
-
-                  child: const Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          "Open booking details",
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton.icon(
+                        onPressed: isJobCompleted
+                            ? null
+                            : () {
+                                setState(() {
+                                  isJobCompleted = true;
+                                });
+                              },
+                        icon: Icon(
+                          isJobCompleted
+                              ? Icons.check_circle_outline
+                              : Icons.task_alt,
+                        ),
+                        label: Text(
+                          isJobCompleted
+                              ? "Work completed"
+                              : "Mark work completed",
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.primary,
+                          foregroundColor: AppColors.white,
+                          disabledBackgroundColor: softColor,
+                          disabledForegroundColor: actionColor,
+                          elevation: 0,
+                          padding: const EdgeInsets.symmetric(vertical: 13),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
                           ),
                         ),
                       ),
-
-                      Icon(
-                        Icons.arrow_forward,
-                        color: AppColors.mint,
-                        size: 21,
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
-
-              SizedBox(height: height * 0.025),
-
-              // ==============================
-              // NEW REQUESTS TEXT
-              // ==============================
-              // GestureDetector(
-              //   onTap: () {
-              //     // Navigate to new requests
-              //   },
-
-              //   child: Text(
-              //     "2 new requests waiting for your response →",
-              //     style: TextStyle(
-              //       fontSize: 12,
-              //       fontWeight: FontWeight.w600,
-              //       color: actionColor,
-              //     ),
-              //   ),
-              // ),
-
-              // const SizedBox(height: 20),
             ],
           ),
         ),
       ),
-
-      // ==============================
-      // BOTTOM NAVIGATION BAR
-      // ==============================
-      // bottomNavigationBar: Container(
-      //   color: surface,
-
-      //   child: SafeArea(
-      //     top: false,
-
-      //     child: Padding(
-      //       padding: EdgeInsets.symmetric(
-      //         horizontal: horizontalPadding,
-      //         vertical: 8,
-      //       ),
-
-      //       child: Row(
-      //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //         children: [
-      //           // HOME TAB
-      //           GestureDetector(
-      //             onTap: () {
-      //               // Already on home screen
-      //             },
-
-      //             child: Container(
-      //               width: 70,
-      //               padding: const EdgeInsets.symmetric(vertical: 9),
-      //               decoration: BoxDecoration(
-      //                 color: softColor,
-      //                 borderRadius: BorderRadius.circular(13),
-      //               ),
-
-      //               child: Column(
-      //                 mainAxisSize: MainAxisSize.min,
-      //                 children: [
-      //                   Icon(Icons.home_outlined, color: actionColor, size: 23),
-
-      //                   const SizedBox(height: 5),
-
-      //                   Text(
-      //                     "Home",
-      //                     style: TextStyle(
-      //                       fontSize: 11,
-      //                       color: actionColor,
-      //                       fontWeight: FontWeight.w600,
-      //                     ),
-      //                   ),
-      //                 ],
-      //               ),
-      //             ),
-      //           ),
-
-      //           // REQUESTS TAB
-      //           GestureDetector(
-      //             onTap: () {
-      //               // Navigate to requests screen
-      //             },
-
-      //             child: SizedBox(
-      //               width: 70,
-
-      //               child: Column(
-      //                 mainAxisSize: MainAxisSize.min,
-      //                 children: [
-      //                   Icon(
-      //                     Icons.calendar_today_outlined,
-      //                     color: textSecondary,
-      //                     size: 21,
-      //                   ),
-
-      //                   const SizedBox(height: 6),
-
-      //                   Text(
-      //                     "Requests",
-      //                     style: TextStyle(fontSize: 11, color: textSecondary),
-      //                   ),
-      //                 ],
-      //               ),
-      //             ),
-      //           ),
-
-      //           // PROFILE TAB
-      //           GestureDetector(
-      //             onTap: () {
-      //               // Navigate to provider profile
-      //             },
-
-      //             child: SizedBox(
-      //               width: 70,
-
-      //               child: Column(
-      //                 mainAxisSize: MainAxisSize.min,
-      //                 children: [
-      //                   Icon(
-      //                     Icons.person_outline,
-      //                     color: textSecondary,
-      //                     size: 23,
-      //                   ),
-
-      //                   const SizedBox(height: 5),
-
-      //                   Text(
-      //                     "Profile",
-      //                     style: TextStyle(fontSize: 11, color: textSecondary),
-      //                   ),
-      //                 ],
-      //               ),
-      //             ),
-      //           ),
-      //         ],
-      //       ),
-      //     ),
-      //   ),
-      // ),
-   
     );
   }
 }
