@@ -110,40 +110,43 @@ class ActivityReviewsScreen extends StatelessWidget {
 
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
-                  children: List.generate(days.length, (index) {
-                    return Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          // Chart bar
-                          Container(
-                            width: (width * 0.065).clamp(15.0, 30.0).toDouble(),
+                  children: [
+                    for (var index = 0; index < days.length; index++)
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            // Chart bar
+                            Container(
+                              width: (width * 0.065)
+                                  .clamp(15.0, 30.0)
+                                  .toDouble(),
 
-                            height: barHeights[index],
+                              height: barHeights[index],
 
-                            decoration: BoxDecoration(
-                              color: index == 5
-                                  ? AppColors.primaryDark
-                                  : AppColors.primaryLight.withAlpha(150),
+                              decoration: BoxDecoration(
+                                color: index == 5
+                                    ? AppColors.primaryDark
+                                    : AppColors.primaryLight.withAlpha(150),
 
-                              borderRadius: BorderRadius.circular(6),
+                                borderRadius: BorderRadius.circular(6),
+                              ),
                             ),
-                          ),
 
-                          const SizedBox(height: 12),
+                            const SizedBox(height: 12),
 
-                          // Day name
-                          Text(
-                            days[index],
-                            style: TextStyle(
-                              fontSize: 11,
-                              color: textSecondary,
+                            // Day name
+                            Text(
+                              days[index],
+                              style: TextStyle(
+                                fontSize: 11,
+                                color: textSecondary,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    );
-                  }),
+                  ],
                 ),
               ),
 
@@ -195,14 +198,10 @@ class ActivityReviewsScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
-                            children: List.generate(
-                              5,
-                              (index) => Icon(
-                                Icons.star,
-                                size: 18,
-                                color: actionColor,
-                              ),
-                            ),
+                            children: [
+                              for (var index = 0; index < 5; index++)
+                                Icon(Icons.star, size: 18, color: actionColor),
+                            ],
                           ),
 
                           const SizedBox(height: 6),
@@ -238,11 +237,10 @@ class ActivityReviewsScreen extends StatelessWidget {
                     Row(
                       children: [
                         Row(
-                          children: List.generate(
-                            5,
-                            (index) =>
-                                Icon(Icons.star, size: 14, color: actionColor),
-                          ),
+                          children: [
+                            for (var index = 0; index < 5; index++)
+                              Icon(Icons.star, size: 14, color: actionColor),
+                          ],
                         ),
 
                         const SizedBox(width: 12),

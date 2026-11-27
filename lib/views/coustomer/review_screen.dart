@@ -135,8 +135,9 @@ class _RateYourServiceScreenState extends State<RateYourServiceScreen> {
                   // ---------------- STAR RATING ----------------
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: List.generate(5, (index) {
-                      return IconButton(
+                    children: [
+                      for (var index = 0; index < 5; index++)
+                      IconButton(
                         onPressed: () {
                           setState(() {
                             selectedRating = index + 1;
@@ -154,8 +155,8 @@ class _RateYourServiceScreenState extends State<RateYourServiceScreen> {
                           size: isSmall ? 31 : 35,
                           color: accentColor,
                         ),
-                      );
-                    }),
+                      ),
+                    ],
                   ),
 
                   const SizedBox(height: 14),

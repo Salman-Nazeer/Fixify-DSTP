@@ -10,10 +10,10 @@ import 'package:get/get.dart';
 final BookingController bookingController = Get.put(BookingController());
 
 final today = DateTime.now();
-final dates = List.generate(
-  5,
-  (index) => DateTime(today.year, today.month, today.day + index),
-);
+final dates = [
+  for (var index = 0; index < 5; index++)
+    DateTime(today.year, today.month, today.day + index),
+];
 
 class BookingsScreen extends StatefulWidget {
   const BookingsScreen({super.key});
@@ -210,14 +210,14 @@ class _BookingsScreenState extends State<BookingsScreen> {
                       ? today
                       : selectedDate;
 
-                  final bookingDates = List.generate(
-                    5,
-                    (index) => DateTime(
-                      startDate.year,
-                      startDate.month,
-                      startDate.day + index,
-                    ),
-                  );
+                  final bookingDates = [
+                    for (var index = 0; index < 5; index++)
+                      DateTime(
+                        startDate.year,
+                        startDate.month,
+                        startDate.day + index,
+                      ),
+                  ];
 
                   return SizedBox(
                     height: 70 * scale,

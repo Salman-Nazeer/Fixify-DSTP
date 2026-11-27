@@ -198,9 +198,9 @@ class ProviderDetailsScreen extends StatelessWidget {
                     const SizedBox(height: 12),
 
                     Column(
-                      children: List.generate(services.length, (index) {
-                        final service = services[index];
-                        return Padding(
+                      children: [
+                        for (var index = 0; index < services.length; index++)
+                        Padding(
                           padding: EdgeInsets.only(
                             bottom: index == services.length - 1 ? 0 : 8,
                           ),
@@ -218,7 +218,7 @@ class ProviderDetailsScreen extends StatelessWidget {
                               children: [
                                 Expanded(
                                   child: Text(
-                                    service['name']!,
+                                    services[index]['name']!,
                                     style: TextStyle(
                                       fontFamily: AppFonts.bodyFont,
                                       fontSize: 12,
@@ -230,8 +230,8 @@ class ProviderDetailsScreen extends StatelessWidget {
                               ],
                             ),
                           ),
-                        );
-                      }),
+                        ),
+                      ],
                     ),
 
                     const SizedBox(height: 17),
